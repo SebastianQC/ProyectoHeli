@@ -1,0 +1,2669 @@
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"PWM2y.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	PWM2y_initVar
+  20              		.bss
+  21              		.type	PWM2y_initVar, %object
+  22              		.size	PWM2y_initVar, 1
+  23              	PWM2y_initVar:
+  24 0000 00       		.space	1
+  25              		.section	.text.PWM2y_Start,"ax",%progbits
+  26              		.align	2
+  27              		.global	PWM2y_Start
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	PWM2y_Start, %function
+  31              	PWM2y_Start:
+  32              	.LFB0:
+  33              		.file 1 "Generated_Source\\PSoC5\\PWM2y.c"
+   1:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/PWM2y.c **** * File Name: PWM2y.c
+   3:Generated_Source\PSoC5/PWM2y.c **** * Version 3.30
+   4:Generated_Source\PSoC5/PWM2y.c **** *
+   5:Generated_Source\PSoC5/PWM2y.c **** * Description:
+   6:Generated_Source\PSoC5/PWM2y.c **** *  The PWM User Module consist of an 8 or 16-bit counter with two 8 or 16-bit
+   7:Generated_Source\PSoC5/PWM2y.c **** *  comparitors. Each instance of this user module is capable of generating
+   8:Generated_Source\PSoC5/PWM2y.c **** *  two PWM outputs with the same period. The pulse width is selectable between
+   9:Generated_Source\PSoC5/PWM2y.c **** *  1 and 255/65535. The period is selectable between 2 and 255/65536 clocks.
+  10:Generated_Source\PSoC5/PWM2y.c **** *  The compare value output may be configured to be active when the present
+  11:Generated_Source\PSoC5/PWM2y.c **** *  counter is less than or less than/equal to the compare value.
+  12:Generated_Source\PSoC5/PWM2y.c **** *  A terminal count output is also provided. It generates a pulse one clock
+  13:Generated_Source\PSoC5/PWM2y.c **** *  width wide when the counter is equal to zero.
+  14:Generated_Source\PSoC5/PWM2y.c **** *
+  15:Generated_Source\PSoC5/PWM2y.c **** * Note:
+  16:Generated_Source\PSoC5/PWM2y.c **** *
+  17:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************
+  18:Generated_Source\PSoC5/PWM2y.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  19:Generated_Source\PSoC5/PWM2y.c **** * You may use this file only in accordance with the license, terms, conditions,
+  20:Generated_Source\PSoC5/PWM2y.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  21:Generated_Source\PSoC5/PWM2y.c **** * the software package with which this file was provided.
+  22:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************/
+  23:Generated_Source\PSoC5/PWM2y.c **** 
+  24:Generated_Source\PSoC5/PWM2y.c **** #include "PWM2y.h"
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 2
+
+
+  25:Generated_Source\PSoC5/PWM2y.c **** 
+  26:Generated_Source\PSoC5/PWM2y.c **** /* Error message for removed <resource> through optimization */
+  27:Generated_Source\PSoC5/PWM2y.c **** #ifdef PWM2y_PWMUDB_genblk1_ctrlreg__REMOVED
+  28:Generated_Source\PSoC5/PWM2y.c ****     #error PWM_v3_30 detected with a constant 0 for the enable or \
+  29:Generated_Source\PSoC5/PWM2y.c ****          constant 1 for reset. This will prevent the component from operating.
+  30:Generated_Source\PSoC5/PWM2y.c **** #endif /* PWM2y_PWMUDB_genblk1_ctrlreg__REMOVED */
+  31:Generated_Source\PSoC5/PWM2y.c **** 
+  32:Generated_Source\PSoC5/PWM2y.c **** uint8 PWM2y_initVar = 0u;
+  33:Generated_Source\PSoC5/PWM2y.c **** 
+  34:Generated_Source\PSoC5/PWM2y.c **** 
+  35:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+  36:Generated_Source\PSoC5/PWM2y.c **** * Function Name: PWM2y_Start
+  37:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************
+  38:Generated_Source\PSoC5/PWM2y.c **** *
+  39:Generated_Source\PSoC5/PWM2y.c **** * Summary:
+  40:Generated_Source\PSoC5/PWM2y.c **** *  The start function initializes the pwm with the default values, the
+  41:Generated_Source\PSoC5/PWM2y.c **** *  enables the counter to begin counting.  It does not enable interrupts,
+  42:Generated_Source\PSoC5/PWM2y.c **** *  the EnableInt command should be called if interrupt generation is required.
+  43:Generated_Source\PSoC5/PWM2y.c **** *
+  44:Generated_Source\PSoC5/PWM2y.c **** * Parameters:
+  45:Generated_Source\PSoC5/PWM2y.c **** *  None
+  46:Generated_Source\PSoC5/PWM2y.c **** *
+  47:Generated_Source\PSoC5/PWM2y.c **** * Return:
+  48:Generated_Source\PSoC5/PWM2y.c **** *  None
+  49:Generated_Source\PSoC5/PWM2y.c **** *
+  50:Generated_Source\PSoC5/PWM2y.c **** * Global variables:
+  51:Generated_Source\PSoC5/PWM2y.c **** *  PWM2y_initVar: Is modified when this function is called for the
+  52:Generated_Source\PSoC5/PWM2y.c **** *   first time. Is used to ensure that initialization happens only once.
+  53:Generated_Source\PSoC5/PWM2y.c **** *
+  54:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************/
+  55:Generated_Source\PSoC5/PWM2y.c **** void PWM2y_Start(void) 
+  56:Generated_Source\PSoC5/PWM2y.c **** {
+  34              		.loc 1 56 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              		.cfi_def_cfa_register 7
+  57:Generated_Source\PSoC5/PWM2y.c ****     /* If not Initialized then initialize all required hardware and software */
+  58:Generated_Source\PSoC5/PWM2y.c ****     if(PWM2y_initVar == 0u)
+  44              		.loc 1 58 0
+  45 0004 064B     		ldr	r3, .L3
+  46 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  47 0008 002B     		cmp	r3, #0
+  48 000a 04D1     		bne	.L2
+  59:Generated_Source\PSoC5/PWM2y.c ****     {
+  60:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_Init();
+  49              		.loc 1 60 0
+  50 000c FFF7FEFF 		bl	PWM2y_Init
+  61:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_initVar = 1u;
+  51              		.loc 1 61 0
+  52 0010 034B     		ldr	r3, .L3
+  53 0012 0122     		movs	r2, #1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 3
+
+
+  54 0014 1A70     		strb	r2, [r3]
+  55              	.L2:
+  62:Generated_Source\PSoC5/PWM2y.c ****     }
+  63:Generated_Source\PSoC5/PWM2y.c ****     PWM2y_Enable();
+  56              		.loc 1 63 0
+  57 0016 FFF7FEFF 		bl	PWM2y_Enable
+  64:Generated_Source\PSoC5/PWM2y.c **** 
+  65:Generated_Source\PSoC5/PWM2y.c **** }
+  58              		.loc 1 65 0
+  59 001a 00BF     		nop
+  60 001c 80BD     		pop	{r7, pc}
+  61              	.L4:
+  62 001e 00BF     		.align	2
+  63              	.L3:
+  64 0020 00000000 		.word	PWM2y_initVar
+  65              		.cfi_endproc
+  66              	.LFE0:
+  67              		.size	PWM2y_Start, .-PWM2y_Start
+  68              		.section	.text.PWM2y_Init,"ax",%progbits
+  69              		.align	2
+  70              		.global	PWM2y_Init
+  71              		.thumb
+  72              		.thumb_func
+  73              		.type	PWM2y_Init, %function
+  74              	PWM2y_Init:
+  75              	.LFB1:
+  66:Generated_Source\PSoC5/PWM2y.c **** 
+  67:Generated_Source\PSoC5/PWM2y.c **** 
+  68:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+  69:Generated_Source\PSoC5/PWM2y.c **** * Function Name: PWM2y_Init
+  70:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************
+  71:Generated_Source\PSoC5/PWM2y.c **** *
+  72:Generated_Source\PSoC5/PWM2y.c **** * Summary:
+  73:Generated_Source\PSoC5/PWM2y.c **** *  Initialize component's parameters to the parameters set by user in the
+  74:Generated_Source\PSoC5/PWM2y.c **** *  customizer of the component placed onto schematic. Usually called in
+  75:Generated_Source\PSoC5/PWM2y.c **** *  PWM2y_Start().
+  76:Generated_Source\PSoC5/PWM2y.c **** *
+  77:Generated_Source\PSoC5/PWM2y.c **** * Parameters:
+  78:Generated_Source\PSoC5/PWM2y.c **** *  None
+  79:Generated_Source\PSoC5/PWM2y.c **** *
+  80:Generated_Source\PSoC5/PWM2y.c **** * Return:
+  81:Generated_Source\PSoC5/PWM2y.c **** *  None
+  82:Generated_Source\PSoC5/PWM2y.c **** *
+  83:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************/
+  84:Generated_Source\PSoC5/PWM2y.c **** void PWM2y_Init(void) 
+  85:Generated_Source\PSoC5/PWM2y.c **** {
+  76              		.loc 1 85 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 8
+  79              		@ frame_needed = 1, uses_anonymous_args = 0
+  80 0000 80B5     		push	{r7, lr}
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 7, -8
+  83              		.cfi_offset 14, -4
+  84 0002 82B0     		sub	sp, sp, #8
+  85              		.cfi_def_cfa_offset 16
+  86 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 4
+
+
+  87              		.cfi_def_cfa_register 7
+  86:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UsingFixedFunction || PWM2y_UseControl)
+  87:Generated_Source\PSoC5/PWM2y.c ****         uint8 ctrl;
+  88:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction || PWM2y_UseControl) */
+  89:Generated_Source\PSoC5/PWM2y.c **** 
+  90:Generated_Source\PSoC5/PWM2y.c ****     #if(!PWM2y_UsingFixedFunction)
+  91:Generated_Source\PSoC5/PWM2y.c ****         #if(PWM2y_UseStatus)
+  92:Generated_Source\PSoC5/PWM2y.c ****             /* Interrupt State Backup for Critical Region*/
+  93:Generated_Source\PSoC5/PWM2y.c ****             uint8 PWM2y_interruptState;
+  94:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UseStatus) */
+  95:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (!PWM2y_UsingFixedFunction) */
+  96:Generated_Source\PSoC5/PWM2y.c **** 
+  97:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UsingFixedFunction)
+  98:Generated_Source\PSoC5/PWM2y.c ****         /* You are allowed to write the compare value (FF only) */
+  99:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_CONTROL |= PWM2y_CFG0_MODE;
+ 100:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_DeadBand2_4)
+ 101:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_CONTROL |= PWM2y_CFG0_DB;
+ 102:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_DeadBand2_4) */
+ 103:Generated_Source\PSoC5/PWM2y.c **** 
+ 104:Generated_Source\PSoC5/PWM2y.c ****         ctrl = PWM2y_CONTROL3 & ((uint8 )(~PWM2y_CTRL_CMPMODE1_MASK));
+ 105:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_CONTROL3 = ctrl | PWM2y_DEFAULT_COMPARE1_MODE;
+ 106:Generated_Source\PSoC5/PWM2y.c **** 
+ 107:Generated_Source\PSoC5/PWM2y.c ****          /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+ 108:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_RT1 &= ((uint8)(~PWM2y_RT1_MASK));
+ 109:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_RT1 |= PWM2y_SYNC;
+ 110:Generated_Source\PSoC5/PWM2y.c **** 
+ 111:Generated_Source\PSoC5/PWM2y.c ****         /*Enable DSI Sync all all inputs of the PWM*/
+ 112:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_RT1 &= ((uint8)(~PWM2y_SYNCDSI_MASK));
+ 113:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_RT1 |= PWM2y_SYNCDSI_EN;
+ 114:Generated_Source\PSoC5/PWM2y.c **** 
+ 115:Generated_Source\PSoC5/PWM2y.c ****     #elif (PWM2y_UseControl)
+ 116:Generated_Source\PSoC5/PWM2y.c ****         /* Set the default compare mode defined in the parameter */
+ 117:Generated_Source\PSoC5/PWM2y.c ****         ctrl = PWM2y_CONTROL & ((uint8)(~PWM2y_CTRL_CMPMODE2_MASK)) &
+  88              		.loc 1 117 0
+  89 0006 1B4B     		ldr	r3, .L6
+  90 0008 1B78     		ldrb	r3, [r3]
+  91 000a DBB2     		uxtb	r3, r3
+  92 000c 23F03F03 		bic	r3, r3, #63
+  93 0010 FB71     		strb	r3, [r7, #7]
+ 118:Generated_Source\PSoC5/PWM2y.c ****                 ((uint8)(~PWM2y_CTRL_CMPMODE1_MASK));
+ 119:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_CONTROL = ctrl | PWM2y_DEFAULT_COMPARE2_MODE |
+  94              		.loc 1 119 0
+  95 0012 184A     		ldr	r2, .L6
+  96 0014 FB79     		ldrb	r3, [r7, #7]
+  97 0016 43F00903 		orr	r3, r3, #9
+  98 001a DBB2     		uxtb	r3, r3
+  99 001c 1370     		strb	r3, [r2]
+ 120:Generated_Source\PSoC5/PWM2y.c ****                                    PWM2y_DEFAULT_COMPARE1_MODE;
+ 121:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction) */
+ 122:Generated_Source\PSoC5/PWM2y.c **** 
+ 123:Generated_Source\PSoC5/PWM2y.c ****     #if (!PWM2y_UsingFixedFunction)
+ 124:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_Resolution == 8)
+ 125:Generated_Source\PSoC5/PWM2y.c ****             /* Set FIFO 0 to 1 byte register for period*/
+ 126:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_AUX_CONTROLDP0 |= (PWM2y_AUX_CTRL_FIFO0_CLR);
+ 100              		.loc 1 126 0
+ 101 001e 164A     		ldr	r2, .L6+4
+ 102 0020 154B     		ldr	r3, .L6+4
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 5
+
+
+ 103 0022 1B78     		ldrb	r3, [r3]
+ 104 0024 DBB2     		uxtb	r3, r3
+ 105 0026 43F00103 		orr	r3, r3, #1
+ 106 002a DBB2     		uxtb	r3, r3
+ 107 002c 1370     		strb	r3, [r2]
+ 127:Generated_Source\PSoC5/PWM2y.c ****         #else /* (PWM2y_Resolution == 16)*/
+ 128:Generated_Source\PSoC5/PWM2y.c ****             /* Set FIFO 0 to 1 byte register for period */
+ 129:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_AUX_CONTROLDP0 |= (PWM2y_AUX_CTRL_FIFO0_CLR);
+ 130:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_AUX_CONTROLDP1 |= (PWM2y_AUX_CTRL_FIFO0_CLR);
+ 131:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_Resolution == 8) */
+ 132:Generated_Source\PSoC5/PWM2y.c **** 
+ 133:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_WriteCounter(PWM2y_INIT_PERIOD_VALUE);
+ 108              		.loc 1 133 0
+ 109 002e FF20     		movs	r0, #255
+ 110 0030 FFF7FEFF 		bl	PWM2y_WriteCounter
+ 134:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (!PWM2y_UsingFixedFunction) */
+ 135:Generated_Source\PSoC5/PWM2y.c **** 
+ 136:Generated_Source\PSoC5/PWM2y.c ****     PWM2y_WritePeriod(PWM2y_INIT_PERIOD_VALUE);
+ 111              		.loc 1 136 0
+ 112 0034 FF20     		movs	r0, #255
+ 113 0036 FFF7FEFF 		bl	PWM2y_WritePeriod
+ 137:Generated_Source\PSoC5/PWM2y.c **** 
+ 138:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_UseOneCompareMode)
+ 139:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_WriteCompare(PWM2y_INIT_COMPARE_VALUE1);
+ 114              		.loc 1 139 0
+ 115 003a DC20     		movs	r0, #220
+ 116 003c FFF7FEFF 		bl	PWM2y_WriteCompare
+ 140:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 141:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_WriteCompare1(PWM2y_INIT_COMPARE_VALUE1);
+ 142:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_WriteCompare2(PWM2y_INIT_COMPARE_VALUE2);
+ 143:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UseOneCompareMode) */
+ 144:Generated_Source\PSoC5/PWM2y.c **** 
+ 145:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_KillModeMinTime)
+ 146:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_WriteKillTime(PWM2y_MinimumKillTime);
+ 147:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_KillModeMinTime) */
+ 148:Generated_Source\PSoC5/PWM2y.c **** 
+ 149:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_DeadBandUsed)
+ 150:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_WriteDeadTime(PWM2y_INIT_DEAD_TIME);
+ 151:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_DeadBandUsed) */
+ 152:Generated_Source\PSoC5/PWM2y.c **** 
+ 153:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UseStatus || PWM2y_UsingFixedFunction)
+ 154:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_SetInterruptMode(PWM2y_INIT_INTERRUPTS_MODE);
+ 117              		.loc 1 154 0
+ 118 0040 0020     		movs	r0, #0
+ 119 0042 FFF7FEFF 		bl	PWM2y_SetInterruptMode
+ 155:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UseStatus || PWM2y_UsingFixedFunction) */
+ 156:Generated_Source\PSoC5/PWM2y.c **** 
+ 157:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UsingFixedFunction)
+ 158:Generated_Source\PSoC5/PWM2y.c ****         /* Globally Enable the Fixed Function Block chosen */
+ 159:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_GLOBAL_ENABLE |= PWM2y_BLOCK_EN_MASK;
+ 160:Generated_Source\PSoC5/PWM2y.c ****         /* Set the Interrupt source to come from the status register */
+ 161:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_CONTROL2 |= PWM2y_CTRL2_IRQ_SEL;
+ 162:Generated_Source\PSoC5/PWM2y.c ****     #else
+ 163:Generated_Source\PSoC5/PWM2y.c ****         #if(PWM2y_UseStatus)
+ 164:Generated_Source\PSoC5/PWM2y.c **** 
+ 165:Generated_Source\PSoC5/PWM2y.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 166:Generated_Source\PSoC5/PWM2y.c ****             /* Enter Critical Region*/
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 6
+
+
+ 167:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_interruptState = CyEnterCriticalSection();
+ 120              		.loc 1 167 0
+ 121 0046 FFF7FEFF 		bl	CyEnterCriticalSection
+ 122 004a 0346     		mov	r3, r0
+ 123 004c BB71     		strb	r3, [r7, #6]
+ 168:Generated_Source\PSoC5/PWM2y.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 169:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_STATUS_AUX_CTRL |= PWM2y_STATUS_ACTL_INT_EN_MASK;
+ 124              		.loc 1 169 0
+ 125 004e 0A4A     		ldr	r2, .L6+4
+ 126 0050 094B     		ldr	r3, .L6+4
+ 127 0052 1B78     		ldrb	r3, [r3]
+ 128 0054 DBB2     		uxtb	r3, r3
+ 129 0056 43F01003 		orr	r3, r3, #16
+ 130 005a DBB2     		uxtb	r3, r3
+ 131 005c 1370     		strb	r3, [r2]
+ 170:Generated_Source\PSoC5/PWM2y.c **** 
+ 171:Generated_Source\PSoC5/PWM2y.c ****              /* Exit Critical Region*/
+ 172:Generated_Source\PSoC5/PWM2y.c ****             CyExitCriticalSection(PWM2y_interruptState);
+ 132              		.loc 1 172 0
+ 133 005e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 134 0060 1846     		mov	r0, r3
+ 135 0062 FFF7FEFF 		bl	CyExitCriticalSection
+ 173:Generated_Source\PSoC5/PWM2y.c **** 
+ 174:Generated_Source\PSoC5/PWM2y.c ****             /* Clear the FIFO to enable the PWM2y_STATUS_FIFOFULL
+ 175:Generated_Source\PSoC5/PWM2y.c ****                    bit to be set on FIFO full. */
+ 176:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_ClearFIFO();
+ 136              		.loc 1 176 0
+ 137 0066 FFF7FEFF 		bl	PWM2y_ClearFIFO
+ 177:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UseStatus) */
+ 178:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction) */
+ 179:Generated_Source\PSoC5/PWM2y.c **** }
+ 138              		.loc 1 179 0
+ 139 006a 00BF     		nop
+ 140 006c 0837     		adds	r7, r7, #8
+ 141              		.cfi_def_cfa_offset 8
+ 142 006e BD46     		mov	sp, r7
+ 143              		.cfi_def_cfa_register 13
+ 144              		@ sp needed
+ 145 0070 80BD     		pop	{r7, pc}
+ 146              	.L7:
+ 147 0072 00BF     		.align	2
+ 148              	.L6:
+ 149 0074 7B650040 		.word	1073767803
+ 150 0078 9A650040 		.word	1073767834
+ 151              		.cfi_endproc
+ 152              	.LFE1:
+ 153              		.size	PWM2y_Init, .-PWM2y_Init
+ 154              		.section	.text.PWM2y_Enable,"ax",%progbits
+ 155              		.align	2
+ 156              		.global	PWM2y_Enable
+ 157              		.thumb
+ 158              		.thumb_func
+ 159              		.type	PWM2y_Enable, %function
+ 160              	PWM2y_Enable:
+ 161              	.LFB2:
+ 180:Generated_Source\PSoC5/PWM2y.c **** 
+ 181:Generated_Source\PSoC5/PWM2y.c **** 
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 7
+
+
+ 182:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+ 183:Generated_Source\PSoC5/PWM2y.c **** * Function Name: PWM2y_Enable
+ 184:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************
+ 185:Generated_Source\PSoC5/PWM2y.c **** *
+ 186:Generated_Source\PSoC5/PWM2y.c **** * Summary:
+ 187:Generated_Source\PSoC5/PWM2y.c **** *  Enables the PWM block operation
+ 188:Generated_Source\PSoC5/PWM2y.c **** *
+ 189:Generated_Source\PSoC5/PWM2y.c **** * Parameters:
+ 190:Generated_Source\PSoC5/PWM2y.c **** *  None
+ 191:Generated_Source\PSoC5/PWM2y.c **** *
+ 192:Generated_Source\PSoC5/PWM2y.c **** * Return:
+ 193:Generated_Source\PSoC5/PWM2y.c **** *  None
+ 194:Generated_Source\PSoC5/PWM2y.c **** *
+ 195:Generated_Source\PSoC5/PWM2y.c **** * Side Effects:
+ 196:Generated_Source\PSoC5/PWM2y.c **** *  This works only if software enable mode is chosen
+ 197:Generated_Source\PSoC5/PWM2y.c **** *
+ 198:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************/
+ 199:Generated_Source\PSoC5/PWM2y.c **** void PWM2y_Enable(void) 
+ 200:Generated_Source\PSoC5/PWM2y.c **** {
+ 162              		.loc 1 200 0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 167 0000 80B4     		push	{r7}
+ 168              		.cfi_def_cfa_offset 4
+ 169              		.cfi_offset 7, -4
+ 170 0002 00AF     		add	r7, sp, #0
+ 171              		.cfi_def_cfa_register 7
+ 201:Generated_Source\PSoC5/PWM2y.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 202:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UsingFixedFunction)
+ 203:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_GLOBAL_ENABLE |= PWM2y_BLOCK_EN_MASK;
+ 204:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_GLOBAL_STBY_ENABLE |= PWM2y_BLOCK_STBY_EN_MASK;
+ 205:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction) */
+ 206:Generated_Source\PSoC5/PWM2y.c **** 
+ 207:Generated_Source\PSoC5/PWM2y.c ****     /* Enable the PWM from the control register  */
+ 208:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UseControl || PWM2y_UsingFixedFunction)
+ 209:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_CONTROL |= PWM2y_CTRL_ENABLE;
+ 172              		.loc 1 209 0
+ 173 0004 054A     		ldr	r2, .L9
+ 174 0006 054B     		ldr	r3, .L9
+ 175 0008 1B78     		ldrb	r3, [r3]
+ 176 000a DBB2     		uxtb	r3, r3
+ 177 000c 63F07F03 		orn	r3, r3, #127
+ 178 0010 DBB2     		uxtb	r3, r3
+ 179 0012 1370     		strb	r3, [r2]
+ 210:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UseControl || PWM2y_UsingFixedFunction) */
+ 211:Generated_Source\PSoC5/PWM2y.c **** }
+ 180              		.loc 1 211 0
+ 181 0014 00BF     		nop
+ 182 0016 BD46     		mov	sp, r7
+ 183              		.cfi_def_cfa_register 13
+ 184              		@ sp needed
+ 185 0018 80BC     		pop	{r7}
+ 186              		.cfi_restore 7
+ 187              		.cfi_def_cfa_offset 0
+ 188 001a 7047     		bx	lr
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 8
+
+
+ 189              	.L10:
+ 190              		.align	2
+ 191              	.L9:
+ 192 001c 7B650040 		.word	1073767803
+ 193              		.cfi_endproc
+ 194              	.LFE2:
+ 195              		.size	PWM2y_Enable, .-PWM2y_Enable
+ 196              		.section	.text.PWM2y_Stop,"ax",%progbits
+ 197              		.align	2
+ 198              		.global	PWM2y_Stop
+ 199              		.thumb
+ 200              		.thumb_func
+ 201              		.type	PWM2y_Stop, %function
+ 202              	PWM2y_Stop:
+ 203              	.LFB3:
+ 212:Generated_Source\PSoC5/PWM2y.c **** 
+ 213:Generated_Source\PSoC5/PWM2y.c **** 
+ 214:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+ 215:Generated_Source\PSoC5/PWM2y.c **** * Function Name: PWM2y_Stop
+ 216:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************
+ 217:Generated_Source\PSoC5/PWM2y.c **** *
+ 218:Generated_Source\PSoC5/PWM2y.c **** * Summary:
+ 219:Generated_Source\PSoC5/PWM2y.c **** *  The stop function halts the PWM, but does not change any modes or disable
+ 220:Generated_Source\PSoC5/PWM2y.c **** *  interrupts.
+ 221:Generated_Source\PSoC5/PWM2y.c **** *
+ 222:Generated_Source\PSoC5/PWM2y.c **** * Parameters:
+ 223:Generated_Source\PSoC5/PWM2y.c **** *  None
+ 224:Generated_Source\PSoC5/PWM2y.c **** *
+ 225:Generated_Source\PSoC5/PWM2y.c **** * Return:
+ 226:Generated_Source\PSoC5/PWM2y.c **** *  None
+ 227:Generated_Source\PSoC5/PWM2y.c **** *
+ 228:Generated_Source\PSoC5/PWM2y.c **** * Side Effects:
+ 229:Generated_Source\PSoC5/PWM2y.c **** *  If the Enable mode is set to Hardware only then this function
+ 230:Generated_Source\PSoC5/PWM2y.c **** *  has no effect on the operation of the PWM
+ 231:Generated_Source\PSoC5/PWM2y.c **** *
+ 232:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************/
+ 233:Generated_Source\PSoC5/PWM2y.c **** void PWM2y_Stop(void) 
+ 234:Generated_Source\PSoC5/PWM2y.c **** {
+ 204              		.loc 1 234 0
+ 205              		.cfi_startproc
+ 206              		@ args = 0, pretend = 0, frame = 0
+ 207              		@ frame_needed = 1, uses_anonymous_args = 0
+ 208              		@ link register save eliminated.
+ 209 0000 80B4     		push	{r7}
+ 210              		.cfi_def_cfa_offset 4
+ 211              		.cfi_offset 7, -4
+ 212 0002 00AF     		add	r7, sp, #0
+ 213              		.cfi_def_cfa_register 7
+ 235:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UseControl || PWM2y_UsingFixedFunction)
+ 236:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_CONTROL &= ((uint8)(~PWM2y_CTRL_ENABLE));
+ 214              		.loc 1 236 0
+ 215 0004 054A     		ldr	r2, .L12
+ 216 0006 054B     		ldr	r3, .L12
+ 217 0008 1B78     		ldrb	r3, [r3]
+ 218 000a DBB2     		uxtb	r3, r3
+ 219 000c 03F07F03 		and	r3, r3, #127
+ 220 0010 DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 9
+
+
+ 221 0012 1370     		strb	r3, [r2]
+ 237:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UseControl || PWM2y_UsingFixedFunction) */
+ 238:Generated_Source\PSoC5/PWM2y.c **** 
+ 239:Generated_Source\PSoC5/PWM2y.c ****     /* Globally disable the Fixed Function Block chosen */
+ 240:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UsingFixedFunction)
+ 241:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_GLOBAL_ENABLE &= ((uint8)(~PWM2y_BLOCK_EN_MASK));
+ 242:Generated_Source\PSoC5/PWM2y.c ****         PWM2y_GLOBAL_STBY_ENABLE &= ((uint8)(~PWM2y_BLOCK_STBY_EN_MASK));
+ 243:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction) */
+ 244:Generated_Source\PSoC5/PWM2y.c **** }
+ 222              		.loc 1 244 0
+ 223 0014 00BF     		nop
+ 224 0016 BD46     		mov	sp, r7
+ 225              		.cfi_def_cfa_register 13
+ 226              		@ sp needed
+ 227 0018 80BC     		pop	{r7}
+ 228              		.cfi_restore 7
+ 229              		.cfi_def_cfa_offset 0
+ 230 001a 7047     		bx	lr
+ 231              	.L13:
+ 232              		.align	2
+ 233              	.L12:
+ 234 001c 7B650040 		.word	1073767803
+ 235              		.cfi_endproc
+ 236              	.LFE3:
+ 237              		.size	PWM2y_Stop, .-PWM2y_Stop
+ 238              		.section	.text.PWM2y_WriteCounter,"ax",%progbits
+ 239              		.align	2
+ 240              		.global	PWM2y_WriteCounter
+ 241              		.thumb
+ 242              		.thumb_func
+ 243              		.type	PWM2y_WriteCounter, %function
+ 244              	PWM2y_WriteCounter:
+ 245              	.LFB4:
+ 245:Generated_Source\PSoC5/PWM2y.c **** 
+ 246:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_UseOneCompareMode)
+ 247:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_CompareMode1SW)
+ 248:Generated_Source\PSoC5/PWM2y.c **** 
+ 249:Generated_Source\PSoC5/PWM2y.c **** 
+ 250:Generated_Source\PSoC5/PWM2y.c ****         /*******************************************************************************
+ 251:Generated_Source\PSoC5/PWM2y.c ****         * Function Name: PWM2y_SetCompareMode
+ 252:Generated_Source\PSoC5/PWM2y.c ****         ********************************************************************************
+ 253:Generated_Source\PSoC5/PWM2y.c ****         *
+ 254:Generated_Source\PSoC5/PWM2y.c ****         * Summary:
+ 255:Generated_Source\PSoC5/PWM2y.c ****         *  This function writes the Compare Mode for the pwm output when in Dither mode,
+ 256:Generated_Source\PSoC5/PWM2y.c ****         *  Center Align Mode or One Output Mode.
+ 257:Generated_Source\PSoC5/PWM2y.c ****         *
+ 258:Generated_Source\PSoC5/PWM2y.c ****         * Parameters:
+ 259:Generated_Source\PSoC5/PWM2y.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 260:Generated_Source\PSoC5/PWM2y.c ****         *                defined in the H file as input arguments.
+ 261:Generated_Source\PSoC5/PWM2y.c ****         *
+ 262:Generated_Source\PSoC5/PWM2y.c ****         * Return:
+ 263:Generated_Source\PSoC5/PWM2y.c ****         *  None
+ 264:Generated_Source\PSoC5/PWM2y.c ****         *
+ 265:Generated_Source\PSoC5/PWM2y.c ****         *******************************************************************************/
+ 266:Generated_Source\PSoC5/PWM2y.c ****         void PWM2y_SetCompareMode(uint8 comparemode) 
+ 267:Generated_Source\PSoC5/PWM2y.c ****         {
+ 268:Generated_Source\PSoC5/PWM2y.c ****             #if(PWM2y_UsingFixedFunction)
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 10
+
+
+ 269:Generated_Source\PSoC5/PWM2y.c **** 
+ 270:Generated_Source\PSoC5/PWM2y.c ****                 #if(0 != PWM2y_CTRL_CMPMODE1_SHIFT)
+ 271:Generated_Source\PSoC5/PWM2y.c ****                     uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM2y_CTRL_CMPMODE1_SH
+ 272:Generated_Source\PSoC5/PWM2y.c ****                 #else
+ 273:Generated_Source\PSoC5/PWM2y.c ****                     uint8 comparemodemasked = comparemode;
+ 274:Generated_Source\PSoC5/PWM2y.c ****                 #endif /* (0 != PWM2y_CTRL_CMPMODE1_SHIFT) */
+ 275:Generated_Source\PSoC5/PWM2y.c **** 
+ 276:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_CONTROL3 &= ((uint8)(~PWM2y_CTRL_CMPMODE1_MASK)); /*Clear Existing Data */
+ 277:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_CONTROL3 |= comparemodemasked;
+ 278:Generated_Source\PSoC5/PWM2y.c **** 
+ 279:Generated_Source\PSoC5/PWM2y.c ****             #elif (PWM2y_UseControl)
+ 280:Generated_Source\PSoC5/PWM2y.c **** 
+ 281:Generated_Source\PSoC5/PWM2y.c ****                 #if(0 != PWM2y_CTRL_CMPMODE1_SHIFT)
+ 282:Generated_Source\PSoC5/PWM2y.c ****                     uint8 comparemode1masked = ((uint8)((uint8)comparemode << PWM2y_CTRL_CMPMODE1_S
+ 283:Generated_Source\PSoC5/PWM2y.c ****                                                 PWM2y_CTRL_CMPMODE1_MASK;
+ 284:Generated_Source\PSoC5/PWM2y.c ****                 #else
+ 285:Generated_Source\PSoC5/PWM2y.c ****                     uint8 comparemode1masked = comparemode & PWM2y_CTRL_CMPMODE1_MASK;
+ 286:Generated_Source\PSoC5/PWM2y.c ****                 #endif /* (0 != PWM2y_CTRL_CMPMODE1_SHIFT) */
+ 287:Generated_Source\PSoC5/PWM2y.c **** 
+ 288:Generated_Source\PSoC5/PWM2y.c ****                 #if(0 != PWM2y_CTRL_CMPMODE2_SHIFT)
+ 289:Generated_Source\PSoC5/PWM2y.c ****                     uint8 comparemode2masked = ((uint8)((uint8)comparemode << PWM2y_CTRL_CMPMODE2_S
+ 290:Generated_Source\PSoC5/PWM2y.c ****                                                PWM2y_CTRL_CMPMODE2_MASK;
+ 291:Generated_Source\PSoC5/PWM2y.c ****                 #else
+ 292:Generated_Source\PSoC5/PWM2y.c ****                     uint8 comparemode2masked = comparemode & PWM2y_CTRL_CMPMODE2_MASK;
+ 293:Generated_Source\PSoC5/PWM2y.c ****                 #endif /* (0 != PWM2y_CTRL_CMPMODE2_SHIFT) */
+ 294:Generated_Source\PSoC5/PWM2y.c **** 
+ 295:Generated_Source\PSoC5/PWM2y.c ****                 /*Clear existing mode */
+ 296:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_CONTROL &= ((uint8)(~(PWM2y_CTRL_CMPMODE1_MASK |
+ 297:Generated_Source\PSoC5/PWM2y.c ****                                             PWM2y_CTRL_CMPMODE2_MASK)));
+ 298:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_CONTROL |= (comparemode1masked | comparemode2masked);
+ 299:Generated_Source\PSoC5/PWM2y.c **** 
+ 300:Generated_Source\PSoC5/PWM2y.c ****             #else
+ 301:Generated_Source\PSoC5/PWM2y.c ****                 uint8 temp = comparemode;
+ 302:Generated_Source\PSoC5/PWM2y.c ****             #endif /* (PWM2y_UsingFixedFunction) */
+ 303:Generated_Source\PSoC5/PWM2y.c ****         }
+ 304:Generated_Source\PSoC5/PWM2y.c ****     #endif /* PWM2y_CompareMode1SW */
+ 305:Generated_Source\PSoC5/PWM2y.c **** 
+ 306:Generated_Source\PSoC5/PWM2y.c **** #else /* UseOneCompareMode */
+ 307:Generated_Source\PSoC5/PWM2y.c **** 
+ 308:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_CompareMode1SW)
+ 309:Generated_Source\PSoC5/PWM2y.c **** 
+ 310:Generated_Source\PSoC5/PWM2y.c **** 
+ 311:Generated_Source\PSoC5/PWM2y.c ****         /*******************************************************************************
+ 312:Generated_Source\PSoC5/PWM2y.c ****         * Function Name: PWM2y_SetCompareMode1
+ 313:Generated_Source\PSoC5/PWM2y.c ****         ********************************************************************************
+ 314:Generated_Source\PSoC5/PWM2y.c ****         *
+ 315:Generated_Source\PSoC5/PWM2y.c ****         * Summary:
+ 316:Generated_Source\PSoC5/PWM2y.c ****         *  This function writes the Compare Mode for the pwm or pwm1 output
+ 317:Generated_Source\PSoC5/PWM2y.c ****         *
+ 318:Generated_Source\PSoC5/PWM2y.c ****         * Parameters:
+ 319:Generated_Source\PSoC5/PWM2y.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 320:Generated_Source\PSoC5/PWM2y.c ****         *                defined in the H file as input arguments.
+ 321:Generated_Source\PSoC5/PWM2y.c ****         *
+ 322:Generated_Source\PSoC5/PWM2y.c ****         * Return:
+ 323:Generated_Source\PSoC5/PWM2y.c ****         *  None
+ 324:Generated_Source\PSoC5/PWM2y.c ****         *
+ 325:Generated_Source\PSoC5/PWM2y.c ****         *******************************************************************************/
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 11
+
+
+ 326:Generated_Source\PSoC5/PWM2y.c ****         void PWM2y_SetCompareMode1(uint8 comparemode) 
+ 327:Generated_Source\PSoC5/PWM2y.c ****         {
+ 328:Generated_Source\PSoC5/PWM2y.c ****             #if(0 != PWM2y_CTRL_CMPMODE1_SHIFT)
+ 329:Generated_Source\PSoC5/PWM2y.c ****                 uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM2y_CTRL_CMPMODE1_SHIFT)
+ 330:Generated_Source\PSoC5/PWM2y.c ****                                            PWM2y_CTRL_CMPMODE1_MASK;
+ 331:Generated_Source\PSoC5/PWM2y.c ****             #else
+ 332:Generated_Source\PSoC5/PWM2y.c ****                 uint8 comparemodemasked = comparemode & PWM2y_CTRL_CMPMODE1_MASK;
+ 333:Generated_Source\PSoC5/PWM2y.c ****             #endif /* (0 != PWM2y_CTRL_CMPMODE1_SHIFT) */
+ 334:Generated_Source\PSoC5/PWM2y.c **** 
+ 335:Generated_Source\PSoC5/PWM2y.c ****             #if (PWM2y_UseControl)
+ 336:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_CONTROL &= ((uint8)(~PWM2y_CTRL_CMPMODE1_MASK)); /*Clear existing mode */
+ 337:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_CONTROL |= comparemodemasked;
+ 338:Generated_Source\PSoC5/PWM2y.c ****             #endif /* (PWM2y_UseControl) */
+ 339:Generated_Source\PSoC5/PWM2y.c ****         }
+ 340:Generated_Source\PSoC5/PWM2y.c ****     #endif /* PWM2y_CompareMode1SW */
+ 341:Generated_Source\PSoC5/PWM2y.c **** 
+ 342:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_CompareMode2SW)
+ 343:Generated_Source\PSoC5/PWM2y.c **** 
+ 344:Generated_Source\PSoC5/PWM2y.c **** 
+ 345:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 346:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_SetCompareMode2
+ 347:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 348:Generated_Source\PSoC5/PWM2y.c ****     *
+ 349:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 350:Generated_Source\PSoC5/PWM2y.c ****     *  This function writes the Compare Mode for the pwm or pwm2 output
+ 351:Generated_Source\PSoC5/PWM2y.c ****     *
+ 352:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 353:Generated_Source\PSoC5/PWM2y.c ****     *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 354:Generated_Source\PSoC5/PWM2y.c ****     *                defined in the H file as input arguments.
+ 355:Generated_Source\PSoC5/PWM2y.c ****     *
+ 356:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 357:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 358:Generated_Source\PSoC5/PWM2y.c ****     *
+ 359:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 360:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_SetCompareMode2(uint8 comparemode) 
+ 361:Generated_Source\PSoC5/PWM2y.c ****     {
+ 362:Generated_Source\PSoC5/PWM2y.c **** 
+ 363:Generated_Source\PSoC5/PWM2y.c ****         #if(0 != PWM2y_CTRL_CMPMODE2_SHIFT)
+ 364:Generated_Source\PSoC5/PWM2y.c ****             uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM2y_CTRL_CMPMODE2_SHIFT)) &
+ 365:Generated_Source\PSoC5/PWM2y.c ****                                                  PWM2y_CTRL_CMPMODE2_MASK;
+ 366:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 367:Generated_Source\PSoC5/PWM2y.c ****             uint8 comparemodemasked = comparemode & PWM2y_CTRL_CMPMODE2_MASK;
+ 368:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (0 != PWM2y_CTRL_CMPMODE2_SHIFT) */
+ 369:Generated_Source\PSoC5/PWM2y.c **** 
+ 370:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_UseControl)
+ 371:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_CONTROL &= ((uint8)(~PWM2y_CTRL_CMPMODE2_MASK)); /*Clear existing mode */
+ 372:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_CONTROL |= comparemodemasked;
+ 373:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UseControl) */
+ 374:Generated_Source\PSoC5/PWM2y.c ****     }
+ 375:Generated_Source\PSoC5/PWM2y.c ****     #endif /*PWM2y_CompareMode2SW */
+ 376:Generated_Source\PSoC5/PWM2y.c **** 
+ 377:Generated_Source\PSoC5/PWM2y.c **** #endif /* UseOneCompareMode */
+ 378:Generated_Source\PSoC5/PWM2y.c **** 
+ 379:Generated_Source\PSoC5/PWM2y.c **** 
+ 380:Generated_Source\PSoC5/PWM2y.c **** #if (!PWM2y_UsingFixedFunction)
+ 381:Generated_Source\PSoC5/PWM2y.c **** 
+ 382:Generated_Source\PSoC5/PWM2y.c **** 
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 12
+
+
+ 383:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 384:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_WriteCounter
+ 385:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 386:Generated_Source\PSoC5/PWM2y.c ****     *
+ 387:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 388:Generated_Source\PSoC5/PWM2y.c ****     *  Writes a new counter value directly to the counter register. This will be
+ 389:Generated_Source\PSoC5/PWM2y.c ****     *  implemented for that currently running period and only that period. This API
+ 390:Generated_Source\PSoC5/PWM2y.c ****     *  is valid only for UDB implementation and not available for fixed function
+ 391:Generated_Source\PSoC5/PWM2y.c ****     *  PWM implementation.
+ 392:Generated_Source\PSoC5/PWM2y.c ****     *
+ 393:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 394:Generated_Source\PSoC5/PWM2y.c ****     *  counter:  The period new period counter value.
+ 395:Generated_Source\PSoC5/PWM2y.c ****     *
+ 396:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 397:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 398:Generated_Source\PSoC5/PWM2y.c ****     *
+ 399:Generated_Source\PSoC5/PWM2y.c ****     * Side Effects:
+ 400:Generated_Source\PSoC5/PWM2y.c ****     *  The PWM Period will be reloaded when a counter value will be a zero
+ 401:Generated_Source\PSoC5/PWM2y.c ****     *
+ 402:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 403:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_WriteCounter(uint8 counter) \
+ 404:Generated_Source\PSoC5/PWM2y.c ****                                        
+ 405:Generated_Source\PSoC5/PWM2y.c ****     {
+ 246              		.loc 1 405 0
+ 247              		.cfi_startproc
+ 248              		@ args = 0, pretend = 0, frame = 8
+ 249              		@ frame_needed = 1, uses_anonymous_args = 0
+ 250              		@ link register save eliminated.
+ 251 0000 80B4     		push	{r7}
+ 252              		.cfi_def_cfa_offset 4
+ 253              		.cfi_offset 7, -4
+ 254 0002 83B0     		sub	sp, sp, #12
+ 255              		.cfi_def_cfa_offset 16
+ 256 0004 00AF     		add	r7, sp, #0
+ 257              		.cfi_def_cfa_register 7
+ 258 0006 0346     		mov	r3, r0
+ 259 0008 FB71     		strb	r3, [r7, #7]
+ 406:Generated_Source\PSoC5/PWM2y.c ****         CY_SET_REG8(PWM2y_COUNTER_LSB_PTR, counter);
+ 260              		.loc 1 406 0
+ 261 000a 044A     		ldr	r2, .L15
+ 262 000c FB79     		ldrb	r3, [r7, #7]
+ 263 000e 1370     		strb	r3, [r2]
+ 407:Generated_Source\PSoC5/PWM2y.c ****     }
+ 264              		.loc 1 407 0
+ 265 0010 00BF     		nop
+ 266 0012 0C37     		adds	r7, r7, #12
+ 267              		.cfi_def_cfa_offset 4
+ 268 0014 BD46     		mov	sp, r7
+ 269              		.cfi_def_cfa_register 13
+ 270              		@ sp needed
+ 271 0016 80BC     		pop	{r7}
+ 272              		.cfi_restore 7
+ 273              		.cfi_def_cfa_offset 0
+ 274 0018 7047     		bx	lr
+ 275              	.L16:
+ 276 001a 00BF     		.align	2
+ 277              	.L15:
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 13
+
+
+ 278 001c 0A650040 		.word	1073767690
+ 279              		.cfi_endproc
+ 280              	.LFE4:
+ 281              		.size	PWM2y_WriteCounter, .-PWM2y_WriteCounter
+ 282              		.section	.text.PWM2y_ReadCounter,"ax",%progbits
+ 283              		.align	2
+ 284              		.global	PWM2y_ReadCounter
+ 285              		.thumb
+ 286              		.thumb_func
+ 287              		.type	PWM2y_ReadCounter, %function
+ 288              	PWM2y_ReadCounter:
+ 289              	.LFB5:
+ 408:Generated_Source\PSoC5/PWM2y.c **** 
+ 409:Generated_Source\PSoC5/PWM2y.c **** 
+ 410:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 411:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadCounter
+ 412:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 413:Generated_Source\PSoC5/PWM2y.c ****     *
+ 414:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 415:Generated_Source\PSoC5/PWM2y.c ****     *  This function returns the current value of the counter.  It doesn't matter
+ 416:Generated_Source\PSoC5/PWM2y.c ****     *  if the counter is enabled or running.
+ 417:Generated_Source\PSoC5/PWM2y.c ****     *
+ 418:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 419:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 420:Generated_Source\PSoC5/PWM2y.c ****     *
+ 421:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 422:Generated_Source\PSoC5/PWM2y.c ****     *  The current value of the counter.
+ 423:Generated_Source\PSoC5/PWM2y.c ****     *
+ 424:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 425:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadCounter(void) 
+ 426:Generated_Source\PSoC5/PWM2y.c ****     {
+ 290              		.loc 1 426 0
+ 291              		.cfi_startproc
+ 292              		@ args = 0, pretend = 0, frame = 0
+ 293              		@ frame_needed = 1, uses_anonymous_args = 0
+ 294              		@ link register save eliminated.
+ 295 0000 80B4     		push	{r7}
+ 296              		.cfi_def_cfa_offset 4
+ 297              		.cfi_offset 7, -4
+ 298 0002 00AF     		add	r7, sp, #0
+ 299              		.cfi_def_cfa_register 7
+ 427:Generated_Source\PSoC5/PWM2y.c ****         /* Force capture by reading Accumulator */
+ 428:Generated_Source\PSoC5/PWM2y.c ****         /* Must first do a software capture to be able to read the counter */
+ 429:Generated_Source\PSoC5/PWM2y.c ****         /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 430:Generated_Source\PSoC5/PWM2y.c ****           (void)CY_GET_REG8(PWM2y_COUNTERCAP_LSB_PTR_8BIT);
+ 300              		.loc 1 430 0
+ 301 0004 044B     		ldr	r3, .L19
+ 302 0006 1B78     		ldrb	r3, [r3]
+ 431:Generated_Source\PSoC5/PWM2y.c **** 
+ 432:Generated_Source\PSoC5/PWM2y.c ****         /* Read the data from the FIFO */
+ 433:Generated_Source\PSoC5/PWM2y.c ****         return (CY_GET_REG8(PWM2y_CAPTURE_LSB_PTR));
+ 303              		.loc 1 433 0
+ 304 0008 044B     		ldr	r3, .L19+4
+ 305 000a 1B78     		ldrb	r3, [r3]
+ 306 000c DBB2     		uxtb	r3, r3
+ 434:Generated_Source\PSoC5/PWM2y.c ****     }
+ 307              		.loc 1 434 0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 14
+
+
+ 308 000e 1846     		mov	r0, r3
+ 309 0010 BD46     		mov	sp, r7
+ 310              		.cfi_def_cfa_register 13
+ 311              		@ sp needed
+ 312 0012 80BC     		pop	{r7}
+ 313              		.cfi_restore 7
+ 314              		.cfi_def_cfa_offset 0
+ 315 0014 7047     		bx	lr
+ 316              	.L20:
+ 317 0016 00BF     		.align	2
+ 318              	.L19:
+ 319 0018 1A650040 		.word	1073767706
+ 320 001c 5A650040 		.word	1073767770
+ 321              		.cfi_endproc
+ 322              	.LFE5:
+ 323              		.size	PWM2y_ReadCounter, .-PWM2y_ReadCounter
+ 324              		.section	.text.PWM2y_ClearFIFO,"ax",%progbits
+ 325              		.align	2
+ 326              		.global	PWM2y_ClearFIFO
+ 327              		.thumb
+ 328              		.thumb_func
+ 329              		.type	PWM2y_ClearFIFO, %function
+ 330              	PWM2y_ClearFIFO:
+ 331              	.LFB6:
+ 435:Generated_Source\PSoC5/PWM2y.c **** 
+ 436:Generated_Source\PSoC5/PWM2y.c ****     #if (PWM2y_UseStatus)
+ 437:Generated_Source\PSoC5/PWM2y.c **** 
+ 438:Generated_Source\PSoC5/PWM2y.c **** 
+ 439:Generated_Source\PSoC5/PWM2y.c ****         /*******************************************************************************
+ 440:Generated_Source\PSoC5/PWM2y.c ****         * Function Name: PWM2y_ClearFIFO
+ 441:Generated_Source\PSoC5/PWM2y.c ****         ********************************************************************************
+ 442:Generated_Source\PSoC5/PWM2y.c ****         *
+ 443:Generated_Source\PSoC5/PWM2y.c ****         * Summary:
+ 444:Generated_Source\PSoC5/PWM2y.c ****         *  This function clears all capture data from the capture FIFO
+ 445:Generated_Source\PSoC5/PWM2y.c ****         *
+ 446:Generated_Source\PSoC5/PWM2y.c ****         * Parameters:
+ 447:Generated_Source\PSoC5/PWM2y.c ****         *  None
+ 448:Generated_Source\PSoC5/PWM2y.c ****         *
+ 449:Generated_Source\PSoC5/PWM2y.c ****         * Return:
+ 450:Generated_Source\PSoC5/PWM2y.c ****         *  None
+ 451:Generated_Source\PSoC5/PWM2y.c ****         *
+ 452:Generated_Source\PSoC5/PWM2y.c ****         *******************************************************************************/
+ 453:Generated_Source\PSoC5/PWM2y.c ****         void PWM2y_ClearFIFO(void) 
+ 454:Generated_Source\PSoC5/PWM2y.c ****         {
+ 332              		.loc 1 454 0
+ 333              		.cfi_startproc
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 1, uses_anonymous_args = 0
+ 336 0000 80B5     		push	{r7, lr}
+ 337              		.cfi_def_cfa_offset 8
+ 338              		.cfi_offset 7, -8
+ 339              		.cfi_offset 14, -4
+ 340 0002 00AF     		add	r7, sp, #0
+ 341              		.cfi_def_cfa_register 7
+ 455:Generated_Source\PSoC5/PWM2y.c ****             while(0u != (PWM2y_ReadStatusRegister() & PWM2y_STATUS_FIFONEMPTY))
+ 342              		.loc 1 455 0
+ 343 0004 01E0     		b	.L22
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 15
+
+
+ 344              	.L23:
+ 456:Generated_Source\PSoC5/PWM2y.c ****             {
+ 457:Generated_Source\PSoC5/PWM2y.c ****                 (void)PWM2y_ReadCapture();
+ 345              		.loc 1 457 0
+ 346 0006 FFF7FEFF 		bl	PWM2y_ReadCapture
+ 347              	.L22:
+ 455:Generated_Source\PSoC5/PWM2y.c ****             while(0u != (PWM2y_ReadStatusRegister() & PWM2y_STATUS_FIFONEMPTY))
+ 348              		.loc 1 455 0
+ 349 000a FFF7FEFF 		bl	PWM2y_ReadStatusRegister
+ 350 000e 0346     		mov	r3, r0
+ 351 0010 03F01003 		and	r3, r3, #16
+ 352 0014 002B     		cmp	r3, #0
+ 353 0016 F6D1     		bne	.L23
+ 458:Generated_Source\PSoC5/PWM2y.c ****             }
+ 459:Generated_Source\PSoC5/PWM2y.c ****         }
+ 354              		.loc 1 459 0
+ 355 0018 00BF     		nop
+ 356 001a 80BD     		pop	{r7, pc}
+ 357              		.cfi_endproc
+ 358              	.LFE6:
+ 359              		.size	PWM2y_ClearFIFO, .-PWM2y_ClearFIFO
+ 360              		.section	.text.PWM2y_WritePeriod,"ax",%progbits
+ 361              		.align	2
+ 362              		.global	PWM2y_WritePeriod
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.type	PWM2y_WritePeriod, %function
+ 366              	PWM2y_WritePeriod:
+ 367              	.LFB7:
+ 460:Generated_Source\PSoC5/PWM2y.c **** 
+ 461:Generated_Source\PSoC5/PWM2y.c ****     #endif /* PWM2y_UseStatus */
+ 462:Generated_Source\PSoC5/PWM2y.c **** 
+ 463:Generated_Source\PSoC5/PWM2y.c **** #endif /* !PWM2y_UsingFixedFunction */
+ 464:Generated_Source\PSoC5/PWM2y.c **** 
+ 465:Generated_Source\PSoC5/PWM2y.c **** 
+ 466:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+ 467:Generated_Source\PSoC5/PWM2y.c **** * Function Name: PWM2y_WritePeriod
+ 468:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************
+ 469:Generated_Source\PSoC5/PWM2y.c **** *
+ 470:Generated_Source\PSoC5/PWM2y.c **** * Summary:
+ 471:Generated_Source\PSoC5/PWM2y.c **** *  This function is used to change the period of the counter.  The new period
+ 472:Generated_Source\PSoC5/PWM2y.c **** *  will be loaded the next time terminal count is detected.
+ 473:Generated_Source\PSoC5/PWM2y.c **** *
+ 474:Generated_Source\PSoC5/PWM2y.c **** * Parameters:
+ 475:Generated_Source\PSoC5/PWM2y.c **** *  period:  Period value. May be between 1 and (2^Resolution)-1.  A value of 0
+ 476:Generated_Source\PSoC5/PWM2y.c **** *           will result in the counter remaining at zero.
+ 477:Generated_Source\PSoC5/PWM2y.c **** *
+ 478:Generated_Source\PSoC5/PWM2y.c **** * Return:
+ 479:Generated_Source\PSoC5/PWM2y.c **** *  None
+ 480:Generated_Source\PSoC5/PWM2y.c **** *
+ 481:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************/
+ 482:Generated_Source\PSoC5/PWM2y.c **** void PWM2y_WritePeriod(uint8 period) 
+ 483:Generated_Source\PSoC5/PWM2y.c **** {
+ 368              		.loc 1 483 0
+ 369              		.cfi_startproc
+ 370              		@ args = 0, pretend = 0, frame = 8
+ 371              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 16
+
+
+ 372              		@ link register save eliminated.
+ 373 0000 80B4     		push	{r7}
+ 374              		.cfi_def_cfa_offset 4
+ 375              		.cfi_offset 7, -4
+ 376 0002 83B0     		sub	sp, sp, #12
+ 377              		.cfi_def_cfa_offset 16
+ 378 0004 00AF     		add	r7, sp, #0
+ 379              		.cfi_def_cfa_register 7
+ 380 0006 0346     		mov	r3, r0
+ 381 0008 FB71     		strb	r3, [r7, #7]
+ 484:Generated_Source\PSoC5/PWM2y.c ****     #if(PWM2y_UsingFixedFunction)
+ 485:Generated_Source\PSoC5/PWM2y.c ****         CY_SET_REG16(PWM2y_PERIOD_LSB_PTR, (uint16)period);
+ 486:Generated_Source\PSoC5/PWM2y.c ****     #else
+ 487:Generated_Source\PSoC5/PWM2y.c ****         CY_SET_REG8(PWM2y_PERIOD_LSB_PTR, period);
+ 382              		.loc 1 487 0
+ 383 000a 044A     		ldr	r2, .L25
+ 384 000c FB79     		ldrb	r3, [r7, #7]
+ 385 000e 1370     		strb	r3, [r2]
+ 488:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction) */
+ 489:Generated_Source\PSoC5/PWM2y.c **** }
+ 386              		.loc 1 489 0
+ 387 0010 00BF     		nop
+ 388 0012 0C37     		adds	r7, r7, #12
+ 389              		.cfi_def_cfa_offset 4
+ 390 0014 BD46     		mov	sp, r7
+ 391              		.cfi_def_cfa_register 13
+ 392              		@ sp needed
+ 393 0016 80BC     		pop	{r7}
+ 394              		.cfi_restore 7
+ 395              		.cfi_def_cfa_offset 0
+ 396 0018 7047     		bx	lr
+ 397              	.L26:
+ 398 001a 00BF     		.align	2
+ 399              	.L25:
+ 400 001c 4A650040 		.word	1073767754
+ 401              		.cfi_endproc
+ 402              	.LFE7:
+ 403              		.size	PWM2y_WritePeriod, .-PWM2y_WritePeriod
+ 404              		.section	.text.PWM2y_WriteCompare,"ax",%progbits
+ 405              		.align	2
+ 406              		.global	PWM2y_WriteCompare
+ 407              		.thumb
+ 408              		.thumb_func
+ 409              		.type	PWM2y_WriteCompare, %function
+ 410              	PWM2y_WriteCompare:
+ 411              	.LFB8:
+ 490:Generated_Source\PSoC5/PWM2y.c **** 
+ 491:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_UseOneCompareMode)
+ 492:Generated_Source\PSoC5/PWM2y.c **** 
+ 493:Generated_Source\PSoC5/PWM2y.c **** 
+ 494:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 495:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_WriteCompare
+ 496:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 497:Generated_Source\PSoC5/PWM2y.c ****     *
+ 498:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 499:Generated_Source\PSoC5/PWM2y.c ****     *  This funtion is used to change the compare1 value when the PWM is in Dither
+ 500:Generated_Source\PSoC5/PWM2y.c ****     *  mode. The compare output will reflect the new value on the next UDB clock.
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 17
+
+
+ 501:Generated_Source\PSoC5/PWM2y.c ****     *  The compare output will be driven high when the present counter value is
+ 502:Generated_Source\PSoC5/PWM2y.c ****     *  compared to the compare value based on the compare mode defined in
+ 503:Generated_Source\PSoC5/PWM2y.c ****     *  Dither Mode.
+ 504:Generated_Source\PSoC5/PWM2y.c ****     *
+ 505:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 506:Generated_Source\PSoC5/PWM2y.c ****     *  compare:  New compare value.
+ 507:Generated_Source\PSoC5/PWM2y.c ****     *
+ 508:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 509:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 510:Generated_Source\PSoC5/PWM2y.c ****     *
+ 511:Generated_Source\PSoC5/PWM2y.c ****     * Side Effects:
+ 512:Generated_Source\PSoC5/PWM2y.c ****     *  This function is only available if the PWM mode parameter is set to
+ 513:Generated_Source\PSoC5/PWM2y.c ****     *  Dither Mode, Center Aligned Mode or One Output Mode
+ 514:Generated_Source\PSoC5/PWM2y.c ****     *
+ 515:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 516:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_WriteCompare(uint8 compare) \
+ 517:Generated_Source\PSoC5/PWM2y.c ****                                        
+ 518:Generated_Source\PSoC5/PWM2y.c ****     {
+ 412              		.loc 1 518 0
+ 413              		.cfi_startproc
+ 414              		@ args = 0, pretend = 0, frame = 8
+ 415              		@ frame_needed = 1, uses_anonymous_args = 0
+ 416              		@ link register save eliminated.
+ 417 0000 80B4     		push	{r7}
+ 418              		.cfi_def_cfa_offset 4
+ 419              		.cfi_offset 7, -4
+ 420 0002 83B0     		sub	sp, sp, #12
+ 421              		.cfi_def_cfa_offset 16
+ 422 0004 00AF     		add	r7, sp, #0
+ 423              		.cfi_def_cfa_register 7
+ 424 0006 0346     		mov	r3, r0
+ 425 0008 FB71     		strb	r3, [r7, #7]
+ 519:Generated_Source\PSoC5/PWM2y.c ****         #if(PWM2y_UsingFixedFunction)
+ 520:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG16(PWM2y_COMPARE1_LSB_PTR, (uint16)compare);
+ 521:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 522:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG8(PWM2y_COMPARE1_LSB_PTR, compare);
+ 426              		.loc 1 522 0
+ 427 000a 044A     		ldr	r2, .L28
+ 428 000c FB79     		ldrb	r3, [r7, #7]
+ 429 000e 1370     		strb	r3, [r2]
+ 523:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UsingFixedFunction) */
+ 524:Generated_Source\PSoC5/PWM2y.c **** 
+ 525:Generated_Source\PSoC5/PWM2y.c ****         #if (PWM2y_PWMMode == PWM2y__B_PWM__DITHER)
+ 526:Generated_Source\PSoC5/PWM2y.c ****             #if(PWM2y_UsingFixedFunction)
+ 527:Generated_Source\PSoC5/PWM2y.c ****                 CY_SET_REG16(PWM2y_COMPARE2_LSB_PTR, (uint16)(compare + 1u));
+ 528:Generated_Source\PSoC5/PWM2y.c ****             #else
+ 529:Generated_Source\PSoC5/PWM2y.c ****                 CY_SET_REG8(PWM2y_COMPARE2_LSB_PTR, (compare + 1u));
+ 530:Generated_Source\PSoC5/PWM2y.c ****             #endif /* (PWM2y_UsingFixedFunction) */
+ 531:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_PWMMode == PWM2y__B_PWM__DITHER) */
+ 532:Generated_Source\PSoC5/PWM2y.c ****     }
+ 430              		.loc 1 532 0
+ 431 0010 00BF     		nop
+ 432 0012 0C37     		adds	r7, r7, #12
+ 433              		.cfi_def_cfa_offset 4
+ 434 0014 BD46     		mov	sp, r7
+ 435              		.cfi_def_cfa_register 13
+ 436              		@ sp needed
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 18
+
+
+ 437 0016 80BC     		pop	{r7}
+ 438              		.cfi_restore 7
+ 439              		.cfi_def_cfa_offset 0
+ 440 0018 7047     		bx	lr
+ 441              	.L29:
+ 442 001a 00BF     		.align	2
+ 443              	.L28:
+ 444 001c 2A650040 		.word	1073767722
+ 445              		.cfi_endproc
+ 446              	.LFE8:
+ 447              		.size	PWM2y_WriteCompare, .-PWM2y_WriteCompare
+ 448              		.section	.text.PWM2y_SetInterruptMode,"ax",%progbits
+ 449              		.align	2
+ 450              		.global	PWM2y_SetInterruptMode
+ 451              		.thumb
+ 452              		.thumb_func
+ 453              		.type	PWM2y_SetInterruptMode, %function
+ 454              	PWM2y_SetInterruptMode:
+ 455              	.LFB9:
+ 533:Generated_Source\PSoC5/PWM2y.c **** 
+ 534:Generated_Source\PSoC5/PWM2y.c **** 
+ 535:Generated_Source\PSoC5/PWM2y.c **** #else
+ 536:Generated_Source\PSoC5/PWM2y.c **** 
+ 537:Generated_Source\PSoC5/PWM2y.c **** 
+ 538:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 539:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_WriteCompare1
+ 540:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 541:Generated_Source\PSoC5/PWM2y.c ****     *
+ 542:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 543:Generated_Source\PSoC5/PWM2y.c ****     *  This funtion is used to change the compare1 value.  The compare output will
+ 544:Generated_Source\PSoC5/PWM2y.c ****     *  reflect the new value on the next UDB clock.  The compare output will be
+ 545:Generated_Source\PSoC5/PWM2y.c ****     *  driven high when the present counter value is less than or less than or
+ 546:Generated_Source\PSoC5/PWM2y.c ****     *  equal to the compare register, depending on the mode.
+ 547:Generated_Source\PSoC5/PWM2y.c ****     *
+ 548:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 549:Generated_Source\PSoC5/PWM2y.c ****     *  compare:  New compare value.
+ 550:Generated_Source\PSoC5/PWM2y.c ****     *
+ 551:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 552:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 553:Generated_Source\PSoC5/PWM2y.c ****     *
+ 554:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 555:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_WriteCompare1(uint8 compare) \
+ 556:Generated_Source\PSoC5/PWM2y.c ****                                         
+ 557:Generated_Source\PSoC5/PWM2y.c ****     {
+ 558:Generated_Source\PSoC5/PWM2y.c ****         #if(PWM2y_UsingFixedFunction)
+ 559:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG16(PWM2y_COMPARE1_LSB_PTR, (uint16)compare);
+ 560:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 561:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG8(PWM2y_COMPARE1_LSB_PTR, compare);
+ 562:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UsingFixedFunction) */
+ 563:Generated_Source\PSoC5/PWM2y.c ****     }
+ 564:Generated_Source\PSoC5/PWM2y.c **** 
+ 565:Generated_Source\PSoC5/PWM2y.c **** 
+ 566:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 567:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_WriteCompare2
+ 568:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 569:Generated_Source\PSoC5/PWM2y.c ****     *
+ 570:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 19
+
+
+ 571:Generated_Source\PSoC5/PWM2y.c ****     *  This funtion is used to change the compare value, for compare1 output.
+ 572:Generated_Source\PSoC5/PWM2y.c ****     *  The compare output will reflect the new value on the next UDB clock.
+ 573:Generated_Source\PSoC5/PWM2y.c ****     *  The compare output will be driven high when the present counter value is
+ 574:Generated_Source\PSoC5/PWM2y.c ****     *  less than or less than or equal to the compare register, depending on the
+ 575:Generated_Source\PSoC5/PWM2y.c ****     *  mode.
+ 576:Generated_Source\PSoC5/PWM2y.c ****     *
+ 577:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 578:Generated_Source\PSoC5/PWM2y.c ****     *  compare:  New compare value.
+ 579:Generated_Source\PSoC5/PWM2y.c ****     *
+ 580:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 581:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 582:Generated_Source\PSoC5/PWM2y.c ****     *
+ 583:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 584:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_WriteCompare2(uint8 compare) \
+ 585:Generated_Source\PSoC5/PWM2y.c ****                                         
+ 586:Generated_Source\PSoC5/PWM2y.c ****     {
+ 587:Generated_Source\PSoC5/PWM2y.c ****         #if(PWM2y_UsingFixedFunction)
+ 588:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG16(PWM2y_COMPARE2_LSB_PTR, compare);
+ 589:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 590:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG8(PWM2y_COMPARE2_LSB_PTR, compare);
+ 591:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UsingFixedFunction) */
+ 592:Generated_Source\PSoC5/PWM2y.c ****     }
+ 593:Generated_Source\PSoC5/PWM2y.c **** #endif /* UseOneCompareMode */
+ 594:Generated_Source\PSoC5/PWM2y.c **** 
+ 595:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_DeadBandUsed)
+ 596:Generated_Source\PSoC5/PWM2y.c **** 
+ 597:Generated_Source\PSoC5/PWM2y.c **** 
+ 598:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 599:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_WriteDeadTime
+ 600:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 601:Generated_Source\PSoC5/PWM2y.c ****     *
+ 602:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 603:Generated_Source\PSoC5/PWM2y.c ****     *  This function writes the dead-band counts to the corresponding register
+ 604:Generated_Source\PSoC5/PWM2y.c ****     *
+ 605:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 606:Generated_Source\PSoC5/PWM2y.c ****     *  deadtime:  Number of counts for dead time
+ 607:Generated_Source\PSoC5/PWM2y.c ****     *
+ 608:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 609:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 610:Generated_Source\PSoC5/PWM2y.c ****     *
+ 611:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 612:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_WriteDeadTime(uint8 deadtime) 
+ 613:Generated_Source\PSoC5/PWM2y.c ****     {
+ 614:Generated_Source\PSoC5/PWM2y.c ****         /* If using the Dead Band 1-255 mode then just write the register */
+ 615:Generated_Source\PSoC5/PWM2y.c ****         #if(!PWM2y_DeadBand2_4)
+ 616:Generated_Source\PSoC5/PWM2y.c ****             CY_SET_REG8(PWM2y_DEADBAND_COUNT_PTR, deadtime);
+ 617:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 618:Generated_Source\PSoC5/PWM2y.c ****             /* Otherwise the data has to be masked and offset */
+ 619:Generated_Source\PSoC5/PWM2y.c ****             /* Clear existing data */
+ 620:Generated_Source\PSoC5/PWM2y.c ****             PWM2y_DEADBAND_COUNT &= ((uint8)(~PWM2y_DEADBAND_COUNT_MASK));
+ 621:Generated_Source\PSoC5/PWM2y.c **** 
+ 622:Generated_Source\PSoC5/PWM2y.c ****             /* Set new dead time */
+ 623:Generated_Source\PSoC5/PWM2y.c ****             #if(PWM2y_DEADBAND_COUNT_SHIFT)
+ 624:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_DEADBAND_COUNT |= ((uint8)((uint8)deadtime << PWM2y_DEADBAND_COUNT_SHIFT)) &
+ 625:Generated_Source\PSoC5/PWM2y.c ****                                                     PWM2y_DEADBAND_COUNT_MASK;
+ 626:Generated_Source\PSoC5/PWM2y.c ****             #else
+ 627:Generated_Source\PSoC5/PWM2y.c ****                 PWM2y_DEADBAND_COUNT |= deadtime & PWM2y_DEADBAND_COUNT_MASK;
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 20
+
+
+ 628:Generated_Source\PSoC5/PWM2y.c ****             #endif /* (PWM2y_DEADBAND_COUNT_SHIFT) */
+ 629:Generated_Source\PSoC5/PWM2y.c **** 
+ 630:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (!PWM2y_DeadBand2_4) */
+ 631:Generated_Source\PSoC5/PWM2y.c ****     }
+ 632:Generated_Source\PSoC5/PWM2y.c **** 
+ 633:Generated_Source\PSoC5/PWM2y.c **** 
+ 634:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 635:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadDeadTime
+ 636:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 637:Generated_Source\PSoC5/PWM2y.c ****     *
+ 638:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 639:Generated_Source\PSoC5/PWM2y.c ****     *  This function reads the dead-band counts from the corresponding register
+ 640:Generated_Source\PSoC5/PWM2y.c ****     *
+ 641:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 642:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 643:Generated_Source\PSoC5/PWM2y.c ****     *
+ 644:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 645:Generated_Source\PSoC5/PWM2y.c ****     *  Dead Band Counts
+ 646:Generated_Source\PSoC5/PWM2y.c ****     *
+ 647:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 648:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadDeadTime(void) 
+ 649:Generated_Source\PSoC5/PWM2y.c ****     {
+ 650:Generated_Source\PSoC5/PWM2y.c ****         /* If using the Dead Band 1-255 mode then just read the register */
+ 651:Generated_Source\PSoC5/PWM2y.c ****         #if(!PWM2y_DeadBand2_4)
+ 652:Generated_Source\PSoC5/PWM2y.c ****             return (CY_GET_REG8(PWM2y_DEADBAND_COUNT_PTR));
+ 653:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 654:Generated_Source\PSoC5/PWM2y.c **** 
+ 655:Generated_Source\PSoC5/PWM2y.c ****             /* Otherwise the data has to be masked and offset */
+ 656:Generated_Source\PSoC5/PWM2y.c ****             #if(PWM2y_DEADBAND_COUNT_SHIFT)
+ 657:Generated_Source\PSoC5/PWM2y.c ****                 return ((uint8)(((uint8)(PWM2y_DEADBAND_COUNT & PWM2y_DEADBAND_COUNT_MASK)) >>
+ 658:Generated_Source\PSoC5/PWM2y.c ****                                                                            PWM2y_DEADBAND_COUNT_SHI
+ 659:Generated_Source\PSoC5/PWM2y.c ****             #else
+ 660:Generated_Source\PSoC5/PWM2y.c ****                 return (PWM2y_DEADBAND_COUNT & PWM2y_DEADBAND_COUNT_MASK);
+ 661:Generated_Source\PSoC5/PWM2y.c ****             #endif /* (PWM2y_DEADBAND_COUNT_SHIFT) */
+ 662:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (!PWM2y_DeadBand2_4) */
+ 663:Generated_Source\PSoC5/PWM2y.c ****     }
+ 664:Generated_Source\PSoC5/PWM2y.c **** #endif /* DeadBandUsed */
+ 665:Generated_Source\PSoC5/PWM2y.c **** 
+ 666:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_UseStatus || PWM2y_UsingFixedFunction)
+ 667:Generated_Source\PSoC5/PWM2y.c **** 
+ 668:Generated_Source\PSoC5/PWM2y.c **** 
+ 669:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 670:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_SetInterruptMode
+ 671:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 672:Generated_Source\PSoC5/PWM2y.c ****     *
+ 673:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 674:Generated_Source\PSoC5/PWM2y.c ****     *  This function configures the interrupts mask control of theinterrupt
+ 675:Generated_Source\PSoC5/PWM2y.c ****     *  source status register.
+ 676:Generated_Source\PSoC5/PWM2y.c ****     *
+ 677:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 678:Generated_Source\PSoC5/PWM2y.c ****     *  uint8 interruptMode: Bit field containing the interrupt sources enabled
+ 679:Generated_Source\PSoC5/PWM2y.c ****     *
+ 680:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 681:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 682:Generated_Source\PSoC5/PWM2y.c ****     *
+ 683:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 684:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_SetInterruptMode(uint8 interruptMode) 
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 21
+
+
+ 685:Generated_Source\PSoC5/PWM2y.c ****     {
+ 456              		.loc 1 685 0
+ 457              		.cfi_startproc
+ 458              		@ args = 0, pretend = 0, frame = 8
+ 459              		@ frame_needed = 1, uses_anonymous_args = 0
+ 460              		@ link register save eliminated.
+ 461 0000 80B4     		push	{r7}
+ 462              		.cfi_def_cfa_offset 4
+ 463              		.cfi_offset 7, -4
+ 464 0002 83B0     		sub	sp, sp, #12
+ 465              		.cfi_def_cfa_offset 16
+ 466 0004 00AF     		add	r7, sp, #0
+ 467              		.cfi_def_cfa_register 7
+ 468 0006 0346     		mov	r3, r0
+ 469 0008 FB71     		strb	r3, [r7, #7]
+ 686:Generated_Source\PSoC5/PWM2y.c ****         CY_SET_REG8(PWM2y_STATUS_MASK_PTR, interruptMode);
+ 470              		.loc 1 686 0
+ 471 000a 044A     		ldr	r2, .L31
+ 472 000c FB79     		ldrb	r3, [r7, #7]
+ 473 000e 1370     		strb	r3, [r2]
+ 687:Generated_Source\PSoC5/PWM2y.c ****     }
+ 474              		.loc 1 687 0
+ 475 0010 00BF     		nop
+ 476 0012 0C37     		adds	r7, r7, #12
+ 477              		.cfi_def_cfa_offset 4
+ 478 0014 BD46     		mov	sp, r7
+ 479              		.cfi_def_cfa_register 13
+ 480              		@ sp needed
+ 481 0016 80BC     		pop	{r7}
+ 482              		.cfi_restore 7
+ 483              		.cfi_def_cfa_offset 0
+ 484 0018 7047     		bx	lr
+ 485              	.L32:
+ 486 001a 00BF     		.align	2
+ 487              	.L31:
+ 488 001c 8A650040 		.word	1073767818
+ 489              		.cfi_endproc
+ 490              	.LFE9:
+ 491              		.size	PWM2y_SetInterruptMode, .-PWM2y_SetInterruptMode
+ 492              		.section	.text.PWM2y_ReadStatusRegister,"ax",%progbits
+ 493              		.align	2
+ 494              		.global	PWM2y_ReadStatusRegister
+ 495              		.thumb
+ 496              		.thumb_func
+ 497              		.type	PWM2y_ReadStatusRegister, %function
+ 498              	PWM2y_ReadStatusRegister:
+ 499              	.LFB10:
+ 688:Generated_Source\PSoC5/PWM2y.c **** 
+ 689:Generated_Source\PSoC5/PWM2y.c **** 
+ 690:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 691:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadStatusRegister
+ 692:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 693:Generated_Source\PSoC5/PWM2y.c ****     *
+ 694:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 695:Generated_Source\PSoC5/PWM2y.c ****     *  This function returns the current state of the status register.
+ 696:Generated_Source\PSoC5/PWM2y.c ****     *
+ 697:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 22
+
+
+ 698:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 699:Generated_Source\PSoC5/PWM2y.c ****     *
+ 700:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 701:Generated_Source\PSoC5/PWM2y.c ****     *  uint8 : Current status register value. The status register bits are:
+ 702:Generated_Source\PSoC5/PWM2y.c ****     *  [7:6] : Unused(0)
+ 703:Generated_Source\PSoC5/PWM2y.c ****     *  [5]   : Kill event output
+ 704:Generated_Source\PSoC5/PWM2y.c ****     *  [4]   : FIFO not empty
+ 705:Generated_Source\PSoC5/PWM2y.c ****     *  [3]   : FIFO full
+ 706:Generated_Source\PSoC5/PWM2y.c ****     *  [2]   : Terminal count
+ 707:Generated_Source\PSoC5/PWM2y.c ****     *  [1]   : Compare output 2
+ 708:Generated_Source\PSoC5/PWM2y.c ****     *  [0]   : Compare output 1
+ 709:Generated_Source\PSoC5/PWM2y.c ****     *
+ 710:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 711:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadStatusRegister(void) 
+ 712:Generated_Source\PSoC5/PWM2y.c ****     {
+ 500              		.loc 1 712 0
+ 501              		.cfi_startproc
+ 502              		@ args = 0, pretend = 0, frame = 0
+ 503              		@ frame_needed = 1, uses_anonymous_args = 0
+ 504              		@ link register save eliminated.
+ 505 0000 80B4     		push	{r7}
+ 506              		.cfi_def_cfa_offset 4
+ 507              		.cfi_offset 7, -4
+ 508 0002 00AF     		add	r7, sp, #0
+ 509              		.cfi_def_cfa_register 7
+ 713:Generated_Source\PSoC5/PWM2y.c ****         return (CY_GET_REG8(PWM2y_STATUS_PTR));
+ 510              		.loc 1 713 0
+ 511 0004 034B     		ldr	r3, .L35
+ 512 0006 1B78     		ldrb	r3, [r3]
+ 513 0008 DBB2     		uxtb	r3, r3
+ 714:Generated_Source\PSoC5/PWM2y.c ****     }
+ 514              		.loc 1 714 0
+ 515 000a 1846     		mov	r0, r3
+ 516 000c BD46     		mov	sp, r7
+ 517              		.cfi_def_cfa_register 13
+ 518              		@ sp needed
+ 519 000e 80BC     		pop	{r7}
+ 520              		.cfi_restore 7
+ 521              		.cfi_def_cfa_offset 0
+ 522 0010 7047     		bx	lr
+ 523              	.L36:
+ 524 0012 00BF     		.align	2
+ 525              	.L35:
+ 526 0014 6A650040 		.word	1073767786
+ 527              		.cfi_endproc
+ 528              	.LFE10:
+ 529              		.size	PWM2y_ReadStatusRegister, .-PWM2y_ReadStatusRegister
+ 530              		.section	.text.PWM2y_ReadControlRegister,"ax",%progbits
+ 531              		.align	2
+ 532              		.global	PWM2y_ReadControlRegister
+ 533              		.thumb
+ 534              		.thumb_func
+ 535              		.type	PWM2y_ReadControlRegister, %function
+ 536              	PWM2y_ReadControlRegister:
+ 537              	.LFB11:
+ 715:Generated_Source\PSoC5/PWM2y.c **** 
+ 716:Generated_Source\PSoC5/PWM2y.c **** #endif /* (PWM2y_UseStatus || PWM2y_UsingFixedFunction) */
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 23
+
+
+ 717:Generated_Source\PSoC5/PWM2y.c **** 
+ 718:Generated_Source\PSoC5/PWM2y.c **** 
+ 719:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_UseControl)
+ 720:Generated_Source\PSoC5/PWM2y.c **** 
+ 721:Generated_Source\PSoC5/PWM2y.c **** 
+ 722:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 723:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadControlRegister
+ 724:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 725:Generated_Source\PSoC5/PWM2y.c ****     *
+ 726:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 727:Generated_Source\PSoC5/PWM2y.c ****     *  Returns the current state of the control register. This API is available
+ 728:Generated_Source\PSoC5/PWM2y.c ****     *  only if the control register is not removed.
+ 729:Generated_Source\PSoC5/PWM2y.c ****     *
+ 730:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 731:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 732:Generated_Source\PSoC5/PWM2y.c ****     *
+ 733:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 734:Generated_Source\PSoC5/PWM2y.c ****     *  uint8 : Current control register value
+ 735:Generated_Source\PSoC5/PWM2y.c ****     *
+ 736:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 737:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadControlRegister(void) 
+ 738:Generated_Source\PSoC5/PWM2y.c ****     {
+ 538              		.loc 1 738 0
+ 539              		.cfi_startproc
+ 540              		@ args = 0, pretend = 0, frame = 8
+ 541              		@ frame_needed = 1, uses_anonymous_args = 0
+ 542              		@ link register save eliminated.
+ 543 0000 80B4     		push	{r7}
+ 544              		.cfi_def_cfa_offset 4
+ 545              		.cfi_offset 7, -4
+ 546 0002 83B0     		sub	sp, sp, #12
+ 547              		.cfi_def_cfa_offset 16
+ 548 0004 00AF     		add	r7, sp, #0
+ 549              		.cfi_def_cfa_register 7
+ 739:Generated_Source\PSoC5/PWM2y.c ****         uint8 result;
+ 740:Generated_Source\PSoC5/PWM2y.c **** 
+ 741:Generated_Source\PSoC5/PWM2y.c ****         result = CY_GET_REG8(PWM2y_CONTROL_PTR);
+ 550              		.loc 1 741 0
+ 551 0006 044B     		ldr	r3, .L39
+ 552 0008 1B78     		ldrb	r3, [r3]
+ 553 000a FB71     		strb	r3, [r7, #7]
+ 742:Generated_Source\PSoC5/PWM2y.c ****         return (result);
+ 554              		.loc 1 742 0
+ 555 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 743:Generated_Source\PSoC5/PWM2y.c ****     }
+ 556              		.loc 1 743 0
+ 557 000e 1846     		mov	r0, r3
+ 558 0010 0C37     		adds	r7, r7, #12
+ 559              		.cfi_def_cfa_offset 4
+ 560 0012 BD46     		mov	sp, r7
+ 561              		.cfi_def_cfa_register 13
+ 562              		@ sp needed
+ 563 0014 80BC     		pop	{r7}
+ 564              		.cfi_restore 7
+ 565              		.cfi_def_cfa_offset 0
+ 566 0016 7047     		bx	lr
+ 567              	.L40:
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 24
+
+
+ 568              		.align	2
+ 569              	.L39:
+ 570 0018 7B650040 		.word	1073767803
+ 571              		.cfi_endproc
+ 572              	.LFE11:
+ 573              		.size	PWM2y_ReadControlRegister, .-PWM2y_ReadControlRegister
+ 574              		.section	.text.PWM2y_WriteControlRegister,"ax",%progbits
+ 575              		.align	2
+ 576              		.global	PWM2y_WriteControlRegister
+ 577              		.thumb
+ 578              		.thumb_func
+ 579              		.type	PWM2y_WriteControlRegister, %function
+ 580              	PWM2y_WriteControlRegister:
+ 581              	.LFB12:
+ 744:Generated_Source\PSoC5/PWM2y.c **** 
+ 745:Generated_Source\PSoC5/PWM2y.c **** 
+ 746:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 747:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_WriteControlRegister
+ 748:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 749:Generated_Source\PSoC5/PWM2y.c ****     *
+ 750:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 751:Generated_Source\PSoC5/PWM2y.c ****     *  Sets the bit field of the control register. This API is available only if
+ 752:Generated_Source\PSoC5/PWM2y.c ****     *  the control register is not removed.
+ 753:Generated_Source\PSoC5/PWM2y.c ****     *
+ 754:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 755:Generated_Source\PSoC5/PWM2y.c ****     *  uint8 control: Control register bit field, The status register bits are:
+ 756:Generated_Source\PSoC5/PWM2y.c ****     *  [7]   : PWM Enable
+ 757:Generated_Source\PSoC5/PWM2y.c ****     *  [6]   : Reset
+ 758:Generated_Source\PSoC5/PWM2y.c ****     *  [5:3] : Compare Mode2
+ 759:Generated_Source\PSoC5/PWM2y.c ****     *  [2:0] : Compare Mode2
+ 760:Generated_Source\PSoC5/PWM2y.c ****     *
+ 761:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 762:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 763:Generated_Source\PSoC5/PWM2y.c ****     *
+ 764:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 765:Generated_Source\PSoC5/PWM2y.c ****     void PWM2y_WriteControlRegister(uint8 control) 
+ 766:Generated_Source\PSoC5/PWM2y.c ****     {
+ 582              		.loc 1 766 0
+ 583              		.cfi_startproc
+ 584              		@ args = 0, pretend = 0, frame = 8
+ 585              		@ frame_needed = 1, uses_anonymous_args = 0
+ 586              		@ link register save eliminated.
+ 587 0000 80B4     		push	{r7}
+ 588              		.cfi_def_cfa_offset 4
+ 589              		.cfi_offset 7, -4
+ 590 0002 83B0     		sub	sp, sp, #12
+ 591              		.cfi_def_cfa_offset 16
+ 592 0004 00AF     		add	r7, sp, #0
+ 593              		.cfi_def_cfa_register 7
+ 594 0006 0346     		mov	r3, r0
+ 595 0008 FB71     		strb	r3, [r7, #7]
+ 767:Generated_Source\PSoC5/PWM2y.c ****         CY_SET_REG8(PWM2y_CONTROL_PTR, control);
+ 596              		.loc 1 767 0
+ 597 000a 044A     		ldr	r2, .L42
+ 598 000c FB79     		ldrb	r3, [r7, #7]
+ 599 000e 1370     		strb	r3, [r2]
+ 768:Generated_Source\PSoC5/PWM2y.c ****     }
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 25
+
+
+ 600              		.loc 1 768 0
+ 601 0010 00BF     		nop
+ 602 0012 0C37     		adds	r7, r7, #12
+ 603              		.cfi_def_cfa_offset 4
+ 604 0014 BD46     		mov	sp, r7
+ 605              		.cfi_def_cfa_register 13
+ 606              		@ sp needed
+ 607 0016 80BC     		pop	{r7}
+ 608              		.cfi_restore 7
+ 609              		.cfi_def_cfa_offset 0
+ 610 0018 7047     		bx	lr
+ 611              	.L43:
+ 612 001a 00BF     		.align	2
+ 613              	.L42:
+ 614 001c 7B650040 		.word	1073767803
+ 615              		.cfi_endproc
+ 616              	.LFE12:
+ 617              		.size	PWM2y_WriteControlRegister, .-PWM2y_WriteControlRegister
+ 618              		.section	.text.PWM2y_ReadCapture,"ax",%progbits
+ 619              		.align	2
+ 620              		.global	PWM2y_ReadCapture
+ 621              		.thumb
+ 622              		.thumb_func
+ 623              		.type	PWM2y_ReadCapture, %function
+ 624              	PWM2y_ReadCapture:
+ 625              	.LFB13:
+ 769:Generated_Source\PSoC5/PWM2y.c **** 
+ 770:Generated_Source\PSoC5/PWM2y.c **** #endif /* (PWM2y_UseControl) */
+ 771:Generated_Source\PSoC5/PWM2y.c **** 
+ 772:Generated_Source\PSoC5/PWM2y.c **** 
+ 773:Generated_Source\PSoC5/PWM2y.c **** #if (!PWM2y_UsingFixedFunction)
+ 774:Generated_Source\PSoC5/PWM2y.c **** 
+ 775:Generated_Source\PSoC5/PWM2y.c **** 
+ 776:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 777:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadCapture
+ 778:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 779:Generated_Source\PSoC5/PWM2y.c ****     *
+ 780:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 781:Generated_Source\PSoC5/PWM2y.c ****     *  Reads the capture value from the capture FIFO.
+ 782:Generated_Source\PSoC5/PWM2y.c ****     *
+ 783:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 784:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 785:Generated_Source\PSoC5/PWM2y.c ****     *
+ 786:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 787:Generated_Source\PSoC5/PWM2y.c ****     *  uint8/uint16: The current capture value
+ 788:Generated_Source\PSoC5/PWM2y.c ****     *
+ 789:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 790:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadCapture(void) 
+ 791:Generated_Source\PSoC5/PWM2y.c ****     {
+ 626              		.loc 1 791 0
+ 627              		.cfi_startproc
+ 628              		@ args = 0, pretend = 0, frame = 0
+ 629              		@ frame_needed = 1, uses_anonymous_args = 0
+ 630              		@ link register save eliminated.
+ 631 0000 80B4     		push	{r7}
+ 632              		.cfi_def_cfa_offset 4
+ 633              		.cfi_offset 7, -4
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 26
+
+
+ 634 0002 00AF     		add	r7, sp, #0
+ 635              		.cfi_def_cfa_register 7
+ 792:Generated_Source\PSoC5/PWM2y.c ****         return (CY_GET_REG8(PWM2y_CAPTURE_LSB_PTR));
+ 636              		.loc 1 792 0
+ 637 0004 034B     		ldr	r3, .L46
+ 638 0006 1B78     		ldrb	r3, [r3]
+ 639 0008 DBB2     		uxtb	r3, r3
+ 793:Generated_Source\PSoC5/PWM2y.c ****     }
+ 640              		.loc 1 793 0
+ 641 000a 1846     		mov	r0, r3
+ 642 000c BD46     		mov	sp, r7
+ 643              		.cfi_def_cfa_register 13
+ 644              		@ sp needed
+ 645 000e 80BC     		pop	{r7}
+ 646              		.cfi_restore 7
+ 647              		.cfi_def_cfa_offset 0
+ 648 0010 7047     		bx	lr
+ 649              	.L47:
+ 650 0012 00BF     		.align	2
+ 651              	.L46:
+ 652 0014 5A650040 		.word	1073767770
+ 653              		.cfi_endproc
+ 654              	.LFE13:
+ 655              		.size	PWM2y_ReadCapture, .-PWM2y_ReadCapture
+ 656              		.section	.text.PWM2y_ReadCompare,"ax",%progbits
+ 657              		.align	2
+ 658              		.global	PWM2y_ReadCompare
+ 659              		.thumb
+ 660              		.thumb_func
+ 661              		.type	PWM2y_ReadCompare, %function
+ 662              	PWM2y_ReadCompare:
+ 663              	.LFB14:
+ 794:Generated_Source\PSoC5/PWM2y.c **** 
+ 795:Generated_Source\PSoC5/PWM2y.c **** #endif /* (!PWM2y_UsingFixedFunction) */
+ 796:Generated_Source\PSoC5/PWM2y.c **** 
+ 797:Generated_Source\PSoC5/PWM2y.c **** 
+ 798:Generated_Source\PSoC5/PWM2y.c **** #if (PWM2y_UseOneCompareMode)
+ 799:Generated_Source\PSoC5/PWM2y.c **** 
+ 800:Generated_Source\PSoC5/PWM2y.c **** 
+ 801:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 802:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadCompare
+ 803:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 804:Generated_Source\PSoC5/PWM2y.c ****     *
+ 805:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 806:Generated_Source\PSoC5/PWM2y.c ****     *  Reads the compare value for the compare output when the PWM Mode parameter is
+ 807:Generated_Source\PSoC5/PWM2y.c ****     *  set to Dither mode, Center Aligned mode, or One Output mode.
+ 808:Generated_Source\PSoC5/PWM2y.c ****     *
+ 809:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 810:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 811:Generated_Source\PSoC5/PWM2y.c ****     *
+ 812:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 813:Generated_Source\PSoC5/PWM2y.c ****     *  uint8/uint16: Current compare value
+ 814:Generated_Source\PSoC5/PWM2y.c ****     *
+ 815:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 816:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadCompare(void) 
+ 817:Generated_Source\PSoC5/PWM2y.c ****     {
+ 664              		.loc 1 817 0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 27
+
+
+ 665              		.cfi_startproc
+ 666              		@ args = 0, pretend = 0, frame = 0
+ 667              		@ frame_needed = 1, uses_anonymous_args = 0
+ 668              		@ link register save eliminated.
+ 669 0000 80B4     		push	{r7}
+ 670              		.cfi_def_cfa_offset 4
+ 671              		.cfi_offset 7, -4
+ 672 0002 00AF     		add	r7, sp, #0
+ 673              		.cfi_def_cfa_register 7
+ 818:Generated_Source\PSoC5/PWM2y.c ****         #if(PWM2y_UsingFixedFunction)
+ 819:Generated_Source\PSoC5/PWM2y.c ****             return ((uint8)CY_GET_REG16(PWM2y_COMPARE1_LSB_PTR));
+ 820:Generated_Source\PSoC5/PWM2y.c ****         #else
+ 821:Generated_Source\PSoC5/PWM2y.c ****             return (CY_GET_REG8(PWM2y_COMPARE1_LSB_PTR));
+ 674              		.loc 1 821 0
+ 675 0004 034B     		ldr	r3, .L50
+ 676 0006 1B78     		ldrb	r3, [r3]
+ 677 0008 DBB2     		uxtb	r3, r3
+ 822:Generated_Source\PSoC5/PWM2y.c ****         #endif /* (PWM2y_UsingFixedFunction) */
+ 823:Generated_Source\PSoC5/PWM2y.c ****     }
+ 678              		.loc 1 823 0
+ 679 000a 1846     		mov	r0, r3
+ 680 000c BD46     		mov	sp, r7
+ 681              		.cfi_def_cfa_register 13
+ 682              		@ sp needed
+ 683 000e 80BC     		pop	{r7}
+ 684              		.cfi_restore 7
+ 685              		.cfi_def_cfa_offset 0
+ 686 0010 7047     		bx	lr
+ 687              	.L51:
+ 688 0012 00BF     		.align	2
+ 689              	.L50:
+ 690 0014 2A650040 		.word	1073767722
+ 691              		.cfi_endproc
+ 692              	.LFE14:
+ 693              		.size	PWM2y_ReadCompare, .-PWM2y_ReadCompare
+ 694              		.section	.text.PWM2y_ReadPeriod,"ax",%progbits
+ 695              		.align	2
+ 696              		.global	PWM2y_ReadPeriod
+ 697              		.thumb
+ 698              		.thumb_func
+ 699              		.type	PWM2y_ReadPeriod, %function
+ 700              	PWM2y_ReadPeriod:
+ 701              	.LFB15:
+ 824:Generated_Source\PSoC5/PWM2y.c **** 
+ 825:Generated_Source\PSoC5/PWM2y.c **** #else
+ 826:Generated_Source\PSoC5/PWM2y.c **** 
+ 827:Generated_Source\PSoC5/PWM2y.c **** 
+ 828:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 829:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadCompare1
+ 830:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 831:Generated_Source\PSoC5/PWM2y.c ****     *
+ 832:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 833:Generated_Source\PSoC5/PWM2y.c ****     *  Reads the compare value for the compare1 output.
+ 834:Generated_Source\PSoC5/PWM2y.c ****     *
+ 835:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 836:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 837:Generated_Source\PSoC5/PWM2y.c ****     *
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 28
+
+
+ 838:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 839:Generated_Source\PSoC5/PWM2y.c ****     *  uint8/uint16: Current compare value.
+ 840:Generated_Source\PSoC5/PWM2y.c ****     *
+ 841:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 842:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadCompare1(void) 
+ 843:Generated_Source\PSoC5/PWM2y.c ****     {
+ 844:Generated_Source\PSoC5/PWM2y.c ****         return (CY_GET_REG8(PWM2y_COMPARE1_LSB_PTR));
+ 845:Generated_Source\PSoC5/PWM2y.c ****     }
+ 846:Generated_Source\PSoC5/PWM2y.c **** 
+ 847:Generated_Source\PSoC5/PWM2y.c **** 
+ 848:Generated_Source\PSoC5/PWM2y.c ****     /*******************************************************************************
+ 849:Generated_Source\PSoC5/PWM2y.c ****     * Function Name: PWM2y_ReadCompare2
+ 850:Generated_Source\PSoC5/PWM2y.c ****     ********************************************************************************
+ 851:Generated_Source\PSoC5/PWM2y.c ****     *
+ 852:Generated_Source\PSoC5/PWM2y.c ****     * Summary:
+ 853:Generated_Source\PSoC5/PWM2y.c ****     *  Reads the compare value for the compare2 output.
+ 854:Generated_Source\PSoC5/PWM2y.c ****     *
+ 855:Generated_Source\PSoC5/PWM2y.c ****     * Parameters:
+ 856:Generated_Source\PSoC5/PWM2y.c ****     *  None
+ 857:Generated_Source\PSoC5/PWM2y.c ****     *
+ 858:Generated_Source\PSoC5/PWM2y.c ****     * Return:
+ 859:Generated_Source\PSoC5/PWM2y.c ****     *  uint8/uint16: Current compare value.
+ 860:Generated_Source\PSoC5/PWM2y.c ****     *
+ 861:Generated_Source\PSoC5/PWM2y.c ****     *******************************************************************************/
+ 862:Generated_Source\PSoC5/PWM2y.c ****     uint8 PWM2y_ReadCompare2(void) 
+ 863:Generated_Source\PSoC5/PWM2y.c ****     {
+ 864:Generated_Source\PSoC5/PWM2y.c ****         return (CY_GET_REG8(PWM2y_COMPARE2_LSB_PTR));
+ 865:Generated_Source\PSoC5/PWM2y.c ****     }
+ 866:Generated_Source\PSoC5/PWM2y.c **** 
+ 867:Generated_Source\PSoC5/PWM2y.c **** #endif /* (PWM2y_UseOneCompareMode) */
+ 868:Generated_Source\PSoC5/PWM2y.c **** 
+ 869:Generated_Source\PSoC5/PWM2y.c **** 
+ 870:Generated_Source\PSoC5/PWM2y.c **** /*******************************************************************************
+ 871:Generated_Source\PSoC5/PWM2y.c **** * Function Name: PWM2y_ReadPeriod
+ 872:Generated_Source\PSoC5/PWM2y.c **** ********************************************************************************
+ 873:Generated_Source\PSoC5/PWM2y.c **** *
+ 874:Generated_Source\PSoC5/PWM2y.c **** * Summary:
+ 875:Generated_Source\PSoC5/PWM2y.c **** *  Reads the period value used by the PWM hardware.
+ 876:Generated_Source\PSoC5/PWM2y.c **** *
+ 877:Generated_Source\PSoC5/PWM2y.c **** * Parameters:
+ 878:Generated_Source\PSoC5/PWM2y.c **** *  None
+ 879:Generated_Source\PSoC5/PWM2y.c **** *
+ 880:Generated_Source\PSoC5/PWM2y.c **** * Return:
+ 881:Generated_Source\PSoC5/PWM2y.c **** *  uint8/16: Period value
+ 882:Generated_Source\PSoC5/PWM2y.c **** *
+ 883:Generated_Source\PSoC5/PWM2y.c **** *******************************************************************************/
+ 884:Generated_Source\PSoC5/PWM2y.c **** uint8 PWM2y_ReadPeriod(void) 
+ 885:Generated_Source\PSoC5/PWM2y.c **** {
+ 702              		.loc 1 885 0
+ 703              		.cfi_startproc
+ 704              		@ args = 0, pretend = 0, frame = 0
+ 705              		@ frame_needed = 1, uses_anonymous_args = 0
+ 706              		@ link register save eliminated.
+ 707 0000 80B4     		push	{r7}
+ 708              		.cfi_def_cfa_offset 4
+ 709              		.cfi_offset 7, -4
+ 710 0002 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 29
+
+
+ 711              		.cfi_def_cfa_register 7
+ 886:Generated_Source\PSoC5/PWM2y.c ****     #if(PWM2y_UsingFixedFunction)
+ 887:Generated_Source\PSoC5/PWM2y.c ****         return ((uint8)CY_GET_REG16(PWM2y_PERIOD_LSB_PTR));
+ 888:Generated_Source\PSoC5/PWM2y.c ****     #else
+ 889:Generated_Source\PSoC5/PWM2y.c ****         return (CY_GET_REG8(PWM2y_PERIOD_LSB_PTR));
+ 712              		.loc 1 889 0
+ 713 0004 034B     		ldr	r3, .L54
+ 714 0006 1B78     		ldrb	r3, [r3]
+ 715 0008 DBB2     		uxtb	r3, r3
+ 890:Generated_Source\PSoC5/PWM2y.c ****     #endif /* (PWM2y_UsingFixedFunction) */
+ 891:Generated_Source\PSoC5/PWM2y.c **** }
+ 716              		.loc 1 891 0
+ 717 000a 1846     		mov	r0, r3
+ 718 000c BD46     		mov	sp, r7
+ 719              		.cfi_def_cfa_register 13
+ 720              		@ sp needed
+ 721 000e 80BC     		pop	{r7}
+ 722              		.cfi_restore 7
+ 723              		.cfi_def_cfa_offset 0
+ 724 0010 7047     		bx	lr
+ 725              	.L55:
+ 726 0012 00BF     		.align	2
+ 727              	.L54:
+ 728 0014 4A650040 		.word	1073767754
+ 729              		.cfi_endproc
+ 730              	.LFE15:
+ 731              		.size	PWM2y_ReadPeriod, .-PWM2y_ReadPeriod
+ 732              		.text
+ 733              	.Letext0:
+ 734              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 735              		.section	.debug_info,"",%progbits
+ 736              	.Ldebug_info0:
+ 737 0000 86020000 		.4byte	0x286
+ 738 0004 0400     		.2byte	0x4
+ 739 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 740 000a 04       		.byte	0x4
+ 741 000b 01       		.uleb128 0x1
+ 742 000c 00000000 		.4byte	.LASF39
+ 743 0010 0C       		.byte	0xc
+ 744 0011 EB020000 		.4byte	.LASF40
+ 745 0015 C3020000 		.4byte	.LASF41
+ 746 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 747 001d 00000000 		.4byte	0
+ 748 0021 00000000 		.4byte	.Ldebug_line0
+ 749 0025 02       		.uleb128 0x2
+ 750 0026 01       		.byte	0x1
+ 751 0027 06       		.byte	0x6
+ 752 0028 AF020000 		.4byte	.LASF0
+ 753 002c 02       		.uleb128 0x2
+ 754 002d 01       		.byte	0x1
+ 755 002e 08       		.byte	0x8
+ 756 002f 04010000 		.4byte	.LASF1
+ 757 0033 02       		.uleb128 0x2
+ 758 0034 02       		.byte	0x2
+ 759 0035 05       		.byte	0x5
+ 760 0036 70020000 		.4byte	.LASF2
+ 761 003a 02       		.uleb128 0x2
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 30
+
+
+ 762 003b 02       		.byte	0x2
+ 763 003c 07       		.byte	0x7
+ 764 003d A7000000 		.4byte	.LASF3
+ 765 0041 02       		.uleb128 0x2
+ 766 0042 04       		.byte	0x4
+ 767 0043 05       		.byte	0x5
+ 768 0044 95020000 		.4byte	.LASF4
+ 769 0048 02       		.uleb128 0x2
+ 770 0049 04       		.byte	0x4
+ 771 004a 07       		.byte	0x7
+ 772 004b 2E010000 		.4byte	.LASF5
+ 773 004f 02       		.uleb128 0x2
+ 774 0050 08       		.byte	0x8
+ 775 0051 05       		.byte	0x5
+ 776 0052 4B020000 		.4byte	.LASF6
+ 777 0056 02       		.uleb128 0x2
+ 778 0057 08       		.byte	0x8
+ 779 0058 07       		.byte	0x7
+ 780 0059 A9010000 		.4byte	.LASF7
+ 781 005d 03       		.uleb128 0x3
+ 782 005e 04       		.byte	0x4
+ 783 005f 05       		.byte	0x5
+ 784 0060 696E7400 		.ascii	"int\000"
+ 785 0064 02       		.uleb128 0x2
+ 786 0065 04       		.byte	0x4
+ 787 0066 07       		.byte	0x7
+ 788 0067 89010000 		.4byte	.LASF8
+ 789 006b 04       		.uleb128 0x4
+ 790 006c 40010000 		.4byte	.LASF12
+ 791 0070 02       		.byte	0x2
+ 792 0071 E401     		.2byte	0x1e4
+ 793 0073 2C000000 		.4byte	0x2c
+ 794 0077 02       		.uleb128 0x2
+ 795 0078 04       		.byte	0x4
+ 796 0079 04       		.byte	0x4
+ 797 007a 8E000000 		.4byte	.LASF9
+ 798 007e 02       		.uleb128 0x2
+ 799 007f 08       		.byte	0x8
+ 800 0080 04       		.byte	0x4
+ 801 0081 5B010000 		.4byte	.LASF10
+ 802 0085 02       		.uleb128 0x2
+ 803 0086 01       		.byte	0x1
+ 804 0087 08       		.byte	0x8
+ 805 0088 9E020000 		.4byte	.LASF11
+ 806 008c 04       		.uleb128 0x4
+ 807 008d 12010000 		.4byte	.LASF13
+ 808 0091 02       		.byte	0x2
+ 809 0092 8E02     		.2byte	0x28e
+ 810 0094 98000000 		.4byte	0x98
+ 811 0098 05       		.uleb128 0x5
+ 812 0099 6B000000 		.4byte	0x6b
+ 813 009d 02       		.uleb128 0x2
+ 814 009e 08       		.byte	0x8
+ 815 009f 04       		.byte	0x4
+ 816 00a0 A3020000 		.4byte	.LASF14
+ 817 00a4 02       		.uleb128 0x2
+ 818 00a5 04       		.byte	0x4
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 31
+
+
+ 819 00a6 07       		.byte	0x7
+ 820 00a7 59020000 		.4byte	.LASF15
+ 821 00ab 06       		.uleb128 0x6
+ 822 00ac 94000000 		.4byte	.LASF18
+ 823 00b0 01       		.byte	0x1
+ 824 00b1 37       		.byte	0x37
+ 825 00b2 00000000 		.4byte	.LFB0
+ 826 00b6 24000000 		.4byte	.LFE0-.LFB0
+ 827 00ba 01       		.uleb128 0x1
+ 828 00bb 9C       		.byte	0x9c
+ 829 00bc 07       		.uleb128 0x7
+ 830 00bd F1000000 		.4byte	.LASF21
+ 831 00c1 01       		.byte	0x1
+ 832 00c2 54       		.byte	0x54
+ 833 00c3 00000000 		.4byte	.LFB1
+ 834 00c7 7C000000 		.4byte	.LFE1-.LFB1
+ 835 00cb 01       		.uleb128 0x1
+ 836 00cc 9C       		.byte	0x9c
+ 837 00cd EE000000 		.4byte	0xee
+ 838 00d1 08       		.uleb128 0x8
+ 839 00d2 13020000 		.4byte	.LASF16
+ 840 00d6 01       		.byte	0x1
+ 841 00d7 57       		.byte	0x57
+ 842 00d8 6B000000 		.4byte	0x6b
+ 843 00dc 02       		.uleb128 0x2
+ 844 00dd 91       		.byte	0x91
+ 845 00de 77       		.sleb128 -9
+ 846 00df 08       		.uleb128 0x8
+ 847 00e0 62010000 		.4byte	.LASF17
+ 848 00e4 01       		.byte	0x1
+ 849 00e5 5D       		.byte	0x5d
+ 850 00e6 6B000000 		.4byte	0x6b
+ 851 00ea 02       		.uleb128 0x2
+ 852 00eb 91       		.byte	0x91
+ 853 00ec 76       		.sleb128 -10
+ 854 00ed 00       		.byte	0
+ 855 00ee 09       		.uleb128 0x9
+ 856 00ef 4E010000 		.4byte	.LASF19
+ 857 00f3 01       		.byte	0x1
+ 858 00f4 C7       		.byte	0xc7
+ 859 00f5 00000000 		.4byte	.LFB2
+ 860 00f9 20000000 		.4byte	.LFE2-.LFB2
+ 861 00fd 01       		.uleb128 0x1
+ 862 00fe 9C       		.byte	0x9c
+ 863 00ff 09       		.uleb128 0x9
+ 864 0100 EE010000 		.4byte	.LASF20
+ 865 0104 01       		.byte	0x1
+ 866 0105 E9       		.byte	0xe9
+ 867 0106 00000000 		.4byte	.LFB3
+ 868 010a 20000000 		.4byte	.LFE3-.LFB3
+ 869 010e 01       		.uleb128 0x1
+ 870 010f 9C       		.byte	0x9c
+ 871 0110 0A       		.uleb128 0xa
+ 872 0111 96010000 		.4byte	.LASF22
+ 873 0115 01       		.byte	0x1
+ 874 0116 9301     		.2byte	0x193
+ 875 0118 00000000 		.4byte	.LFB4
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 32
+
+
+ 876 011c 20000000 		.4byte	.LFE4-.LFB4
+ 877 0120 01       		.uleb128 0x1
+ 878 0121 9C       		.byte	0x9c
+ 879 0122 36010000 		.4byte	0x136
+ 880 0126 0B       		.uleb128 0xb
+ 881 0127 FC000000 		.4byte	.LASF25
+ 882 012b 01       		.byte	0x1
+ 883 012c 9301     		.2byte	0x193
+ 884 012e 6B000000 		.4byte	0x6b
+ 885 0132 02       		.uleb128 0x2
+ 886 0133 91       		.byte	0x91
+ 887 0134 77       		.sleb128 -9
+ 888 0135 00       		.byte	0
+ 889 0136 0C       		.uleb128 0xc
+ 890 0137 77010000 		.4byte	.LASF31
+ 891 013b 01       		.byte	0x1
+ 892 013c A901     		.2byte	0x1a9
+ 893 013e 6B000000 		.4byte	0x6b
+ 894 0142 00000000 		.4byte	.LFB5
+ 895 0146 20000000 		.4byte	.LFE5-.LFB5
+ 896 014a 01       		.uleb128 0x1
+ 897 014b 9C       		.byte	0x9c
+ 898 014c 0D       		.uleb128 0xd
+ 899 014d 29020000 		.4byte	.LASF23
+ 900 0151 01       		.byte	0x1
+ 901 0152 C501     		.2byte	0x1c5
+ 902 0154 00000000 		.4byte	.LFB6
+ 903 0158 1C000000 		.4byte	.LFE6-.LFB6
+ 904 015c 01       		.uleb128 0x1
+ 905 015d 9C       		.byte	0x9c
+ 906 015e 0A       		.uleb128 0xa
+ 907 015f 39020000 		.4byte	.LASF24
+ 908 0163 01       		.byte	0x1
+ 909 0164 E201     		.2byte	0x1e2
+ 910 0166 00000000 		.4byte	.LFB7
+ 911 016a 20000000 		.4byte	.LFE7-.LFB7
+ 912 016e 01       		.uleb128 0x1
+ 913 016f 9C       		.byte	0x9c
+ 914 0170 84010000 		.4byte	0x184
+ 915 0174 0B       		.uleb128 0xb
+ 916 0175 A0000000 		.4byte	.LASF26
+ 917 0179 01       		.byte	0x1
+ 918 017a E201     		.2byte	0x1e2
+ 919 017c 6B000000 		.4byte	0x6b
+ 920 0180 02       		.uleb128 0x2
+ 921 0181 91       		.byte	0x91
+ 922 0182 77       		.sleb128 -9
+ 923 0183 00       		.byte	0
+ 924 0184 0A       		.uleb128 0xa
+ 925 0185 DE000000 		.4byte	.LASF27
+ 926 0189 01       		.byte	0x1
+ 927 018a 0402     		.2byte	0x204
+ 928 018c 00000000 		.4byte	.LFB8
+ 929 0190 20000000 		.4byte	.LFE8-.LFB8
+ 930 0194 01       		.uleb128 0x1
+ 931 0195 9C       		.byte	0x9c
+ 932 0196 AA010000 		.4byte	0x1aa
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 33
+
+
+ 933 019a 0B       		.uleb128 0xb
+ 934 019b BB020000 		.4byte	.LASF28
+ 935 019f 01       		.byte	0x1
+ 936 01a0 0402     		.2byte	0x204
+ 937 01a2 6B000000 		.4byte	0x6b
+ 938 01a6 02       		.uleb128 0x2
+ 939 01a7 91       		.byte	0x91
+ 940 01a8 77       		.sleb128 -9
+ 941 01a9 00       		.byte	0
+ 942 01aa 0A       		.uleb128 0xa
+ 943 01ab 17010000 		.4byte	.LASF29
+ 944 01af 01       		.byte	0x1
+ 945 01b0 AC02     		.2byte	0x2ac
+ 946 01b2 00000000 		.4byte	.LFB9
+ 947 01b6 20000000 		.4byte	.LFE9-.LFB9
+ 948 01ba 01       		.uleb128 0x1
+ 949 01bb 9C       		.byte	0x9c
+ 950 01bc D0010000 		.4byte	0x1d0
+ 951 01c0 0B       		.uleb128 0xb
+ 952 01c1 62020000 		.4byte	.LASF30
+ 953 01c5 01       		.byte	0x1
+ 954 01c6 AC02     		.2byte	0x2ac
+ 955 01c8 6B000000 		.4byte	0x6b
+ 956 01cc 02       		.uleb128 0x2
+ 957 01cd 91       		.byte	0x91
+ 958 01ce 77       		.sleb128 -9
+ 959 01cf 00       		.byte	0
+ 960 01d0 0C       		.uleb128 0xc
+ 961 01d1 D5010000 		.4byte	.LASF32
+ 962 01d5 01       		.byte	0x1
+ 963 01d6 C702     		.2byte	0x2c7
+ 964 01d8 6B000000 		.4byte	0x6b
+ 965 01dc 00000000 		.4byte	.LFB10
+ 966 01e0 18000000 		.4byte	.LFE10-.LFB10
+ 967 01e4 01       		.uleb128 0x1
+ 968 01e5 9C       		.byte	0x9c
+ 969 01e6 0E       		.uleb128 0xe
+ 970 01e7 F9010000 		.4byte	.LASF42
+ 971 01eb 01       		.byte	0x1
+ 972 01ec E102     		.2byte	0x2e1
+ 973 01ee 6B000000 		.4byte	0x6b
+ 974 01f2 00000000 		.4byte	.LFB11
+ 975 01f6 1C000000 		.4byte	.LFE11-.LFB11
+ 976 01fa 01       		.uleb128 0x1
+ 977 01fb 9C       		.byte	0x9c
+ 978 01fc 10020000 		.4byte	0x210
+ 979 0200 0F       		.uleb128 0xf
+ 980 0201 CE010000 		.4byte	.LASF33
+ 981 0205 01       		.byte	0x1
+ 982 0206 E302     		.2byte	0x2e3
+ 983 0208 6B000000 		.4byte	0x6b
+ 984 020c 02       		.uleb128 0x2
+ 985 020d 91       		.byte	0x91
+ 986 020e 77       		.sleb128 -9
+ 987 020f 00       		.byte	0
+ 988 0210 0A       		.uleb128 0xa
+ 989 0211 7A020000 		.4byte	.LASF34
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 34
+
+
+ 990 0215 01       		.byte	0x1
+ 991 0216 FD02     		.2byte	0x2fd
+ 992 0218 00000000 		.4byte	.LFB12
+ 993 021c 20000000 		.4byte	.LFE12-.LFB12
+ 994 0220 01       		.uleb128 0x1
+ 995 0221 9C       		.byte	0x9c
+ 996 0222 36020000 		.4byte	0x236
+ 997 0226 0B       		.uleb128 0xb
+ 998 0227 46010000 		.4byte	.LASF35
+ 999 022b 01       		.byte	0x1
+ 1000 022c FD02     		.2byte	0x2fd
+ 1001 022e 6B000000 		.4byte	0x6b
+ 1002 0232 02       		.uleb128 0x2
+ 1003 0233 91       		.byte	0x91
+ 1004 0234 77       		.sleb128 -9
+ 1005 0235 00       		.byte	0
+ 1006 0236 0C       		.uleb128 0xc
+ 1007 0237 CC000000 		.4byte	.LASF36
+ 1008 023b 01       		.byte	0x1
+ 1009 023c 1603     		.2byte	0x316
+ 1010 023e 6B000000 		.4byte	0x6b
+ 1011 0242 00000000 		.4byte	.LFB13
+ 1012 0246 18000000 		.4byte	.LFE13-.LFB13
+ 1013 024a 01       		.uleb128 0x1
+ 1014 024b 9C       		.byte	0x9c
+ 1015 024c 0C       		.uleb128 0xc
+ 1016 024d BA000000 		.4byte	.LASF37
+ 1017 0251 01       		.byte	0x1
+ 1018 0252 3003     		.2byte	0x330
+ 1019 0254 6B000000 		.4byte	0x6b
+ 1020 0258 00000000 		.4byte	.LFB14
+ 1021 025c 18000000 		.4byte	.LFE14-.LFB14
+ 1022 0260 01       		.uleb128 0x1
+ 1023 0261 9C       		.byte	0x9c
+ 1024 0262 0C       		.uleb128 0xc
+ 1025 0263 18020000 		.4byte	.LASF38
+ 1026 0267 01       		.byte	0x1
+ 1027 0268 7403     		.2byte	0x374
+ 1028 026a 6B000000 		.4byte	0x6b
+ 1029 026e 00000000 		.4byte	.LFB15
+ 1030 0272 18000000 		.4byte	.LFE15-.LFB15
+ 1031 0276 01       		.uleb128 0x1
+ 1032 0277 9C       		.byte	0x9c
+ 1033 0278 10       		.uleb128 0x10
+ 1034 0279 C0010000 		.4byte	.LASF43
+ 1035 027d 01       		.byte	0x1
+ 1036 027e 20       		.byte	0x20
+ 1037 027f 6B000000 		.4byte	0x6b
+ 1038 0283 05       		.uleb128 0x5
+ 1039 0284 03       		.byte	0x3
+ 1040 0285 00000000 		.4byte	PWM2y_initVar
+ 1041 0289 00       		.byte	0
+ 1042              		.section	.debug_abbrev,"",%progbits
+ 1043              	.Ldebug_abbrev0:
+ 1044 0000 01       		.uleb128 0x1
+ 1045 0001 11       		.uleb128 0x11
+ 1046 0002 01       		.byte	0x1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 35
+
+
+ 1047 0003 25       		.uleb128 0x25
+ 1048 0004 0E       		.uleb128 0xe
+ 1049 0005 13       		.uleb128 0x13
+ 1050 0006 0B       		.uleb128 0xb
+ 1051 0007 03       		.uleb128 0x3
+ 1052 0008 0E       		.uleb128 0xe
+ 1053 0009 1B       		.uleb128 0x1b
+ 1054 000a 0E       		.uleb128 0xe
+ 1055 000b 55       		.uleb128 0x55
+ 1056 000c 17       		.uleb128 0x17
+ 1057 000d 11       		.uleb128 0x11
+ 1058 000e 01       		.uleb128 0x1
+ 1059 000f 10       		.uleb128 0x10
+ 1060 0010 17       		.uleb128 0x17
+ 1061 0011 00       		.byte	0
+ 1062 0012 00       		.byte	0
+ 1063 0013 02       		.uleb128 0x2
+ 1064 0014 24       		.uleb128 0x24
+ 1065 0015 00       		.byte	0
+ 1066 0016 0B       		.uleb128 0xb
+ 1067 0017 0B       		.uleb128 0xb
+ 1068 0018 3E       		.uleb128 0x3e
+ 1069 0019 0B       		.uleb128 0xb
+ 1070 001a 03       		.uleb128 0x3
+ 1071 001b 0E       		.uleb128 0xe
+ 1072 001c 00       		.byte	0
+ 1073 001d 00       		.byte	0
+ 1074 001e 03       		.uleb128 0x3
+ 1075 001f 24       		.uleb128 0x24
+ 1076 0020 00       		.byte	0
+ 1077 0021 0B       		.uleb128 0xb
+ 1078 0022 0B       		.uleb128 0xb
+ 1079 0023 3E       		.uleb128 0x3e
+ 1080 0024 0B       		.uleb128 0xb
+ 1081 0025 03       		.uleb128 0x3
+ 1082 0026 08       		.uleb128 0x8
+ 1083 0027 00       		.byte	0
+ 1084 0028 00       		.byte	0
+ 1085 0029 04       		.uleb128 0x4
+ 1086 002a 16       		.uleb128 0x16
+ 1087 002b 00       		.byte	0
+ 1088 002c 03       		.uleb128 0x3
+ 1089 002d 0E       		.uleb128 0xe
+ 1090 002e 3A       		.uleb128 0x3a
+ 1091 002f 0B       		.uleb128 0xb
+ 1092 0030 3B       		.uleb128 0x3b
+ 1093 0031 05       		.uleb128 0x5
+ 1094 0032 49       		.uleb128 0x49
+ 1095 0033 13       		.uleb128 0x13
+ 1096 0034 00       		.byte	0
+ 1097 0035 00       		.byte	0
+ 1098 0036 05       		.uleb128 0x5
+ 1099 0037 35       		.uleb128 0x35
+ 1100 0038 00       		.byte	0
+ 1101 0039 49       		.uleb128 0x49
+ 1102 003a 13       		.uleb128 0x13
+ 1103 003b 00       		.byte	0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 36
+
+
+ 1104 003c 00       		.byte	0
+ 1105 003d 06       		.uleb128 0x6
+ 1106 003e 2E       		.uleb128 0x2e
+ 1107 003f 00       		.byte	0
+ 1108 0040 3F       		.uleb128 0x3f
+ 1109 0041 19       		.uleb128 0x19
+ 1110 0042 03       		.uleb128 0x3
+ 1111 0043 0E       		.uleb128 0xe
+ 1112 0044 3A       		.uleb128 0x3a
+ 1113 0045 0B       		.uleb128 0xb
+ 1114 0046 3B       		.uleb128 0x3b
+ 1115 0047 0B       		.uleb128 0xb
+ 1116 0048 27       		.uleb128 0x27
+ 1117 0049 19       		.uleb128 0x19
+ 1118 004a 11       		.uleb128 0x11
+ 1119 004b 01       		.uleb128 0x1
+ 1120 004c 12       		.uleb128 0x12
+ 1121 004d 06       		.uleb128 0x6
+ 1122 004e 40       		.uleb128 0x40
+ 1123 004f 18       		.uleb128 0x18
+ 1124 0050 9642     		.uleb128 0x2116
+ 1125 0052 19       		.uleb128 0x19
+ 1126 0053 00       		.byte	0
+ 1127 0054 00       		.byte	0
+ 1128 0055 07       		.uleb128 0x7
+ 1129 0056 2E       		.uleb128 0x2e
+ 1130 0057 01       		.byte	0x1
+ 1131 0058 3F       		.uleb128 0x3f
+ 1132 0059 19       		.uleb128 0x19
+ 1133 005a 03       		.uleb128 0x3
+ 1134 005b 0E       		.uleb128 0xe
+ 1135 005c 3A       		.uleb128 0x3a
+ 1136 005d 0B       		.uleb128 0xb
+ 1137 005e 3B       		.uleb128 0x3b
+ 1138 005f 0B       		.uleb128 0xb
+ 1139 0060 27       		.uleb128 0x27
+ 1140 0061 19       		.uleb128 0x19
+ 1141 0062 11       		.uleb128 0x11
+ 1142 0063 01       		.uleb128 0x1
+ 1143 0064 12       		.uleb128 0x12
+ 1144 0065 06       		.uleb128 0x6
+ 1145 0066 40       		.uleb128 0x40
+ 1146 0067 18       		.uleb128 0x18
+ 1147 0068 9642     		.uleb128 0x2116
+ 1148 006a 19       		.uleb128 0x19
+ 1149 006b 01       		.uleb128 0x1
+ 1150 006c 13       		.uleb128 0x13
+ 1151 006d 00       		.byte	0
+ 1152 006e 00       		.byte	0
+ 1153 006f 08       		.uleb128 0x8
+ 1154 0070 34       		.uleb128 0x34
+ 1155 0071 00       		.byte	0
+ 1156 0072 03       		.uleb128 0x3
+ 1157 0073 0E       		.uleb128 0xe
+ 1158 0074 3A       		.uleb128 0x3a
+ 1159 0075 0B       		.uleb128 0xb
+ 1160 0076 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 37
+
+
+ 1161 0077 0B       		.uleb128 0xb
+ 1162 0078 49       		.uleb128 0x49
+ 1163 0079 13       		.uleb128 0x13
+ 1164 007a 02       		.uleb128 0x2
+ 1165 007b 18       		.uleb128 0x18
+ 1166 007c 00       		.byte	0
+ 1167 007d 00       		.byte	0
+ 1168 007e 09       		.uleb128 0x9
+ 1169 007f 2E       		.uleb128 0x2e
+ 1170 0080 00       		.byte	0
+ 1171 0081 3F       		.uleb128 0x3f
+ 1172 0082 19       		.uleb128 0x19
+ 1173 0083 03       		.uleb128 0x3
+ 1174 0084 0E       		.uleb128 0xe
+ 1175 0085 3A       		.uleb128 0x3a
+ 1176 0086 0B       		.uleb128 0xb
+ 1177 0087 3B       		.uleb128 0x3b
+ 1178 0088 0B       		.uleb128 0xb
+ 1179 0089 27       		.uleb128 0x27
+ 1180 008a 19       		.uleb128 0x19
+ 1181 008b 11       		.uleb128 0x11
+ 1182 008c 01       		.uleb128 0x1
+ 1183 008d 12       		.uleb128 0x12
+ 1184 008e 06       		.uleb128 0x6
+ 1185 008f 40       		.uleb128 0x40
+ 1186 0090 18       		.uleb128 0x18
+ 1187 0091 9742     		.uleb128 0x2117
+ 1188 0093 19       		.uleb128 0x19
+ 1189 0094 00       		.byte	0
+ 1190 0095 00       		.byte	0
+ 1191 0096 0A       		.uleb128 0xa
+ 1192 0097 2E       		.uleb128 0x2e
+ 1193 0098 01       		.byte	0x1
+ 1194 0099 3F       		.uleb128 0x3f
+ 1195 009a 19       		.uleb128 0x19
+ 1196 009b 03       		.uleb128 0x3
+ 1197 009c 0E       		.uleb128 0xe
+ 1198 009d 3A       		.uleb128 0x3a
+ 1199 009e 0B       		.uleb128 0xb
+ 1200 009f 3B       		.uleb128 0x3b
+ 1201 00a0 05       		.uleb128 0x5
+ 1202 00a1 27       		.uleb128 0x27
+ 1203 00a2 19       		.uleb128 0x19
+ 1204 00a3 11       		.uleb128 0x11
+ 1205 00a4 01       		.uleb128 0x1
+ 1206 00a5 12       		.uleb128 0x12
+ 1207 00a6 06       		.uleb128 0x6
+ 1208 00a7 40       		.uleb128 0x40
+ 1209 00a8 18       		.uleb128 0x18
+ 1210 00a9 9742     		.uleb128 0x2117
+ 1211 00ab 19       		.uleb128 0x19
+ 1212 00ac 01       		.uleb128 0x1
+ 1213 00ad 13       		.uleb128 0x13
+ 1214 00ae 00       		.byte	0
+ 1215 00af 00       		.byte	0
+ 1216 00b0 0B       		.uleb128 0xb
+ 1217 00b1 05       		.uleb128 0x5
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 38
+
+
+ 1218 00b2 00       		.byte	0
+ 1219 00b3 03       		.uleb128 0x3
+ 1220 00b4 0E       		.uleb128 0xe
+ 1221 00b5 3A       		.uleb128 0x3a
+ 1222 00b6 0B       		.uleb128 0xb
+ 1223 00b7 3B       		.uleb128 0x3b
+ 1224 00b8 05       		.uleb128 0x5
+ 1225 00b9 49       		.uleb128 0x49
+ 1226 00ba 13       		.uleb128 0x13
+ 1227 00bb 02       		.uleb128 0x2
+ 1228 00bc 18       		.uleb128 0x18
+ 1229 00bd 00       		.byte	0
+ 1230 00be 00       		.byte	0
+ 1231 00bf 0C       		.uleb128 0xc
+ 1232 00c0 2E       		.uleb128 0x2e
+ 1233 00c1 00       		.byte	0
+ 1234 00c2 3F       		.uleb128 0x3f
+ 1235 00c3 19       		.uleb128 0x19
+ 1236 00c4 03       		.uleb128 0x3
+ 1237 00c5 0E       		.uleb128 0xe
+ 1238 00c6 3A       		.uleb128 0x3a
+ 1239 00c7 0B       		.uleb128 0xb
+ 1240 00c8 3B       		.uleb128 0x3b
+ 1241 00c9 05       		.uleb128 0x5
+ 1242 00ca 27       		.uleb128 0x27
+ 1243 00cb 19       		.uleb128 0x19
+ 1244 00cc 49       		.uleb128 0x49
+ 1245 00cd 13       		.uleb128 0x13
+ 1246 00ce 11       		.uleb128 0x11
+ 1247 00cf 01       		.uleb128 0x1
+ 1248 00d0 12       		.uleb128 0x12
+ 1249 00d1 06       		.uleb128 0x6
+ 1250 00d2 40       		.uleb128 0x40
+ 1251 00d3 18       		.uleb128 0x18
+ 1252 00d4 9742     		.uleb128 0x2117
+ 1253 00d6 19       		.uleb128 0x19
+ 1254 00d7 00       		.byte	0
+ 1255 00d8 00       		.byte	0
+ 1256 00d9 0D       		.uleb128 0xd
+ 1257 00da 2E       		.uleb128 0x2e
+ 1258 00db 00       		.byte	0
+ 1259 00dc 3F       		.uleb128 0x3f
+ 1260 00dd 19       		.uleb128 0x19
+ 1261 00de 03       		.uleb128 0x3
+ 1262 00df 0E       		.uleb128 0xe
+ 1263 00e0 3A       		.uleb128 0x3a
+ 1264 00e1 0B       		.uleb128 0xb
+ 1265 00e2 3B       		.uleb128 0x3b
+ 1266 00e3 05       		.uleb128 0x5
+ 1267 00e4 27       		.uleb128 0x27
+ 1268 00e5 19       		.uleb128 0x19
+ 1269 00e6 11       		.uleb128 0x11
+ 1270 00e7 01       		.uleb128 0x1
+ 1271 00e8 12       		.uleb128 0x12
+ 1272 00e9 06       		.uleb128 0x6
+ 1273 00ea 40       		.uleb128 0x40
+ 1274 00eb 18       		.uleb128 0x18
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 39
+
+
+ 1275 00ec 9642     		.uleb128 0x2116
+ 1276 00ee 19       		.uleb128 0x19
+ 1277 00ef 00       		.byte	0
+ 1278 00f0 00       		.byte	0
+ 1279 00f1 0E       		.uleb128 0xe
+ 1280 00f2 2E       		.uleb128 0x2e
+ 1281 00f3 01       		.byte	0x1
+ 1282 00f4 3F       		.uleb128 0x3f
+ 1283 00f5 19       		.uleb128 0x19
+ 1284 00f6 03       		.uleb128 0x3
+ 1285 00f7 0E       		.uleb128 0xe
+ 1286 00f8 3A       		.uleb128 0x3a
+ 1287 00f9 0B       		.uleb128 0xb
+ 1288 00fa 3B       		.uleb128 0x3b
+ 1289 00fb 05       		.uleb128 0x5
+ 1290 00fc 27       		.uleb128 0x27
+ 1291 00fd 19       		.uleb128 0x19
+ 1292 00fe 49       		.uleb128 0x49
+ 1293 00ff 13       		.uleb128 0x13
+ 1294 0100 11       		.uleb128 0x11
+ 1295 0101 01       		.uleb128 0x1
+ 1296 0102 12       		.uleb128 0x12
+ 1297 0103 06       		.uleb128 0x6
+ 1298 0104 40       		.uleb128 0x40
+ 1299 0105 18       		.uleb128 0x18
+ 1300 0106 9742     		.uleb128 0x2117
+ 1301 0108 19       		.uleb128 0x19
+ 1302 0109 01       		.uleb128 0x1
+ 1303 010a 13       		.uleb128 0x13
+ 1304 010b 00       		.byte	0
+ 1305 010c 00       		.byte	0
+ 1306 010d 0F       		.uleb128 0xf
+ 1307 010e 34       		.uleb128 0x34
+ 1308 010f 00       		.byte	0
+ 1309 0110 03       		.uleb128 0x3
+ 1310 0111 0E       		.uleb128 0xe
+ 1311 0112 3A       		.uleb128 0x3a
+ 1312 0113 0B       		.uleb128 0xb
+ 1313 0114 3B       		.uleb128 0x3b
+ 1314 0115 05       		.uleb128 0x5
+ 1315 0116 49       		.uleb128 0x49
+ 1316 0117 13       		.uleb128 0x13
+ 1317 0118 02       		.uleb128 0x2
+ 1318 0119 18       		.uleb128 0x18
+ 1319 011a 00       		.byte	0
+ 1320 011b 00       		.byte	0
+ 1321 011c 10       		.uleb128 0x10
+ 1322 011d 34       		.uleb128 0x34
+ 1323 011e 00       		.byte	0
+ 1324 011f 03       		.uleb128 0x3
+ 1325 0120 0E       		.uleb128 0xe
+ 1326 0121 3A       		.uleb128 0x3a
+ 1327 0122 0B       		.uleb128 0xb
+ 1328 0123 3B       		.uleb128 0x3b
+ 1329 0124 0B       		.uleb128 0xb
+ 1330 0125 49       		.uleb128 0x49
+ 1331 0126 13       		.uleb128 0x13
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 40
+
+
+ 1332 0127 3F       		.uleb128 0x3f
+ 1333 0128 19       		.uleb128 0x19
+ 1334 0129 02       		.uleb128 0x2
+ 1335 012a 18       		.uleb128 0x18
+ 1336 012b 00       		.byte	0
+ 1337 012c 00       		.byte	0
+ 1338 012d 00       		.byte	0
+ 1339              		.section	.debug_aranges,"",%progbits
+ 1340 0000 94000000 		.4byte	0x94
+ 1341 0004 0200     		.2byte	0x2
+ 1342 0006 00000000 		.4byte	.Ldebug_info0
+ 1343 000a 04       		.byte	0x4
+ 1344 000b 00       		.byte	0
+ 1345 000c 0000     		.2byte	0
+ 1346 000e 0000     		.2byte	0
+ 1347 0010 00000000 		.4byte	.LFB0
+ 1348 0014 24000000 		.4byte	.LFE0-.LFB0
+ 1349 0018 00000000 		.4byte	.LFB1
+ 1350 001c 7C000000 		.4byte	.LFE1-.LFB1
+ 1351 0020 00000000 		.4byte	.LFB2
+ 1352 0024 20000000 		.4byte	.LFE2-.LFB2
+ 1353 0028 00000000 		.4byte	.LFB3
+ 1354 002c 20000000 		.4byte	.LFE3-.LFB3
+ 1355 0030 00000000 		.4byte	.LFB4
+ 1356 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1357 0038 00000000 		.4byte	.LFB5
+ 1358 003c 20000000 		.4byte	.LFE5-.LFB5
+ 1359 0040 00000000 		.4byte	.LFB6
+ 1360 0044 1C000000 		.4byte	.LFE6-.LFB6
+ 1361 0048 00000000 		.4byte	.LFB7
+ 1362 004c 20000000 		.4byte	.LFE7-.LFB7
+ 1363 0050 00000000 		.4byte	.LFB8
+ 1364 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1365 0058 00000000 		.4byte	.LFB9
+ 1366 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1367 0060 00000000 		.4byte	.LFB10
+ 1368 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1369 0068 00000000 		.4byte	.LFB11
+ 1370 006c 1C000000 		.4byte	.LFE11-.LFB11
+ 1371 0070 00000000 		.4byte	.LFB12
+ 1372 0074 20000000 		.4byte	.LFE12-.LFB12
+ 1373 0078 00000000 		.4byte	.LFB13
+ 1374 007c 18000000 		.4byte	.LFE13-.LFB13
+ 1375 0080 00000000 		.4byte	.LFB14
+ 1376 0084 18000000 		.4byte	.LFE14-.LFB14
+ 1377 0088 00000000 		.4byte	.LFB15
+ 1378 008c 18000000 		.4byte	.LFE15-.LFB15
+ 1379 0090 00000000 		.4byte	0
+ 1380 0094 00000000 		.4byte	0
+ 1381              		.section	.debug_ranges,"",%progbits
+ 1382              	.Ldebug_ranges0:
+ 1383 0000 00000000 		.4byte	.LFB0
+ 1384 0004 24000000 		.4byte	.LFE0
+ 1385 0008 00000000 		.4byte	.LFB1
+ 1386 000c 7C000000 		.4byte	.LFE1
+ 1387 0010 00000000 		.4byte	.LFB2
+ 1388 0014 20000000 		.4byte	.LFE2
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 41
+
+
+ 1389 0018 00000000 		.4byte	.LFB3
+ 1390 001c 20000000 		.4byte	.LFE3
+ 1391 0020 00000000 		.4byte	.LFB4
+ 1392 0024 20000000 		.4byte	.LFE4
+ 1393 0028 00000000 		.4byte	.LFB5
+ 1394 002c 20000000 		.4byte	.LFE5
+ 1395 0030 00000000 		.4byte	.LFB6
+ 1396 0034 1C000000 		.4byte	.LFE6
+ 1397 0038 00000000 		.4byte	.LFB7
+ 1398 003c 20000000 		.4byte	.LFE7
+ 1399 0040 00000000 		.4byte	.LFB8
+ 1400 0044 20000000 		.4byte	.LFE8
+ 1401 0048 00000000 		.4byte	.LFB9
+ 1402 004c 20000000 		.4byte	.LFE9
+ 1403 0050 00000000 		.4byte	.LFB10
+ 1404 0054 18000000 		.4byte	.LFE10
+ 1405 0058 00000000 		.4byte	.LFB11
+ 1406 005c 1C000000 		.4byte	.LFE11
+ 1407 0060 00000000 		.4byte	.LFB12
+ 1408 0064 20000000 		.4byte	.LFE12
+ 1409 0068 00000000 		.4byte	.LFB13
+ 1410 006c 18000000 		.4byte	.LFE13
+ 1411 0070 00000000 		.4byte	.LFB14
+ 1412 0074 18000000 		.4byte	.LFE14
+ 1413 0078 00000000 		.4byte	.LFB15
+ 1414 007c 18000000 		.4byte	.LFE15
+ 1415 0080 00000000 		.4byte	0
+ 1416 0084 00000000 		.4byte	0
+ 1417              		.section	.debug_line,"",%progbits
+ 1418              	.Ldebug_line0:
+ 1419 0000 82010000 		.section	.debug_str,"MS",%progbits,1
+ 1419      02004200 
+ 1419      00000201 
+ 1419      FB0E0D00 
+ 1419      01010101 
+ 1420              	.LASF39:
+ 1421 0000 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1421      43313120 
+ 1421      352E342E 
+ 1421      31203230 
+ 1421      31363036 
+ 1422 0033 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1422      20726576 
+ 1422      6973696F 
+ 1422      6E203233 
+ 1422      37373135 
+ 1423 0066 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1423      66756E63 
+ 1423      74696F6E 
+ 1423      2D736563 
+ 1423      74696F6E 
+ 1424              	.LASF9:
+ 1425 008e 666C6F61 		.ascii	"float\000"
+ 1425      7400
+ 1426              	.LASF18:
+ 1427 0094 50574D32 		.ascii	"PWM2y_Start\000"
+ 1427      795F5374 
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 42
+
+
+ 1427      61727400 
+ 1428              	.LASF26:
+ 1429 00a0 70657269 		.ascii	"period\000"
+ 1429      6F6400
+ 1430              	.LASF3:
+ 1431 00a7 73686F72 		.ascii	"short unsigned int\000"
+ 1431      7420756E 
+ 1431      7369676E 
+ 1431      65642069 
+ 1431      6E7400
+ 1432              	.LASF37:
+ 1433 00ba 50574D32 		.ascii	"PWM2y_ReadCompare\000"
+ 1433      795F5265 
+ 1433      6164436F 
+ 1433      6D706172 
+ 1433      6500
+ 1434              	.LASF36:
+ 1435 00cc 50574D32 		.ascii	"PWM2y_ReadCapture\000"
+ 1435      795F5265 
+ 1435      61644361 
+ 1435      70747572 
+ 1435      6500
+ 1436              	.LASF27:
+ 1437 00de 50574D32 		.ascii	"PWM2y_WriteCompare\000"
+ 1437      795F5772 
+ 1437      69746543 
+ 1437      6F6D7061 
+ 1437      726500
+ 1438              	.LASF21:
+ 1439 00f1 50574D32 		.ascii	"PWM2y_Init\000"
+ 1439      795F496E 
+ 1439      697400
+ 1440              	.LASF25:
+ 1441 00fc 636F756E 		.ascii	"counter\000"
+ 1441      74657200 
+ 1442              	.LASF1:
+ 1443 0104 756E7369 		.ascii	"unsigned char\000"
+ 1443      676E6564 
+ 1443      20636861 
+ 1443      7200
+ 1444              	.LASF13:
+ 1445 0112 72656738 		.ascii	"reg8\000"
+ 1445      00
+ 1446              	.LASF29:
+ 1447 0117 50574D32 		.ascii	"PWM2y_SetInterruptMode\000"
+ 1447      795F5365 
+ 1447      74496E74 
+ 1447      65727275 
+ 1447      70744D6F 
+ 1448              	.LASF5:
+ 1449 012e 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1449      20756E73 
+ 1449      69676E65 
+ 1449      6420696E 
+ 1449      7400
+ 1450              	.LASF12:
+ 1451 0140 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 43
+
+
+ 1451      3800
+ 1452              	.LASF35:
+ 1453 0146 636F6E74 		.ascii	"control\000"
+ 1453      726F6C00 
+ 1454              	.LASF19:
+ 1455 014e 50574D32 		.ascii	"PWM2y_Enable\000"
+ 1455      795F456E 
+ 1455      61626C65 
+ 1455      00
+ 1456              	.LASF10:
+ 1457 015b 646F7562 		.ascii	"double\000"
+ 1457      6C6500
+ 1458              	.LASF17:
+ 1459 0162 50574D32 		.ascii	"PWM2y_interruptState\000"
+ 1459      795F696E 
+ 1459      74657272 
+ 1459      75707453 
+ 1459      74617465 
+ 1460              	.LASF31:
+ 1461 0177 50574D32 		.ascii	"PWM2y_ReadCounter\000"
+ 1461      795F5265 
+ 1461      6164436F 
+ 1461      756E7465 
+ 1461      7200
+ 1462              	.LASF8:
+ 1463 0189 756E7369 		.ascii	"unsigned int\000"
+ 1463      676E6564 
+ 1463      20696E74 
+ 1463      00
+ 1464              	.LASF22:
+ 1465 0196 50574D32 		.ascii	"PWM2y_WriteCounter\000"
+ 1465      795F5772 
+ 1465      69746543 
+ 1465      6F756E74 
+ 1465      657200
+ 1466              	.LASF7:
+ 1467 01a9 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1467      206C6F6E 
+ 1467      6720756E 
+ 1467      7369676E 
+ 1467      65642069 
+ 1468              	.LASF43:
+ 1469 01c0 50574D32 		.ascii	"PWM2y_initVar\000"
+ 1469      795F696E 
+ 1469      69745661 
+ 1469      7200
+ 1470              	.LASF33:
+ 1471 01ce 72657375 		.ascii	"result\000"
+ 1471      6C7400
+ 1472              	.LASF32:
+ 1473 01d5 50574D32 		.ascii	"PWM2y_ReadStatusRegister\000"
+ 1473      795F5265 
+ 1473      61645374 
+ 1473      61747573 
+ 1473      52656769 
+ 1474              	.LASF20:
+ 1475 01ee 50574D32 		.ascii	"PWM2y_Stop\000"
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 44
+
+
+ 1475      795F5374 
+ 1475      6F7000
+ 1476              	.LASF42:
+ 1477 01f9 50574D32 		.ascii	"PWM2y_ReadControlRegister\000"
+ 1477      795F5265 
+ 1477      6164436F 
+ 1477      6E74726F 
+ 1477      6C526567 
+ 1478              	.LASF16:
+ 1479 0213 6374726C 		.ascii	"ctrl\000"
+ 1479      00
+ 1480              	.LASF38:
+ 1481 0218 50574D32 		.ascii	"PWM2y_ReadPeriod\000"
+ 1481      795F5265 
+ 1481      61645065 
+ 1481      72696F64 
+ 1481      00
+ 1482              	.LASF23:
+ 1483 0229 50574D32 		.ascii	"PWM2y_ClearFIFO\000"
+ 1483      795F436C 
+ 1483      65617246 
+ 1483      49464F00 
+ 1484              	.LASF24:
+ 1485 0239 50574D32 		.ascii	"PWM2y_WritePeriod\000"
+ 1485      795F5772 
+ 1485      69746550 
+ 1485      6572696F 
+ 1485      6400
+ 1486              	.LASF6:
+ 1487 024b 6C6F6E67 		.ascii	"long long int\000"
+ 1487      206C6F6E 
+ 1487      6720696E 
+ 1487      7400
+ 1488              	.LASF15:
+ 1489 0259 73697A65 		.ascii	"sizetype\000"
+ 1489      74797065 
+ 1489      00
+ 1490              	.LASF30:
+ 1491 0262 696E7465 		.ascii	"interruptMode\000"
+ 1491      72727570 
+ 1491      744D6F64 
+ 1491      6500
+ 1492              	.LASF2:
+ 1493 0270 73686F72 		.ascii	"short int\000"
+ 1493      7420696E 
+ 1493      7400
+ 1494              	.LASF34:
+ 1495 027a 50574D32 		.ascii	"PWM2y_WriteControlRegister\000"
+ 1495      795F5772 
+ 1495      69746543 
+ 1495      6F6E7472 
+ 1495      6F6C5265 
+ 1496              	.LASF4:
+ 1497 0295 6C6F6E67 		.ascii	"long int\000"
+ 1497      20696E74 
+ 1497      00
+ 1498              	.LASF11:
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccoyotXe.s 			page 45
+
+
+ 1499 029e 63686172 		.ascii	"char\000"
+ 1499      00
+ 1500              	.LASF14:
+ 1501 02a3 6C6F6E67 		.ascii	"long double\000"
+ 1501      20646F75 
+ 1501      626C6500 
+ 1502              	.LASF0:
+ 1503 02af 7369676E 		.ascii	"signed char\000"
+ 1503      65642063 
+ 1503      68617200 
+ 1504              	.LASF28:
+ 1505 02bb 636F6D70 		.ascii	"compare\000"
+ 1505      61726500 
+ 1506              	.LASF41:
+ 1507 02c3 433A5C50 		.ascii	"C:\\PSoC\\USBFS_UART01\\USBFS_UART02.cydsn\000"
+ 1507      536F435C 
+ 1507      55534246 
+ 1507      535F5541 
+ 1507      52543031 
+ 1508              	.LASF40:
+ 1509 02eb 47656E65 		.ascii	"Generated_Source\\PSoC5\\PWM2y.c\000"
+ 1509      72617465 
+ 1509      645F536F 
+ 1509      75726365 
+ 1509      5C50536F 
+ 1510              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

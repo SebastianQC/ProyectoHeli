@@ -1,0 +1,7 @@
+C:\Users\Sebastián\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|f5a29d87-1226-4935-991c-2b8fed2c5db6
+C:\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|eea77ec3-1137-4890-a618-e23119942929
+C:\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|7d574139-2841-4b8f-8126-645c1ec0e906
+C:\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|16612b7e-d153-4627-9714-3b48d601defb
+C:\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|25148a92-5ec7-4d86-9b42-62fda9892968
+C:\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|789d237e-0356-41c0-bb30-ad492a7d48ea
+C:\PSoC\USBFS_UART01\USBFS_UART01.cydsn\USBFS_UART01.cyprj|de7887f6-834b-441f-aa2d-b35193ece89f

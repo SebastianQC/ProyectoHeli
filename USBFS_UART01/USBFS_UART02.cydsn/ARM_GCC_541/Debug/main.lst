@@ -1,0 +1,1232 @@
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.syntax unified
+  20              		.global _printf_float
+  21              		.global	__aeabi_fmul
+  22              		.global	__aeabi_f2iz
+  23              		.section	.rodata
+  24              		.align	2
+  25              	.LC0:
+  26 0000 256400   		.ascii	"%d\000"
+  27              		.thumb
+  28              		.syntax unified
+  29              		.section	.text.enviar,"ax",%progbits
+  30              		.align	2
+  31              		.global	enviar
+  32              		.thumb
+  33              		.thumb_func
+  34              		.type	enviar, %function
+  35              	enviar:
+  36              	.LFB64:
+  37              		.file 1 "main.c"
+   1:main.c        **** /*******************************************************************************
+   2:main.c        **** * File Name: main.c
+   3:main.c        **** *
+   4:main.c        **** * Version: 2.0
+   5:main.c        **** *
+   6:main.c        **** * Description:
+   7:main.c        **** *   The component is enumerated as a Virtual Com port. Receives data from the 
+   8:main.c        **** *   hyper terminal, then sends back the received data.
+   9:main.c        **** *   For PSoC3/PSoC5LP, the LCD shows the line settings.
+  10:main.c        **** *
+  11:main.c        **** * Related Document:
+  12:main.c        **** *  Universal Serial Bus Specification Revision 2.0
+  13:main.c        **** *  Universal Serial Bus Class Definitions for Communications Devices
+  14:main.c        **** *  Revision 1.2
+  15:main.c        **** *
+  16:main.c        **** ********************************************************************************
+  17:main.c        **** * Copyright 2015, Cypress Semiconductor Corporation. All rights reserved.
+  18:main.c        **** * This software is owned by Cypress Semiconductor Corporation and is protected
+  19:main.c        **** * by and subject to worldwide patent and copyright laws and treaties.
+  20:main.c        **** * Therefore, you may use this software only as provided in the license agreement
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 2
+
+
+  21:main.c        **** * accompanying the software package from which you obtained this software.
+  22:main.c        **** * CYPRESS AND ITS SUPPLIERS MAKE NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  23:main.c        **** * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
+  24:main.c        **** * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  25:main.c        **** *******************************************************************************/
+  26:main.c        **** 
+  27:main.c        **** #include <project.h>
+  28:main.c        **** #include "stdio.h"
+  29:main.c        **** #include <string.h>
+  30:main.c        **** 
+  31:main.c        **** 
+  32:main.c        **** #if defined (__GNUC__)
+  33:main.c        ****     /* Add an explicit reference to the floating point printf library */
+  34:main.c        ****     /* to allow usage of the floating point conversion specifiers. */
+  35:main.c        ****     /* This is not linked in by default with the newlib-nano library. */
+  36:main.c        ****     asm (".global _printf_float");
+  37:main.c        **** #endif
+  38:main.c        **** 
+  39:main.c        **** #define USBFS_DEVICE    (0u)
+  40:main.c        **** 
+  41:main.c        **** /* The buffer size is equal to the maximum packet size of the IN and OUT bulk
+  42:main.c        **** * endpoints.
+  43:main.c        **** */
+  44:main.c        **** #define USBUART_BUFFER_SIZE (64u)
+  45:main.c        **** 
+  46:main.c        **** 
+  47:main.c        **** 
+  48:main.c        **** 
+  49:main.c        **** 
+  50:main.c        **** /*******************************************************************************
+  51:main.c        **** * Function Name: main
+  52:main.c        **** ********************************************************************************
+  53:main.c        **** *
+  54:main.c        **** * Summary:
+  55:main.c        **** *  The main function performs the following actions:
+  56:main.c        **** *   1. Waits until VBUS becomes valid and starts the USBFS component which is
+  57:main.c        **** *      enumerated as virtual Com port.
+  58:main.c        **** *   2. Waits until the device is enumerated by the host.
+  59:main.c        **** *   3. Waits for data coming from the hyper terminal and sends it back.
+  60:main.c        **** *   4. PSoC3/PSoC5LP: the LCD shows the line settings.
+  61:main.c        **** *
+  62:main.c        **** * Parameters:
+  63:main.c        **** *  None.
+  64:main.c        **** *
+  65:main.c        **** * Return:
+  66:main.c        **** *  None.
+  67:main.c        **** *
+  68:main.c        **** *******************************************************************************/
+  69:main.c        **** 
+  70:main.c        **** void enviar(float input,float input2){
+  38              		.loc 1 70 0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 48
+  41              		@ frame_needed = 1, uses_anonymous_args = 0
+  42 0000 80B5     		push	{r7, lr}
+  43              		.cfi_def_cfa_offset 8
+  44              		.cfi_offset 7, -8
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 3
+
+
+  45              		.cfi_offset 14, -4
+  46 0002 8CB0     		sub	sp, sp, #48
+  47              		.cfi_def_cfa_offset 56
+  48 0004 00AF     		add	r7, sp, #0
+  49              		.cfi_def_cfa_register 7
+  50 0006 7860     		str	r0, [r7, #4]	@ float
+  51 0008 3960     		str	r1, [r7]	@ float
+  71:main.c        ****     char msg[10];
+  72:main.c        ****     char msg2[10];
+  73:main.c        ****     char TAB[4] = "; ";
+  52              		.loc 1 73 0
+  53 000a 42F23B03 		movw	r3, #8251
+  54 000e FB60     		str	r3, [r7, #12]
+  74:main.c        ****     char TAB2[4] = "\n\r";
+  55              		.loc 1 74 0
+  56 0010 40F60A53 		movw	r3, #3338
+  57 0014 BB60     		str	r3, [r7, #8]
+  75:main.c        ****     input = input*1000;
+  58              		.loc 1 75 0
+  59 0016 2849     		ldr	r1, .L4
+  60 0018 7868     		ldr	r0, [r7, #4]	@ float
+  61 001a FFF7FEFF 		bl	__aeabi_fmul
+  62 001e 0346     		mov	r3, r0
+  63 0020 7B60     		str	r3, [r7, #4]	@ float
+  76:main.c        ****     input2 = input2*1000;
+  64              		.loc 1 76 0
+  65 0022 2549     		ldr	r1, .L4
+  66 0024 3868     		ldr	r0, [r7]	@ float
+  67 0026 FFF7FEFF 		bl	__aeabi_fmul
+  68 002a 0346     		mov	r3, r0
+  69 002c 3B60     		str	r3, [r7]	@ float
+  77:main.c        ****     int vv = input;
+  70              		.loc 1 77 0
+  71 002e 7868     		ldr	r0, [r7, #4]	@ float
+  72 0030 FFF7FEFF 		bl	__aeabi_f2iz
+  73 0034 0346     		mov	r3, r0
+  74 0036 FB62     		str	r3, [r7, #44]
+  78:main.c        ****     int vv1 = input2;
+  75              		.loc 1 78 0
+  76 0038 3868     		ldr	r0, [r7]	@ float
+  77 003a FFF7FEFF 		bl	__aeabi_f2iz
+  78 003e 0346     		mov	r3, r0
+  79 0040 BB62     		str	r3, [r7, #40]
+  79:main.c        ****     // Verify if we have to put a tab or endl
+  80:main.c        ****     if (0u != USBUART_GetConfiguration())
+  80              		.loc 1 80 0
+  81 0042 FFF7FEFF 		bl	USBUART_GetConfiguration
+  82 0046 0346     		mov	r3, r0
+  83 0048 002B     		cmp	r3, #0
+  84 004a 31D0     		beq	.L3
+  81:main.c        ****         {
+  82:main.c        ****                 /* Wait until component is ready to send data to host. */
+  83:main.c        ****                 if (0u == USBUART_CDCIsReady())
+  85              		.loc 1 83 0
+  86 004c FFF7FEFF 		bl	USBUART_CDCIsReady
+  84:main.c        ****                 {
+  85:main.c        ****                 }
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 4
+
+
+  86:main.c        ****                 /* Send data back to host. */
+  87:main.c        ****                     sprintf(msg, "%d", vv);
+  87              		.loc 1 87 0
+  88 0050 07F11C03 		add	r3, r7, #28
+  89 0054 FA6A     		ldr	r2, [r7, #44]
+  90 0056 1949     		ldr	r1, .L4+4
+  91 0058 1846     		mov	r0, r3
+  92 005a FFF7FEFF 		bl	sprintf
+  88:main.c        ****                     sprintf(msg2, "%d", vv1);
+  93              		.loc 1 88 0
+  94 005e 07F11003 		add	r3, r7, #16
+  95 0062 BA6A     		ldr	r2, [r7, #40]
+  96 0064 1549     		ldr	r1, .L4+4
+  97 0066 1846     		mov	r0, r3
+  98 0068 FFF7FEFF 		bl	sprintf
+  89:main.c        ****                     strcat(msg,TAB);
+  99              		.loc 1 89 0
+ 100 006c 07F10C02 		add	r2, r7, #12
+ 101 0070 07F11C03 		add	r3, r7, #28
+ 102 0074 1146     		mov	r1, r2
+ 103 0076 1846     		mov	r0, r3
+ 104 0078 FFF7FEFF 		bl	strcat
+  90:main.c        ****                     strcat(msg,msg2);
+ 105              		.loc 1 90 0
+ 106 007c 07F11002 		add	r2, r7, #16
+ 107 0080 07F11C03 		add	r3, r7, #28
+ 108 0084 1146     		mov	r1, r2
+ 109 0086 1846     		mov	r0, r3
+ 110 0088 FFF7FEFF 		bl	strcat
+  91:main.c        ****                     strcat(msg,TAB2);
+ 111              		.loc 1 91 0
+ 112 008c 07F10802 		add	r2, r7, #8
+ 113 0090 07F11C03 		add	r3, r7, #28
+ 114 0094 1146     		mov	r1, r2
+ 115 0096 1846     		mov	r0, r3
+ 116 0098 FFF7FEFF 		bl	strcat
+  92:main.c        ****                     USBUART_PutString(msg);
+ 117              		.loc 1 92 0
+ 118 009c 07F11C03 		add	r3, r7, #28
+ 119 00a0 1846     		mov	r0, r3
+ 120 00a2 FFF7FEFF 		bl	USBUART_PutString
+  93:main.c        ****                     CyDelay(20u);
+ 121              		.loc 1 93 0
+ 122 00a6 1420     		movs	r0, #20
+ 123 00a8 FFF7FEFF 		bl	CyDelay
+  94:main.c        ****                     if (0u == USBUART_CDCIsReady())
+ 124              		.loc 1 94 0
+ 125 00ac FFF7FEFF 		bl	USBUART_CDCIsReady
+ 126              	.L3:
+  95:main.c        ****                     {
+  96:main.c        ****                     }
+  97:main.c        ****         }
+  98:main.c        ****     
+  99:main.c        **** }
+ 127              		.loc 1 99 0
+ 128 00b0 00BF     		nop
+ 129 00b2 3037     		adds	r7, r7, #48
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 5
+
+
+ 130              		.cfi_def_cfa_offset 8
+ 131 00b4 BD46     		mov	sp, r7
+ 132              		.cfi_def_cfa_register 13
+ 133              		@ sp needed
+ 134 00b6 80BD     		pop	{r7, pc}
+ 135              	.L5:
+ 136              		.align	2
+ 137              	.L4:
+ 138 00b8 00007A44 		.word	1148846080
+ 139 00bc 00000000 		.word	.LC0
+ 140              		.cfi_endproc
+ 141              	.LFE64:
+ 142              		.size	enviar, .-enviar
+ 143              		.section	.rodata
+ 144 0003 00       		.align	2
+ 145              	.LC1:
+ 146 0004 50697463 		.ascii	"Pitch\000"
+ 146      6800
+ 147 000a 0000     		.align	2
+ 148              	.LC2:
+ 149 000c 59617700 		.ascii	"Yaw\000"
+ 150              		.global	__aeabi_i2d
+ 151              		.global	__aeabi_dmul
+ 152              		.global	__aeabi_ddiv
+ 153              		.global	__aeabi_d2f
+ 154              		.section	.text.main,"ax",%progbits
+ 155              		.align	2
+ 156              		.global	main
+ 157              		.thumb
+ 158              		.thumb_func
+ 159              		.type	main, %function
+ 160              	main:
+ 161              	.LFB65:
+ 100:main.c        **** int main(void)
+ 101:main.c        **** {
+ 162              		.loc 1 101 0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 24
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 90B5     		push	{r4, r7, lr}
+ 167              		.cfi_def_cfa_offset 12
+ 168              		.cfi_offset 4, -12
+ 169              		.cfi_offset 7, -8
+ 170              		.cfi_offset 14, -4
+ 171 0002 87B0     		sub	sp, sp, #28
+ 172              		.cfi_def_cfa_offset 40
+ 173 0004 00AF     		add	r7, sp, #0
+ 174              		.cfi_def_cfa_register 7
+ 102:main.c        ****     CyGlobalIntEnable;
+ 175              		.loc 1 102 0
+ 176              		.syntax unified
+ 177              	@ 102 "main.c" 1
+ 178 0006 62B6     		CPSIE   i
+ 179              	@ 0 "" 2
+ 103:main.c        ****     int output;
+ 104:main.c        ****     float a = 184;
+ 180              		.loc 1 104 0
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 6
+
+
+ 181              		.thumb
+ 182              		.syntax unified
+ 183 0008 4F4B     		ldr	r3, .L12+16
+ 184 000a 3B61     		str	r3, [r7, #16]	@ float
+ 105:main.c        ****     //Buffer del I2C
+ 106:main.c        ****     //uint8 buffer[1];
+ 107:main.c        ****     int cnt1 = 0;
+ 185              		.loc 1 107 0
+ 186 000c 0023     		movs	r3, #0
+ 187 000e FB60     		str	r3, [r7, #12]
+ 108:main.c        ****     float ang1 = 0;
+ 188              		.loc 1 108 0
+ 189 0010 4FF00003 		mov	r3, #0
+ 190 0014 BB60     		str	r3, [r7, #8]	@ float
+ 109:main.c        ****     //Iniciar componentes
+ 110:main.c        ****     
+ 111:main.c        ****     LCD_Start();
+ 191              		.loc 1 111 0
+ 192 0016 FFF7FEFF 		bl	LCD_Start
+ 112:main.c        ****     //EZ_Start();
+ 113:main.c        ****     ADC_DelSig_1_Start();
+ 193              		.loc 1 113 0
+ 194 001a FFF7FEFF 		bl	ADC_DelSig_1_Start
+ 114:main.c        ****     PWM1p_Start();
+ 195              		.loc 1 114 0
+ 196 001e FFF7FEFF 		bl	PWM1p_Start
+ 115:main.c        ****     PWM2p_Start();
+ 197              		.loc 1 115 0
+ 198 0022 FFF7FEFF 		bl	PWM2p_Start
+ 116:main.c        ****     PWM1y_Start();
+ 199              		.loc 1 116 0
+ 200 0026 FFF7FEFF 		bl	PWM1y_Start
+ 117:main.c        ****     PWM2y_Start();
+ 201              		.loc 1 117 0
+ 202 002a FFF7FEFF 		bl	PWM2y_Start
+ 118:main.c        ****     QD_Start();
+ 203              		.loc 1 118 0
+ 204 002e FFF7FEFF 		bl	QD_Start
+ 119:main.c        ****     QD_SetCounter(0);
+ 205              		.loc 1 119 0
+ 206 0032 0020     		movs	r0, #0
+ 207 0034 FFF7FEFF 		bl	QD_SetCounter
+ 120:main.c        ****     
+ 121:main.c        ****     
+ 122:main.c        ****     //Conversion del ADC
+ 123:main.c        ****     ADC_DelSig_1_StartConvert();
+ 208              		.loc 1 123 0
+ 209 0038 FFF7FEFF 		bl	ADC_DelSig_1_StartConvert
+ 124:main.c        ****     
+ 125:main.c        ****     //LCD Valores YAW Y PITCH
+ 126:main.c        ****     
+ 127:main.c        ****     LCD_Position(0u,0u);
+ 210              		.loc 1 127 0
+ 211 003c 0021     		movs	r1, #0
+ 212 003e 0020     		movs	r0, #0
+ 213 0040 FFF7FEFF 		bl	LCD_Position
+ 128:main.c        ****     LCD_PrintString("Pitch");
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 7
+
+
+ 214              		.loc 1 128 0
+ 215 0044 4148     		ldr	r0, .L12+20
+ 216 0046 FFF7FEFF 		bl	LCD_PrintString
+ 129:main.c        ****     LCD_Position(0u,7u);
+ 217              		.loc 1 129 0
+ 218 004a 0721     		movs	r1, #7
+ 219 004c 0020     		movs	r0, #0
+ 220 004e FFF7FEFF 		bl	LCD_Position
+ 130:main.c        ****     LCD_PrintString("Yaw");
+ 221              		.loc 1 130 0
+ 222 0052 3F48     		ldr	r0, .L12+24
+ 223 0054 FFF7FEFF 		bl	LCD_PrintString
+ 131:main.c        ****     /* Start USBFS operation with 5-V operation. */
+ 132:main.c        ****     USBUART_Start(USBFS_DEVICE, USBUART_5V_OPERATION);
+ 224              		.loc 1 132 0
+ 225 0058 0121     		movs	r1, #1
+ 226 005a 0020     		movs	r0, #0
+ 227 005c FFF7FEFF 		bl	USBUART_Start
+ 228              	.L11:
+ 229              	.LBB2:
+ 133:main.c        ****     
+ 134:main.c        ****     for(;;)
+ 135:main.c        ****     {
+ 136:main.c        ****         ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS);
+ 230              		.loc 1 136 0
+ 231 0060 0120     		movs	r0, #1
+ 232 0062 FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 137:main.c        ****         output = ADC_DelSig_1_GetResult8();
+ 233              		.loc 1 137 0
+ 234 0066 FFF7FEFF 		bl	ADC_DelSig_1_GetResult8
+ 235 006a 0346     		mov	r3, r0
+ 236 006c 7B61     		str	r3, [r7, #20]
+ 138:main.c        ****         if(output < 0){
+ 237              		.loc 1 138 0
+ 238 006e 7B69     		ldr	r3, [r7, #20]
+ 239 0070 002B     		cmp	r3, #0
+ 240 0072 01DA     		bge	.L7
+ 139:main.c        ****             output = 0;
+ 241              		.loc 1 139 0
+ 242 0074 0023     		movs	r3, #0
+ 243 0076 7B61     		str	r3, [r7, #20]
+ 244              	.L7:
+ 140:main.c        ****         }
+ 141:main.c        ****             
+ 142:main.c        ****         uint8 pwm1 = 125 + (uint8)(output);
+ 245              		.loc 1 142 0
+ 246 0078 7B69     		ldr	r3, [r7, #20]
+ 247 007a DBB2     		uxtb	r3, r3
+ 248 007c 7D33     		adds	r3, r3, #125
+ 249 007e FB71     		strb	r3, [r7, #7]
+ 143:main.c        ****         uint8 pwm2 = 125 + (uint8)(output)-50;
+ 250              		.loc 1 143 0
+ 251 0080 7B69     		ldr	r3, [r7, #20]
+ 252 0082 DBB2     		uxtb	r3, r3
+ 253 0084 4B33     		adds	r3, r3, #75
+ 254 0086 BB71     		strb	r3, [r7, #6]
+ 144:main.c        ****         PWM1p_WriteCompare(pwm1);
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 8
+
+
+ 255              		.loc 1 144 0
+ 256 0088 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 257 008a 1846     		mov	r0, r3
+ 258 008c FFF7FEFF 		bl	PWM1p_WriteCompare
+ 145:main.c        ****         PWM1y_WriteCompare(pwm2);
+ 259              		.loc 1 145 0
+ 260 0090 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 261 0092 1846     		mov	r0, r3
+ 262 0094 FFF7FEFF 		bl	PWM1y_WriteCompare
+ 146:main.c        ****         LCD_Position(1u,0u);
+ 263              		.loc 1 146 0
+ 264 0098 0021     		movs	r1, #0
+ 265 009a 0120     		movs	r0, #1
+ 266 009c FFF7FEFF 		bl	LCD_Position
+ 147:main.c        ****         LCD_PrintNumber(pwm1);
+ 267              		.loc 1 147 0
+ 268 00a0 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 269 00a2 1846     		mov	r0, r3
+ 270 00a4 FFF7FEFF 		bl	LCD_PrintU32Number
+ 148:main.c        ****         LCD_Position(1u,7u);
+ 271              		.loc 1 148 0
+ 272 00a8 0721     		movs	r1, #7
+ 273 00aa 0120     		movs	r0, #1
+ 274 00ac FFF7FEFF 		bl	LCD_Position
+ 149:main.c        ****         LCD_PrintNumber(pwm2);
+ 275              		.loc 1 149 0
+ 276 00b0 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 277 00b2 1846     		mov	r0, r3
+ 278 00b4 FFF7FEFF 		bl	LCD_PrintU32Number
+ 150:main.c        ****         
+ 151:main.c        ****         if(SR_Read()){
+ 279              		.loc 1 151 0
+ 280 00b8 FFF7FEFF 		bl	SR_Read
+ 281 00bc 0346     		mov	r3, r0
+ 282 00be 002B     		cmp	r3, #0
+ 283 00c0 02D0     		beq	.L8
+ 152:main.c        ****             QD_SetCounter(0);
+ 284              		.loc 1 152 0
+ 285 00c2 0020     		movs	r0, #0
+ 286 00c4 FFF7FEFF 		bl	QD_SetCounter
+ 287              	.L8:
+ 153:main.c        ****         }
+ 154:main.c        ****         if(SR2_Read()){
+ 288              		.loc 1 154 0
+ 289 00c8 FFF7FEFF 		bl	SR2_Read
+ 290 00cc 0346     		mov	r3, r0
+ 291 00ce 002B     		cmp	r3, #0
+ 292 00d0 01D0     		beq	.L9
+ 155:main.c        ****             a = 220;
+ 293              		.loc 1 155 0
+ 294 00d2 204B     		ldr	r3, .L12+28
+ 295 00d4 3B61     		str	r3, [r7, #16]	@ float
+ 296              	.L9:
+ 156:main.c        ****         }
+ 157:main.c        ****         if(SR3_Read()){
+ 297              		.loc 1 157 0
+ 298 00d6 FFF7FEFF 		bl	SR3_Read
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 9
+
+
+ 299 00da 0346     		mov	r3, r0
+ 300 00dc 002B     		cmp	r3, #0
+ 301 00de 01D0     		beq	.L10
+ 158:main.c        ****             a = 220;
+ 302              		.loc 1 158 0
+ 303 00e0 1C4B     		ldr	r3, .L12+28
+ 304 00e2 3B61     		str	r3, [r7, #16]	@ float
+ 305              	.L10:
+ 159:main.c        ****         }
+ 160:main.c        ****         cnt1 = QD_GetCounter();
+ 306              		.loc 1 160 0
+ 307 00e4 FFF7FEFF 		bl	QD_GetCounter
+ 308 00e8 0346     		mov	r3, r0
+ 309 00ea FB60     		str	r3, [r7, #12]
+ 161:main.c        ****         ang1 = 6.2832*cnt1/(2*900.0036624);
+ 310              		.loc 1 161 0
+ 311 00ec F868     		ldr	r0, [r7, #12]
+ 312 00ee FFF7FEFF 		bl	__aeabi_i2d
+ 313 00f2 11A3     		adr	r3, .L12
+ 314 00f4 D3E90023 		ldrd	r2, [r3]
+ 315 00f8 FFF7FEFF 		bl	__aeabi_dmul
+ 316 00fc 0346     		mov	r3, r0
+ 317 00fe 0C46     		mov	r4, r1
+ 318 0100 1846     		mov	r0, r3
+ 319 0102 2146     		mov	r1, r4
+ 320 0104 0EA3     		adr	r3, .L12+8
+ 321 0106 D3E90023 		ldrd	r2, [r3]
+ 322 010a FFF7FEFF 		bl	__aeabi_ddiv
+ 323 010e 0346     		mov	r3, r0
+ 324 0110 0C46     		mov	r4, r1
+ 325 0112 1846     		mov	r0, r3
+ 326 0114 2146     		mov	r1, r4
+ 327 0116 FFF7FEFF 		bl	__aeabi_d2f
+ 328 011a 0346     		mov	r3, r0
+ 329 011c BB60     		str	r3, [r7, #8]	@ float
+ 162:main.c        ****         /* Service USB CDC when device is configured. */
+ 163:main.c        ****         enviar(a,ang1);
+ 330              		.loc 1 163 0
+ 331 011e B968     		ldr	r1, [r7, #8]	@ float
+ 332 0120 3869     		ldr	r0, [r7, #16]	@ float
+ 333 0122 FFF7FEFF 		bl	enviar
+ 164:main.c        ****         a = 184;
+ 334              		.loc 1 164 0
+ 335 0126 084B     		ldr	r3, .L12+16
+ 336 0128 3B61     		str	r3, [r7, #16]	@ float
+ 165:main.c        ****         CyDelay(20u);
+ 337              		.loc 1 165 0
+ 338 012a 1420     		movs	r0, #20
+ 339 012c FFF7FEFF 		bl	CyDelay
+ 340              	.LBE2:
+ 166:main.c        ****     }
+ 341              		.loc 1 166 0
+ 342 0130 96E7     		b	.L11
+ 343              	.L13:
+ 344 0132 00BFAFF3 		.align	3
+ 344      0080
+ 345              	.L12:
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 10
+
+
+ 346 0138 A7E8482E 		.word	776530087
+ 347 013c FF211940 		.word	1075388927
+ 348 0140 CD012780 		.word	-2144927283
+ 349 0144 07209C40 		.word	1083973639
+ 350 0148 00003843 		.word	1127743488
+ 351 014c 04000000 		.word	.LC1
+ 352 0150 0C000000 		.word	.LC2
+ 353 0154 00005C43 		.word	1130102784
+ 354              		.cfi_endproc
+ 355              	.LFE65:
+ 356              		.size	main, .-main
+ 357              		.text
+ 358              	.Letext0:
+ 359              		.file 2 "c:\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-none-eabi\\inc
+ 360              		.file 3 "c:\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-none-eabi\\inc
+ 361              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 362              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 363              		.section	.debug_info,"",%progbits
+ 364              	.Ldebug_info0:
+ 365 0000 E5010000 		.4byte	0x1e5
+ 366 0004 0400     		.2byte	0x4
+ 367 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 368 000a 04       		.byte	0x4
+ 369 000b 01       		.uleb128 0x1
+ 370 000c 05000000 		.4byte	.LASF27
+ 371 0010 0C       		.byte	0xc
+ 372 0011 6D010000 		.4byte	.LASF28
+ 373 0015 AA010000 		.4byte	.LASF29
+ 374 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 375 001d 00000000 		.4byte	0
+ 376 0021 00000000 		.4byte	.Ldebug_line0
+ 377 0025 02       		.uleb128 0x2
+ 378 0026 01       		.byte	0x1
+ 379 0027 06       		.byte	0x6
+ 380 0028 B4000000 		.4byte	.LASF0
+ 381 002c 02       		.uleb128 0x2
+ 382 002d 01       		.byte	0x1
+ 383 002e 08       		.byte	0x8
+ 384 002f C0000000 		.4byte	.LASF1
+ 385 0033 02       		.uleb128 0x2
+ 386 0034 02       		.byte	0x2
+ 387 0035 05       		.byte	0x5
+ 388 0036 79010000 		.4byte	.LASF2
+ 389 003a 02       		.uleb128 0x2
+ 390 003b 02       		.byte	0x2
+ 391 003c 07       		.byte	0x7
+ 392 003d E6000000 		.4byte	.LASF3
+ 393 0041 03       		.uleb128 0x3
+ 394 0042 9A000000 		.4byte	.LASF9
+ 395 0046 02       		.byte	0x2
+ 396 0047 3F       		.byte	0x3f
+ 397 0048 4C000000 		.4byte	0x4c
+ 398 004c 02       		.uleb128 0x2
+ 399 004d 04       		.byte	0x4
+ 400 004e 05       		.byte	0x5
+ 401 004f 90010000 		.4byte	.LASF4
+ 402 0053 02       		.uleb128 0x2
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 11
+
+
+ 403 0054 04       		.byte	0x4
+ 404 0055 07       		.byte	0x7
+ 405 0056 D4000000 		.4byte	.LASF5
+ 406 005a 02       		.uleb128 0x2
+ 407 005b 08       		.byte	0x8
+ 408 005c 05       		.byte	0x5
+ 409 005d 5F010000 		.4byte	.LASF6
+ 410 0061 02       		.uleb128 0x2
+ 411 0062 08       		.byte	0x8
+ 412 0063 07       		.byte	0x7
+ 413 0064 37010000 		.4byte	.LASF7
+ 414 0068 04       		.uleb128 0x4
+ 415 0069 04       		.byte	0x4
+ 416 006a 05       		.byte	0x5
+ 417 006b 696E7400 		.ascii	"int\000"
+ 418 006f 02       		.uleb128 0x2
+ 419 0070 04       		.byte	0x4
+ 420 0071 07       		.byte	0x7
+ 421 0072 2A010000 		.4byte	.LASF8
+ 422 0076 03       		.uleb128 0x3
+ 423 0077 4E010000 		.4byte	.LASF10
+ 424 007b 03       		.byte	0x3
+ 425 007c 2C       		.byte	0x2c
+ 426 007d 41000000 		.4byte	0x41
+ 427 0081 05       		.uleb128 0x5
+ 428 0082 8A010000 		.4byte	.LASF11
+ 429 0086 04       		.byte	0x4
+ 430 0087 E401     		.2byte	0x1e4
+ 431 0089 2C000000 		.4byte	0x2c
+ 432 008d 05       		.uleb128 0x5
+ 433 008e 23010000 		.4byte	.LASF12
+ 434 0092 04       		.byte	0x4
+ 435 0093 E501     		.2byte	0x1e5
+ 436 0095 3A000000 		.4byte	0x3a
+ 437 0099 02       		.uleb128 0x2
+ 438 009a 04       		.byte	0x4
+ 439 009b 04       		.byte	0x4
+ 440 009c AE000000 		.4byte	.LASF13
+ 441 00a0 02       		.uleb128 0x2
+ 442 00a1 08       		.byte	0x8
+ 443 00a2 04       		.byte	0x4
+ 444 00a3 0D010000 		.4byte	.LASF14
+ 445 00a7 02       		.uleb128 0x2
+ 446 00a8 01       		.byte	0x1
+ 447 00a9 08       		.byte	0x8
+ 448 00aa 74010000 		.4byte	.LASF15
+ 449 00ae 02       		.uleb128 0x2
+ 450 00af 08       		.byte	0x8
+ 451 00b0 04       		.byte	0x4
+ 452 00b1 99010000 		.4byte	.LASF16
+ 453 00b5 02       		.uleb128 0x2
+ 454 00b6 04       		.byte	0x4
+ 455 00b7 07       		.byte	0x7
+ 456 00b8 56010000 		.4byte	.LASF17
+ 457 00bc 06       		.uleb128 0x6
+ 458 00bd F9000000 		.4byte	.LASF30
+ 459 00c1 01       		.byte	0x1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 12
+
+
+ 460 00c2 46       		.byte	0x46
+ 461 00c3 00000000 		.4byte	.LFB64
+ 462 00c7 C0000000 		.4byte	.LFE64-.LFB64
+ 463 00cb 01       		.uleb128 0x1
+ 464 00cc 9C       		.byte	0x9c
+ 465 00cd 41010000 		.4byte	0x141
+ 466 00d1 07       		.uleb128 0x7
+ 467 00d2 CE000000 		.4byte	.LASF18
+ 468 00d6 01       		.byte	0x1
+ 469 00d7 46       		.byte	0x46
+ 470 00d8 99000000 		.4byte	0x99
+ 471 00dc 02       		.uleb128 0x2
+ 472 00dd 91       		.byte	0x91
+ 473 00de 4C       		.sleb128 -52
+ 474 00df 07       		.uleb128 0x7
+ 475 00e0 93000000 		.4byte	.LASF19
+ 476 00e4 01       		.byte	0x1
+ 477 00e5 46       		.byte	0x46
+ 478 00e6 99000000 		.4byte	0x99
+ 479 00ea 02       		.uleb128 0x2
+ 480 00eb 91       		.byte	0x91
+ 481 00ec 48       		.sleb128 -56
+ 482 00ed 08       		.uleb128 0x8
+ 483 00ee 6D736700 		.ascii	"msg\000"
+ 484 00f2 01       		.byte	0x1
+ 485 00f3 47       		.byte	0x47
+ 486 00f4 41010000 		.4byte	0x141
+ 487 00f8 02       		.uleb128 0x2
+ 488 00f9 91       		.byte	0x91
+ 489 00fa 64       		.sleb128 -28
+ 490 00fb 09       		.uleb128 0x9
+ 491 00fc A9000000 		.4byte	.LASF20
+ 492 0100 01       		.byte	0x1
+ 493 0101 48       		.byte	0x48
+ 494 0102 41010000 		.4byte	0x141
+ 495 0106 02       		.uleb128 0x2
+ 496 0107 91       		.byte	0x91
+ 497 0108 58       		.sleb128 -40
+ 498 0109 08       		.uleb128 0x8
+ 499 010a 54414200 		.ascii	"TAB\000"
+ 500 010e 01       		.byte	0x1
+ 501 010f 49       		.byte	0x49
+ 502 0110 51010000 		.4byte	0x151
+ 503 0114 02       		.uleb128 0x2
+ 504 0115 91       		.byte	0x91
+ 505 0116 54       		.sleb128 -44
+ 506 0117 09       		.uleb128 0x9
+ 507 0118 00000000 		.4byte	.LASF21
+ 508 011c 01       		.byte	0x1
+ 509 011d 4A       		.byte	0x4a
+ 510 011e 51010000 		.4byte	0x151
+ 511 0122 02       		.uleb128 0x2
+ 512 0123 91       		.byte	0x91
+ 513 0124 50       		.sleb128 -48
+ 514 0125 08       		.uleb128 0x8
+ 515 0126 767600   		.ascii	"vv\000"
+ 516 0129 01       		.byte	0x1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 13
+
+
+ 517 012a 4D       		.byte	0x4d
+ 518 012b 68000000 		.4byte	0x68
+ 519 012f 02       		.uleb128 0x2
+ 520 0130 91       		.byte	0x91
+ 521 0131 74       		.sleb128 -12
+ 522 0132 08       		.uleb128 0x8
+ 523 0133 76763100 		.ascii	"vv1\000"
+ 524 0137 01       		.byte	0x1
+ 525 0138 4E       		.byte	0x4e
+ 526 0139 68000000 		.4byte	0x68
+ 527 013d 02       		.uleb128 0x2
+ 528 013e 91       		.byte	0x91
+ 529 013f 70       		.sleb128 -16
+ 530 0140 00       		.byte	0
+ 531 0141 0A       		.uleb128 0xa
+ 532 0142 A7000000 		.4byte	0xa7
+ 533 0146 51010000 		.4byte	0x151
+ 534 014a 0B       		.uleb128 0xb
+ 535 014b B5000000 		.4byte	0xb5
+ 536 014f 09       		.byte	0x9
+ 537 0150 00       		.byte	0
+ 538 0151 0A       		.uleb128 0xa
+ 539 0152 A7000000 		.4byte	0xa7
+ 540 0156 61010000 		.4byte	0x161
+ 541 015a 0B       		.uleb128 0xb
+ 542 015b B5000000 		.4byte	0xb5
+ 543 015f 03       		.byte	0x3
+ 544 0160 00       		.byte	0
+ 545 0161 0C       		.uleb128 0xc
+ 546 0162 1E010000 		.4byte	.LASF31
+ 547 0166 01       		.byte	0x1
+ 548 0167 64       		.byte	0x64
+ 549 0168 68000000 		.4byte	0x68
+ 550 016c 00000000 		.4byte	.LFB65
+ 551 0170 58010000 		.4byte	.LFE65-.LFB65
+ 552 0174 01       		.uleb128 0x1
+ 553 0175 9C       		.byte	0x9c
+ 554 0176 D7010000 		.4byte	0x1d7
+ 555 017a 09       		.uleb128 0x9
+ 556 017b 83010000 		.4byte	.LASF22
+ 557 017f 01       		.byte	0x1
+ 558 0180 67       		.byte	0x67
+ 559 0181 68000000 		.4byte	0x68
+ 560 0185 02       		.uleb128 0x2
+ 561 0186 91       		.byte	0x91
+ 562 0187 6C       		.sleb128 -20
+ 563 0188 08       		.uleb128 0x8
+ 564 0189 6100     		.ascii	"a\000"
+ 565 018b 01       		.byte	0x1
+ 566 018c 68       		.byte	0x68
+ 567 018d 99000000 		.4byte	0x99
+ 568 0191 02       		.uleb128 0x2
+ 569 0192 91       		.byte	0x91
+ 570 0193 68       		.sleb128 -24
+ 571 0194 09       		.uleb128 0x9
+ 572 0195 A4000000 		.4byte	.LASF23
+ 573 0199 01       		.byte	0x1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 14
+
+
+ 574 019a 6B       		.byte	0x6b
+ 575 019b 68000000 		.4byte	0x68
+ 576 019f 02       		.uleb128 0x2
+ 577 01a0 91       		.byte	0x91
+ 578 01a1 64       		.sleb128 -28
+ 579 01a2 09       		.uleb128 0x9
+ 580 01a3 A5010000 		.4byte	.LASF24
+ 581 01a7 01       		.byte	0x1
+ 582 01a8 6C       		.byte	0x6c
+ 583 01a9 99000000 		.4byte	0x99
+ 584 01ad 02       		.uleb128 0x2
+ 585 01ae 91       		.byte	0x91
+ 586 01af 60       		.sleb128 -32
+ 587 01b0 0D       		.uleb128 0xd
+ 588 01b1 60000000 		.4byte	.LBB2
+ 589 01b5 D0000000 		.4byte	.LBE2-.LBB2
+ 590 01b9 09       		.uleb128 0x9
+ 591 01ba 14010000 		.4byte	.LASF25
+ 592 01be 01       		.byte	0x1
+ 593 01bf 8E       		.byte	0x8e
+ 594 01c0 81000000 		.4byte	0x81
+ 595 01c4 02       		.uleb128 0x2
+ 596 01c5 91       		.byte	0x91
+ 597 01c6 5F       		.sleb128 -33
+ 598 01c7 09       		.uleb128 0x9
+ 599 01c8 19010000 		.4byte	.LASF26
+ 600 01cc 01       		.byte	0x1
+ 601 01cd 8F       		.byte	0x8f
+ 602 01ce 81000000 		.4byte	0x81
+ 603 01d2 02       		.uleb128 0x2
+ 604 01d3 91       		.byte	0x91
+ 605 01d4 5E       		.sleb128 -34
+ 606 01d5 00       		.byte	0
+ 607 01d6 00       		.byte	0
+ 608 01d7 0E       		.uleb128 0xe
+ 609 01d8 00010000 		.4byte	.LASF32
+ 610 01dc 05       		.byte	0x5
+ 611 01dd 1207     		.2byte	0x712
+ 612 01df E3010000 		.4byte	0x1e3
+ 613 01e3 0F       		.uleb128 0xf
+ 614 01e4 76000000 		.4byte	0x76
+ 615 01e8 00       		.byte	0
+ 616              		.section	.debug_abbrev,"",%progbits
+ 617              	.Ldebug_abbrev0:
+ 618 0000 01       		.uleb128 0x1
+ 619 0001 11       		.uleb128 0x11
+ 620 0002 01       		.byte	0x1
+ 621 0003 25       		.uleb128 0x25
+ 622 0004 0E       		.uleb128 0xe
+ 623 0005 13       		.uleb128 0x13
+ 624 0006 0B       		.uleb128 0xb
+ 625 0007 03       		.uleb128 0x3
+ 626 0008 0E       		.uleb128 0xe
+ 627 0009 1B       		.uleb128 0x1b
+ 628 000a 0E       		.uleb128 0xe
+ 629 000b 55       		.uleb128 0x55
+ 630 000c 17       		.uleb128 0x17
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 15
+
+
+ 631 000d 11       		.uleb128 0x11
+ 632 000e 01       		.uleb128 0x1
+ 633 000f 10       		.uleb128 0x10
+ 634 0010 17       		.uleb128 0x17
+ 635 0011 00       		.byte	0
+ 636 0012 00       		.byte	0
+ 637 0013 02       		.uleb128 0x2
+ 638 0014 24       		.uleb128 0x24
+ 639 0015 00       		.byte	0
+ 640 0016 0B       		.uleb128 0xb
+ 641 0017 0B       		.uleb128 0xb
+ 642 0018 3E       		.uleb128 0x3e
+ 643 0019 0B       		.uleb128 0xb
+ 644 001a 03       		.uleb128 0x3
+ 645 001b 0E       		.uleb128 0xe
+ 646 001c 00       		.byte	0
+ 647 001d 00       		.byte	0
+ 648 001e 03       		.uleb128 0x3
+ 649 001f 16       		.uleb128 0x16
+ 650 0020 00       		.byte	0
+ 651 0021 03       		.uleb128 0x3
+ 652 0022 0E       		.uleb128 0xe
+ 653 0023 3A       		.uleb128 0x3a
+ 654 0024 0B       		.uleb128 0xb
+ 655 0025 3B       		.uleb128 0x3b
+ 656 0026 0B       		.uleb128 0xb
+ 657 0027 49       		.uleb128 0x49
+ 658 0028 13       		.uleb128 0x13
+ 659 0029 00       		.byte	0
+ 660 002a 00       		.byte	0
+ 661 002b 04       		.uleb128 0x4
+ 662 002c 24       		.uleb128 0x24
+ 663 002d 00       		.byte	0
+ 664 002e 0B       		.uleb128 0xb
+ 665 002f 0B       		.uleb128 0xb
+ 666 0030 3E       		.uleb128 0x3e
+ 667 0031 0B       		.uleb128 0xb
+ 668 0032 03       		.uleb128 0x3
+ 669 0033 08       		.uleb128 0x8
+ 670 0034 00       		.byte	0
+ 671 0035 00       		.byte	0
+ 672 0036 05       		.uleb128 0x5
+ 673 0037 16       		.uleb128 0x16
+ 674 0038 00       		.byte	0
+ 675 0039 03       		.uleb128 0x3
+ 676 003a 0E       		.uleb128 0xe
+ 677 003b 3A       		.uleb128 0x3a
+ 678 003c 0B       		.uleb128 0xb
+ 679 003d 3B       		.uleb128 0x3b
+ 680 003e 05       		.uleb128 0x5
+ 681 003f 49       		.uleb128 0x49
+ 682 0040 13       		.uleb128 0x13
+ 683 0041 00       		.byte	0
+ 684 0042 00       		.byte	0
+ 685 0043 06       		.uleb128 0x6
+ 686 0044 2E       		.uleb128 0x2e
+ 687 0045 01       		.byte	0x1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 16
+
+
+ 688 0046 3F       		.uleb128 0x3f
+ 689 0047 19       		.uleb128 0x19
+ 690 0048 03       		.uleb128 0x3
+ 691 0049 0E       		.uleb128 0xe
+ 692 004a 3A       		.uleb128 0x3a
+ 693 004b 0B       		.uleb128 0xb
+ 694 004c 3B       		.uleb128 0x3b
+ 695 004d 0B       		.uleb128 0xb
+ 696 004e 27       		.uleb128 0x27
+ 697 004f 19       		.uleb128 0x19
+ 698 0050 11       		.uleb128 0x11
+ 699 0051 01       		.uleb128 0x1
+ 700 0052 12       		.uleb128 0x12
+ 701 0053 06       		.uleb128 0x6
+ 702 0054 40       		.uleb128 0x40
+ 703 0055 18       		.uleb128 0x18
+ 704 0056 9642     		.uleb128 0x2116
+ 705 0058 19       		.uleb128 0x19
+ 706 0059 01       		.uleb128 0x1
+ 707 005a 13       		.uleb128 0x13
+ 708 005b 00       		.byte	0
+ 709 005c 00       		.byte	0
+ 710 005d 07       		.uleb128 0x7
+ 711 005e 05       		.uleb128 0x5
+ 712 005f 00       		.byte	0
+ 713 0060 03       		.uleb128 0x3
+ 714 0061 0E       		.uleb128 0xe
+ 715 0062 3A       		.uleb128 0x3a
+ 716 0063 0B       		.uleb128 0xb
+ 717 0064 3B       		.uleb128 0x3b
+ 718 0065 0B       		.uleb128 0xb
+ 719 0066 49       		.uleb128 0x49
+ 720 0067 13       		.uleb128 0x13
+ 721 0068 02       		.uleb128 0x2
+ 722 0069 18       		.uleb128 0x18
+ 723 006a 00       		.byte	0
+ 724 006b 00       		.byte	0
+ 725 006c 08       		.uleb128 0x8
+ 726 006d 34       		.uleb128 0x34
+ 727 006e 00       		.byte	0
+ 728 006f 03       		.uleb128 0x3
+ 729 0070 08       		.uleb128 0x8
+ 730 0071 3A       		.uleb128 0x3a
+ 731 0072 0B       		.uleb128 0xb
+ 732 0073 3B       		.uleb128 0x3b
+ 733 0074 0B       		.uleb128 0xb
+ 734 0075 49       		.uleb128 0x49
+ 735 0076 13       		.uleb128 0x13
+ 736 0077 02       		.uleb128 0x2
+ 737 0078 18       		.uleb128 0x18
+ 738 0079 00       		.byte	0
+ 739 007a 00       		.byte	0
+ 740 007b 09       		.uleb128 0x9
+ 741 007c 34       		.uleb128 0x34
+ 742 007d 00       		.byte	0
+ 743 007e 03       		.uleb128 0x3
+ 744 007f 0E       		.uleb128 0xe
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 17
+
+
+ 745 0080 3A       		.uleb128 0x3a
+ 746 0081 0B       		.uleb128 0xb
+ 747 0082 3B       		.uleb128 0x3b
+ 748 0083 0B       		.uleb128 0xb
+ 749 0084 49       		.uleb128 0x49
+ 750 0085 13       		.uleb128 0x13
+ 751 0086 02       		.uleb128 0x2
+ 752 0087 18       		.uleb128 0x18
+ 753 0088 00       		.byte	0
+ 754 0089 00       		.byte	0
+ 755 008a 0A       		.uleb128 0xa
+ 756 008b 01       		.uleb128 0x1
+ 757 008c 01       		.byte	0x1
+ 758 008d 49       		.uleb128 0x49
+ 759 008e 13       		.uleb128 0x13
+ 760 008f 01       		.uleb128 0x1
+ 761 0090 13       		.uleb128 0x13
+ 762 0091 00       		.byte	0
+ 763 0092 00       		.byte	0
+ 764 0093 0B       		.uleb128 0xb
+ 765 0094 21       		.uleb128 0x21
+ 766 0095 00       		.byte	0
+ 767 0096 49       		.uleb128 0x49
+ 768 0097 13       		.uleb128 0x13
+ 769 0098 2F       		.uleb128 0x2f
+ 770 0099 0B       		.uleb128 0xb
+ 771 009a 00       		.byte	0
+ 772 009b 00       		.byte	0
+ 773 009c 0C       		.uleb128 0xc
+ 774 009d 2E       		.uleb128 0x2e
+ 775 009e 01       		.byte	0x1
+ 776 009f 3F       		.uleb128 0x3f
+ 777 00a0 19       		.uleb128 0x19
+ 778 00a1 03       		.uleb128 0x3
+ 779 00a2 0E       		.uleb128 0xe
+ 780 00a3 3A       		.uleb128 0x3a
+ 781 00a4 0B       		.uleb128 0xb
+ 782 00a5 3B       		.uleb128 0x3b
+ 783 00a6 0B       		.uleb128 0xb
+ 784 00a7 27       		.uleb128 0x27
+ 785 00a8 19       		.uleb128 0x19
+ 786 00a9 49       		.uleb128 0x49
+ 787 00aa 13       		.uleb128 0x13
+ 788 00ab 11       		.uleb128 0x11
+ 789 00ac 01       		.uleb128 0x1
+ 790 00ad 12       		.uleb128 0x12
+ 791 00ae 06       		.uleb128 0x6
+ 792 00af 40       		.uleb128 0x40
+ 793 00b0 18       		.uleb128 0x18
+ 794 00b1 9642     		.uleb128 0x2116
+ 795 00b3 19       		.uleb128 0x19
+ 796 00b4 01       		.uleb128 0x1
+ 797 00b5 13       		.uleb128 0x13
+ 798 00b6 00       		.byte	0
+ 799 00b7 00       		.byte	0
+ 800 00b8 0D       		.uleb128 0xd
+ 801 00b9 0B       		.uleb128 0xb
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 18
+
+
+ 802 00ba 01       		.byte	0x1
+ 803 00bb 11       		.uleb128 0x11
+ 804 00bc 01       		.uleb128 0x1
+ 805 00bd 12       		.uleb128 0x12
+ 806 00be 06       		.uleb128 0x6
+ 807 00bf 00       		.byte	0
+ 808 00c0 00       		.byte	0
+ 809 00c1 0E       		.uleb128 0xe
+ 810 00c2 34       		.uleb128 0x34
+ 811 00c3 00       		.byte	0
+ 812 00c4 03       		.uleb128 0x3
+ 813 00c5 0E       		.uleb128 0xe
+ 814 00c6 3A       		.uleb128 0x3a
+ 815 00c7 0B       		.uleb128 0xb
+ 816 00c8 3B       		.uleb128 0x3b
+ 817 00c9 05       		.uleb128 0x5
+ 818 00ca 49       		.uleb128 0x49
+ 819 00cb 13       		.uleb128 0x13
+ 820 00cc 3F       		.uleb128 0x3f
+ 821 00cd 19       		.uleb128 0x19
+ 822 00ce 3C       		.uleb128 0x3c
+ 823 00cf 19       		.uleb128 0x19
+ 824 00d0 00       		.byte	0
+ 825 00d1 00       		.byte	0
+ 826 00d2 0F       		.uleb128 0xf
+ 827 00d3 35       		.uleb128 0x35
+ 828 00d4 00       		.byte	0
+ 829 00d5 49       		.uleb128 0x49
+ 830 00d6 13       		.uleb128 0x13
+ 831 00d7 00       		.byte	0
+ 832 00d8 00       		.byte	0
+ 833 00d9 00       		.byte	0
+ 834              		.section	.debug_aranges,"",%progbits
+ 835 0000 24000000 		.4byte	0x24
+ 836 0004 0200     		.2byte	0x2
+ 837 0006 00000000 		.4byte	.Ldebug_info0
+ 838 000a 04       		.byte	0x4
+ 839 000b 00       		.byte	0
+ 840 000c 0000     		.2byte	0
+ 841 000e 0000     		.2byte	0
+ 842 0010 00000000 		.4byte	.LFB64
+ 843 0014 C0000000 		.4byte	.LFE64-.LFB64
+ 844 0018 00000000 		.4byte	.LFB65
+ 845 001c 58010000 		.4byte	.LFE65-.LFB65
+ 846 0020 00000000 		.4byte	0
+ 847 0024 00000000 		.4byte	0
+ 848              		.section	.debug_ranges,"",%progbits
+ 849              	.Ldebug_ranges0:
+ 850 0000 00000000 		.4byte	.LFB64
+ 851 0004 C0000000 		.4byte	.LFE64
+ 852 0008 00000000 		.4byte	.LFB65
+ 853 000c 58010000 		.4byte	.LFE65
+ 854 0010 00000000 		.4byte	0
+ 855 0014 00000000 		.4byte	0
+ 856              		.section	.debug_line,"",%progbits
+ 857              	.Ldebug_line0:
+ 858 0000 86010000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 19
+
+
+ 858      02002401 
+ 858      00000201 
+ 858      FB0E0D00 
+ 858      01010101 
+ 859              	.LASF21:
+ 860 0000 54414232 		.ascii	"TAB2\000"
+ 860      00
+ 861              	.LASF27:
+ 862 0005 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 862      43313120 
+ 862      352E342E 
+ 862      31203230 
+ 862      31363036 
+ 863 0038 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 863      20726576 
+ 863      6973696F 
+ 863      6E203233 
+ 863      37373135 
+ 864 006b 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 864      66756E63 
+ 864      74696F6E 
+ 864      2D736563 
+ 864      74696F6E 
+ 865              	.LASF19:
+ 866 0093 696E7075 		.ascii	"input2\000"
+ 866      743200
+ 867              	.LASF9:
+ 868 009a 5F5F696E 		.ascii	"__int32_t\000"
+ 868      7433325F 
+ 868      7400
+ 869              	.LASF23:
+ 870 00a4 636E7431 		.ascii	"cnt1\000"
+ 870      00
+ 871              	.LASF20:
+ 872 00a9 6D736732 		.ascii	"msg2\000"
+ 872      00
+ 873              	.LASF13:
+ 874 00ae 666C6F61 		.ascii	"float\000"
+ 874      7400
+ 875              	.LASF0:
+ 876 00b4 7369676E 		.ascii	"signed char\000"
+ 876      65642063 
+ 876      68617200 
+ 877              	.LASF1:
+ 878 00c0 756E7369 		.ascii	"unsigned char\000"
+ 878      676E6564 
+ 878      20636861 
+ 878      7200
+ 879              	.LASF18:
+ 880 00ce 696E7075 		.ascii	"input\000"
+ 880      7400
+ 881              	.LASF5:
+ 882 00d4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 882      20756E73 
+ 882      69676E65 
+ 882      6420696E 
+ 882      7400
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 20
+
+
+ 883              	.LASF3:
+ 884 00e6 73686F72 		.ascii	"short unsigned int\000"
+ 884      7420756E 
+ 884      7369676E 
+ 884      65642069 
+ 884      6E7400
+ 885              	.LASF30:
+ 886 00f9 656E7669 		.ascii	"enviar\000"
+ 886      617200
+ 887              	.LASF32:
+ 888 0100 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 888      52784275 
+ 888      66666572 
+ 888      00
+ 889              	.LASF14:
+ 890 010d 646F7562 		.ascii	"double\000"
+ 890      6C6500
+ 891              	.LASF25:
+ 892 0114 70776D31 		.ascii	"pwm1\000"
+ 892      00
+ 893              	.LASF26:
+ 894 0119 70776D32 		.ascii	"pwm2\000"
+ 894      00
+ 895              	.LASF31:
+ 896 011e 6D61696E 		.ascii	"main\000"
+ 896      00
+ 897              	.LASF12:
+ 898 0123 75696E74 		.ascii	"uint16\000"
+ 898      313600
+ 899              	.LASF8:
+ 900 012a 756E7369 		.ascii	"unsigned int\000"
+ 900      676E6564 
+ 900      20696E74 
+ 900      00
+ 901              	.LASF7:
+ 902 0137 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 902      206C6F6E 
+ 902      6720756E 
+ 902      7369676E 
+ 902      65642069 
+ 903              	.LASF10:
+ 904 014e 696E7433 		.ascii	"int32_t\000"
+ 904      325F7400 
+ 905              	.LASF17:
+ 906 0156 73697A65 		.ascii	"sizetype\000"
+ 906      74797065 
+ 906      00
+ 907              	.LASF6:
+ 908 015f 6C6F6E67 		.ascii	"long long int\000"
+ 908      206C6F6E 
+ 908      6720696E 
+ 908      7400
+ 909              	.LASF28:
+ 910 016d 6D61696E 		.ascii	"main.c\000"
+ 910      2E6300
+ 911              	.LASF15:
+ 912 0174 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\SEBAST~3\AppData\Local\Temp\ccg7bVsv.s 			page 21
+
+
+ 912      00
+ 913              	.LASF2:
+ 914 0179 73686F72 		.ascii	"short int\000"
+ 914      7420696E 
+ 914      7400
+ 915              	.LASF22:
+ 916 0183 6F757470 		.ascii	"output\000"
+ 916      757400
+ 917              	.LASF11:
+ 918 018a 75696E74 		.ascii	"uint8\000"
+ 918      3800
+ 919              	.LASF4:
+ 920 0190 6C6F6E67 		.ascii	"long int\000"
+ 920      20696E74 
+ 920      00
+ 921              	.LASF16:
+ 922 0199 6C6F6E67 		.ascii	"long double\000"
+ 922      20646F75 
+ 922      626C6500 
+ 923              	.LASF24:
+ 924 01a5 616E6731 		.ascii	"ang1\000"
+ 924      00
+ 925              	.LASF29:
+ 926 01aa 433A5C50 		.ascii	"C:\\PSoC\\USBFS_UART01\\USBFS_UART02.cydsn\000"
+ 926      536F435C 
+ 926      55534246 
+ 926      535F5541 
+ 926      52543031 
+ 927              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
